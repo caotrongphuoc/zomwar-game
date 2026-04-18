@@ -28,70 +28,87 @@ view_screen_t scr_game_setting = {
 
 void view_scr_game_setting() {
 	view_render.setTextSize(1);
-	view_render.setTextColor(WHITE);
 
-	// Choice icon
-	view_render.drawBitmap(	0,
-							setting_location_chosse -
-							AR_GAME_SETTING_CHOSSE_ICON_AXIS_Y,
-							chosse_icon,
-							AR_GAME_SETTING_CHOSSE_ICON_SIZE_W,
-							AR_GAME_SETTING_CHOSSE_ICON_SIZE_H,
-							WHITE);
+	// Item dang duoc chon (0-based)
+	uint8_t sel = (setting_location_chosse / STEP_SETTING_CHOSSE) - 1;
 
-	// Speaker icon (Sound item = frame 4, Y=38+4=42)
-	if (settingdata.silent == 0) {
-		view_render.drawBitmap(109, 40, speaker_1, 7, 7, WHITE);
-	} else {
-		view_render.drawBitmap(109, 40, speaker_2, 7, 7, WHITE);
-	}
-
-	// 5 frames
 	for (uint8_t f = 0; f < 5; f++) {
-		view_render.drawRoundRect(
-			AR_GAME_SETTING_FRAMES_AXIS_X,
-			AR_GAME_SETTING_FRAMES_AXIS_Y_1 + AR_GAME_SETTING_FRAMES_STEP * f,
-			AR_GAME_SETTING_FRAMES_SIZE_W,
-			AR_GAME_SETTING_FRAMES_SIZE_H,
-			AR_GAME_SETTING_FRAMES_SIZE_R,
-			WHITE);
+		uint8_t frame_y = AR_GAME_SETTING_FRAMES_AXIS_Y_1 + AR_GAME_SETTING_FRAMES_STEP * f;
+		bool selected  = (f == sel);
+		uint8_t fg     = selected ? BLACK : WHITE;
+
+		if (selected) {
+			view_render.fillRoundRect(
+				AR_GAME_SETTING_FRAMES_AXIS_X, frame_y,
+				AR_GAME_SETTING_FRAMES_SIZE_W, AR_GAME_SETTING_FRAMES_SIZE_H,
+				AR_GAME_SETTING_FRAMES_SIZE_R, WHITE);
+		} else {
+			view_render.drawRoundRect(
+				AR_GAME_SETTING_FRAMES_AXIS_X, frame_y,
+				AR_GAME_SETTING_FRAMES_SIZE_W, AR_GAME_SETTING_FRAMES_SIZE_H,
+				AR_GAME_SETTING_FRAMES_SIZE_R, WHITE);
+		}
+
+		view_render.setTextColor(fg);
+		uint8_t text_y = frame_y + 2;
+
+		switch (f) {
+		case 0: {  // Cars
+			uint8_t car_count = 0;
+			for (uint8_t i = 0; i < 5; i++) {
+				if ((settingdata.num_car >> i) & 1) car_count++;
+			}
+			view_render.setCursor(2, text_y);
+			view_render.print("Cars");
+			view_render.setCursor(104, text_y);
+			view_render.print("[");
+			view_render.print(car_count);
+			view_render.print("]");
+		} break;
+		case 1: {  // Tombstones
+			uint8_t total_t = 0;
+			for (uint8_t i = 0; i < 5; i++) {
+				if ((settingdata.tombstone_lane_1 >> i) & 1) total_t++;
+				if ((settingdata.tombstone_lane_2 >> i) & 1) total_t++;
+			}
+			if(total_t < 10) {
+			view_render.setCursor(2, text_y);
+			view_render.print("Tombstones");
+			view_render.setCursor(104, text_y);
+			view_render.print("[");
+			view_render.print(total_t);
+			view_render.print("]");
+			}
+			else {
+				view_render.setCursor(2, text_y);
+				view_render.print("Tombstones");
+				view_render.setCursor(98, text_y);
+				view_render.print("[");
+				view_render.print(total_t);
+				view_render.print("]");
+			}
+		} break;
+		case 2:  // Zombie speed
+			view_render.setCursor(2, text_y);
+			view_render.print("Zombies sp");
+			view_render.setCursor(104, text_y);
+			view_render.print("[");
+			view_render.print(settingdata.zombie_speed);
+			view_render.print("]");
+			break;
+		case 3:  // Sound
+			view_render.setCursor(2, text_y);
+			view_render.print("Sound");
+			view_render.drawBitmap(110, text_y, settingdata.silent ? speaker_2 : speaker_1, 7, 7, fg);
+			break;
+		case 4:  // EXIT
+			view_render.setCursor(45, text_y);
+			view_render.print(" EXIT ");
+			break;
+		}
 	}
 
-	// Item 1: Cars
-	view_render.setCursor(AR_GAME_SETTING_TEXT_AXIS_X, 4);
-	view_render.print(" Cars        [  ]");
-	view_render.setCursor(AR_GAME_SETTING_NUMBER_AXIS_X, 4);
-	uint8_t car_count = 0;
-	for (uint8_t i = 0; i < 5; i++) {
-		if ((settingdata.num_car >> i) & 1) car_count++;
-	}
-	view_render.print(car_count);
-
-	// Item 2: Tombstones - hiện tổng số bia mộ
-	view_render.setCursor(AR_GAME_SETTING_TEXT_AXIS_X, 16);
-	view_render.print(" Tombstones  [  ]");
-	view_render.setCursor(AR_GAME_SETTING_NUMBER_AXIS_X, 16);
-	uint8_t total_t = 0;
-	for (uint8_t i = 0; i < 5; i++) {
-		if ((settingdata.tombstone_lane_1 >> i) & 1) total_t++;
-		if ((settingdata.tombstone_lane_2 >> i) & 1) total_t++;
-	}
-	view_render.print(total_t);
-
-	// Item 3: Zombie speed
-	view_render.setCursor(AR_GAME_SETTING_TEXT_AXIS_X, 28);
-	view_render.print(" Zombies sp  [  ]");
-	view_render.setCursor(AR_GAME_SETTING_NUMBER_AXIS_X, 28);
-	view_render.print(settingdata.zombie_speed);
-
-	// Item 4: Sound
-	view_render.setCursor(AR_GAME_SETTING_TEXT_AXIS_X, 40);
-	view_render.print(" Sound          ");
-
-	// Item 5: EXIT
-	view_render.setCursor(AR_GAME_SETTING_TEXT_AXIS_X + 32, 53);
-	view_render.print(" EXIT ");
-
+	view_render.setTextColor(WHITE);
 	view_render.update();
 }
 

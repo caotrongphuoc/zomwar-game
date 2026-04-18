@@ -47,7 +47,7 @@ do { \
         if (game_over) break; \
         if (zombie[i].visible != WHITE) continue; \
         \
-        if (zombie[i].x == 0) { \
+        if (zombie[i].x <= -(int32_t)ZOMBIE_MIN_LEFT_OFFSET) { \
             int8_t m = find_nearest_mower(zombie[i].y); \
             if (m >= 0) { \
                 car[m].running = true; \
@@ -65,7 +65,8 @@ do { \
             int32_t dy = (int32_t)zombie[i].y - (int32_t)car[m].y; \
             if (dy < 0) dy = -dy; \
             if (dy <= CAR_HIT_RANGE_Y) { \
-                if (zombie[i].x <= car[m].x + SIZE_BITMAP_CAR_X) { \
+                /* Kich hoat xe khi pixel tay zombie cham vao xe */ \
+                if (zombie[i].x + (int32_t)ZOMBIE_MIN_LEFT_OFFSET <= (int32_t)(car[m].x + SIZE_BITMAP_CAR_X)) { \
                     car[m].running = true; \
                 } \
             } \
@@ -85,8 +86,15 @@ do { \
             int32_t dy = (int32_t)zombie[j].y - (int32_t)car[i].y; \
             if (dy < 0) dy = -dy; \
             if (dy > CAR_HIT_RANGE_Y) continue; \
-            bool overlap_x = (zombie[j].x < car[i].x + SIZE_BITMAP_CAR_X) && \
-                             (zombie[j].x + SIZE_BITMAP_ZOMBIES_X > car[i].x); \
+            /* Xe can zombie khi bat ky pixel trai ngoai cung nao cua zombie nam trong vung xe */ \
+            uint8_t fidx_c = (zombie[j].action_image == 2) ? 1 : 0; \
+            bool overlap_x = false; \
+            for (uint8_t r = 0; r < SIZE_BITMAP_ZOMBIES_Y && !overlap_x; r++) { \
+                int32_t lx = zombie[j].x + (int32_t)ZOMBIE_LEFT_PX[fidx_c][r]; \
+                if (lx >= (int32_t)car[i].x && lx < (int32_t)(car[i].x + SIZE_BITMAP_CAR_X)) { \
+                    overlap_x = true; \
+                } \
+            } \
             if (overlap_x) { \
                 zombie[j].visible = BLACK; \
                 zombie[j].x = 200; \

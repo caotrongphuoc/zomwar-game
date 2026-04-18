@@ -7,6 +7,13 @@
 ar_game_zombie_t zombie[NUM_ZOMBIES];
 uint32_t last_wave_score = 0;
 
+/* Offset X cua pixel trai ngoai cung theo tung hang va frame:
+ * hang 0-9, frame_idx 0 = frame I & III, frame_idx 1 = frame II */
+const uint8_t ZOMBIE_LEFT_PX[2][SIZE_BITMAP_ZOMBIES_Y] = {
+    {9, 8, 8, 9, 6, 9, 9, 9, 9, 8},  /* frame I & III */
+    {9, 8, 8, 9, 7, 9, 9, 9, 9, 9},  /* frame II      */
+};
+
 uint8_t wave_warning_timer = 0;
 bool wave_warning_active = false;
 
@@ -98,11 +105,11 @@ do { \
             continue; \
         } \
         \
-        /* Di chuyển X: check trước khi trừ để tránh underflow */ \
-        if (zombie[i].x <= settingsetup.zombie_speed) { \
-            zombie[i].x = 0; \
+        /* Di chuyển X: dừng khi pixel tay trái chạm border (arm_x = 0) */ \
+        if (zombie[i].x - (int32_t)settingsetup.zombie_speed < -(int32_t)ZOMBIE_MIN_LEFT_OFFSET) { \
+            zombie[i].x = -(int32_t)ZOMBIE_MIN_LEFT_OFFSET; \
         } else { \
-            zombie[i].x -= settingsetup.zombie_speed; \
+            zombie[i].x -= (int32_t)settingsetup.zombie_speed; \
         } \
         \
         /* Zigzag Y */ \
@@ -207,13 +214,22 @@ do { \
             int32_t ax = bullet[j].x; \
             int32_t ay = bullet[j].y; \
             int32_t mx = zombie[i].x; \
-            int32_t my = zombie[i].y; \
+            int32_t my = (int32_t)zombie[i].y; \
             \
-            bool overlap_x = (mx < ax + SIZE_BITMAP_BULLET_X) && (mx + SIZE_BITMAP_ZOMBIES_X > ax); \
-            bool overlap_y = (my < ay + SIZE_BITMAP_BULLET_Y) && (my + SIZE_BITMAP_ZOMBIES_Y > ay); \
+            /* Kiem tra vien dan co cham bat ky pixel trai ngoai cung nao khong */ \
+            uint8_t fidx = (zombie[i].action_image == 2) ? 1 : 0; \
+            bool hit = false; \
+            for (uint8_t r = 0; r < SIZE_BITMAP_ZOMBIES_Y && !hit; r++) { \
+                int32_t lx = mx + (int32_t)ZOMBIE_LEFT_PX[fidx][r]; \
+                int32_t ly = my + r; \
+                if ((ax <= lx) && (ax + SIZE_BITMAP_BULLET_X > lx) && \
+                    (ay <= ly) && (ay + SIZE_BITMAP_BULLET_Y > ly)) { \
+                    hit = true; \
+                } \
+            } \
             \
-            if (overlap_x && overlap_y) { \
-                uint32_t dead_x = zombie[i].x; \
+            if (hit) { \
+                int32_t dead_x = zombie[i].x; \
                 uint32_t dead_y = zombie[i].y; \
                 \
                 zombie[i].visible = BLACK; \
@@ -224,7 +240,7 @@ do { \
                 for (uint8_t k = 0; k < NUM_BANG; k++) { \
                     if (bang[k].visible == BLACK) { \
                         bang[k].visible = WHITE; \
-                        bang[k].x = dead_x - 5; \
+                        bang[k].x = (dead_x > 5) ? (uint32_t)(dead_x - 5) : 0; \
                         bang[k].y = dead_y + 2; \
                         bang[k].action_image = 1; \
                         break; \

@@ -69,6 +69,7 @@ int32_t shell_eps(uint8_t* argv);
 int32_t shell_flash(uint8_t* argv);
 int32_t shell_lcd(uint8_t* argv);
 int32_t shell_boot(uint8_t* argv);
+int32_t shell_fwu(uint8_t* argv);
 int32_t shell_buzzer(uint8_t* argv);
 
 /*****************************************************************************/
@@ -83,6 +84,7 @@ const cmd_line_t lgn_cmd_table[] = {
 	{(const int8_t*)"reset",	shell_reset,		(const int8_t*)"reset terminal"},
 	{(const int8_t*)"help",		shell_help,			(const int8_t*)"help info"},
 	{(const int8_t*)"reboot",	shell_reboot,		(const int8_t*)"reboot"},
+	{(const int8_t*)"fwu",		shell_fwu,			(const int8_t*)"app burn firmware"},
 	{(const int8_t*)"ram",		shell_ram,			(const int8_t*)"ram"},
 	{(const int8_t*)"fatal",	shell_fatal,		(const int8_t*)"fatal info"},
 	{(const int8_t*)"eps",		shell_eps,			(const int8_t*)"epprom"},
@@ -155,6 +157,23 @@ int32_t shell_help(uint8_t* argv) {
 int32_t shell_reboot(uint8_t* argv) {
 	(void)argv;
 	sys_ctrl_delay_ms(10);
+	sys_ctrl_reset();
+	return 0;
+}
+
+int32_t shell_fwu(uint8_t* argv) {
+	(void)argv;
+	sys_boot_t sb;
+	sys_boot_get(&sb);
+
+	/* cmd update request */
+	sb.fw_app_cmd.cmd			= SYS_BOOT_CMD_UPDATE_REQ;
+	sb.fw_app_cmd.container		= SYS_BOOT_CONTAINER_DIRECTLY;
+	sb.fw_app_cmd.io_driver		= SYS_BOOT_IO_DRIVER_UART;
+	sb.fw_app_cmd.des_addr		= APP_START_ADDR;
+	sb.fw_app_cmd.src_addr		= 0;
+	sys_boot_set(&sb);
+
 	sys_ctrl_reset();
 	return 0;
 }

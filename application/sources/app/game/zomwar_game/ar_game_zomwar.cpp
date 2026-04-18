@@ -26,6 +26,7 @@ do { \
         if (zomwar_y > 50) { zomwar_y = 50; } \
     } \
     zomwar.y = zomwar_y; \
+    zomwar.action_image = 1; \
 } while(0);
 
 #define AR_GAME_ZOMWAR_RESET() \

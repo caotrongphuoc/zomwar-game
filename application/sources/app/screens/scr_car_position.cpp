@@ -28,49 +28,43 @@ view_screen_t scr_car_position = {
 
 static void view_scr_car_position() {
 	view_render.setTextSize(1);
-	view_render.setTextColor(WHITE);
 
-	// Chosse icon
-	view_render.drawBitmap(	0,
-							car_pos_location_chosse - \
-							CAR_POS_CHOSSE_ICON_AXIS_Y,
-							chosse_icon,
-							CAR_POS_CHOSSE_ICON_SIZE_W,
-							CAR_POS_CHOSSE_ICON_SIZE_H,
-							WHITE);
+	// Item dang duoc chon (0-based): 0..CAR_POS_NUM_CARS (EXIT)
+	uint8_t sel = (car_pos_location_chosse / CAR_POS_STEP_CHOSSE) - 1;
 
-	// Draw 5 car frames
-	for (uint8_t i = 0; i < CAR_POS_NUM_CARS; i++) {
-		uint8_t frame_y = CAR_POS_FRAMES_AXIS_Y_1 + CAR_POS_FRAMES_STEP * i;
-		bool on = (settingdata.num_car >> i) & 1;
+	for (uint8_t i = 0; i <= CAR_POS_NUM_CARS; i++) {
+		uint8_t frame_y  = CAR_POS_FRAMES_AXIS_Y_1 + CAR_POS_FRAMES_STEP * i;
+		bool selected    = (i == sel);
+		uint8_t fg       = selected ? BLACK : WHITE;
 
-		view_render.drawRoundRect(	CAR_POS_FRAMES_AXIS_X, \
-									frame_y, \
-									CAR_POS_FRAMES_SIZE_W, \
-									CAR_POS_FRAMES_SIZE_H, \
-									CAR_POS_FRAMES_SIZE_R, \
-									WHITE);
+		if (selected) {
+			view_render.fillRoundRect(CAR_POS_FRAMES_AXIS_X, frame_y,
+									  CAR_POS_FRAMES_SIZE_W, CAR_POS_FRAMES_SIZE_H,
+									  CAR_POS_FRAMES_SIZE_R, WHITE);
+		} else {
+			view_render.drawRoundRect(CAR_POS_FRAMES_AXIS_X, frame_y,
+									  CAR_POS_FRAMES_SIZE_W, CAR_POS_FRAMES_SIZE_H,
+									  CAR_POS_FRAMES_SIZE_R, WHITE);
+		}
 
-		view_render.setCursor(CAR_POS_TEXT_AXIS_X, frame_y + 1);
-		view_render.print(" Car ");
-		view_render.print(i + 1);
-		view_render.print("        [ ]");
-		view_render.setCursor(CAR_POS_NUMBER_AXIS_X, frame_y + 1);
-		view_render.print(on ? "1" : "0");
+		view_render.setTextColor(fg);
+
+		if (i < CAR_POS_NUM_CARS) {
+			bool on = (settingdata.num_car >> i) & 1;
+			view_render.setCursor(2, frame_y + 1);
+			view_render.print("Car ");
+			view_render.print(i + 1);
+			view_render.setCursor(104, frame_y + 1);
+			view_render.print("[");
+			view_render.print(on ? "1" : "0");
+			view_render.print("]");
+		} else {
+			view_render.setCursor(45, frame_y + 1);
+			view_render.print(" EXIT ");
+		}
 	}
 
-	// Draw EXIT frame
-	uint8_t exit_frame_y = CAR_POS_FRAMES_AXIS_Y_1 + \
-							CAR_POS_FRAMES_STEP * CAR_POS_NUM_CARS;
-	view_render.drawRoundRect(	CAR_POS_FRAMES_AXIS_X, \
-								exit_frame_y, \
-								CAR_POS_FRAMES_SIZE_W, \
-								CAR_POS_FRAMES_SIZE_H, \
-								CAR_POS_FRAMES_SIZE_R, \
-								WHITE);
-	view_render.setCursor(CAR_POS_TEXT_AXIS_X + 32, exit_frame_y + 1);
-	view_render.print(" EXIT ");
-
+	view_render.setTextColor(WHITE);
 	view_render.update();
 }
 

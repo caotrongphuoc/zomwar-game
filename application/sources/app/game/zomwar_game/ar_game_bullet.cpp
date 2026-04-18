@@ -35,6 +35,7 @@ do { \
             bullet[i].visible = WHITE; \
             bullet[i].x = zomwar.x + 10; \
             bullet[i].y = zomwar.y -7; \
+            zomwar.action_image = 2; \
             BUZZER_PlayTones(tones_cc); \
             break; \
         } \

@@ -44,15 +44,15 @@ struct menu_items{
 
 // Menu items name
 static char menu_items_name[NUMBER_MENU_ITEMS][30] = {
-	"   Start ",			// item 1
-	"   Setting      ",		// item 2
-	"   Records       ",	// item 3
-	"   Exit         ",		// item 4
+	"     Start ",				// item 1
+	"     Setting      ",		// item 2
+	"     Leaderboard       ",	// item 3
+	"     Exit         ",		// item 4
 };
 
 // Menu items icon
 static const uint8_t *menu_items_icon[NUMBER_MENU_ITEMS] = {
-	zombie_icon,				// item 1
+	tomb_icon,					// item 1
 	setting_icon,				// item 2
 	chart_icon,					// item 3
 	exit_icon,					// item 4
@@ -60,17 +60,17 @@ static const uint8_t *menu_items_icon[NUMBER_MENU_ITEMS] = {
 
 // Menu items size W
 uint8_t menu_items_icon_size_w[NUMBER_MENU_ITEMS] = {
-	15,							// item 1
+	16,							// item 1
 	16,							// item 2
 	16,							// item 3
-	15,							// item 4
+	16,							// item 4
 };
 
 uint8_t menu_items_icon_size_h[NUMBER_MENU_ITEMS] = {
-	15,							// item 1
+	16,							// item 1
 	16,							// item 2
 	16,							// item 3
-	15,							// item 4
+	16,							// item 4
 };
 
 // Menu items color

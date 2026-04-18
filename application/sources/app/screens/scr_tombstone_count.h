@@ -40,10 +40,10 @@
 #define TB_COUNT_CHOSSE_ICON_SIZE_W (20)
 #define TB_COUNT_CHOSSE_ICON_SIZE_H (20)
 // Frames
-#define TB_COUNT_FRAMES_AXIS_X      (20)
+#define TB_COUNT_FRAMES_AXIS_X      (0)
 #define TB_COUNT_FRAMES_AXIS_Y_1    (2)
 #define TB_COUNT_FRAMES_STEP        (10)
-#define TB_COUNT_FRAMES_SIZE_W      (103)
+#define TB_COUNT_FRAMES_SIZE_W      (123)
 #define TB_COUNT_FRAMES_SIZE_H      (9)
 #define TB_COUNT_FRAMES_SIZE_R      (2)
 

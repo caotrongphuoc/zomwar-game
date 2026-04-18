@@ -4,8 +4,18 @@
 /*****************************************************************************/
 /* Variable Declaration - Zomwar game screen */
 /*****************************************************************************/
-uint8_t ar_game_state; 
+uint8_t ar_game_state;
 ar_game_setting_t settingsetup;
+
+#define NUM_BATS 2
+
+static struct {
+	int16_t x;
+	uint8_t y;
+	int8_t  dir;        // +1 = left→right, -1 = right→left
+	uint8_t frame;      // 1, 2, 3
+	uint8_t frame_tick;
+} bat_anim[NUM_BATS];
 
 /*****************************************************************************/
 /* View - Zomwar game screen*/
@@ -26,9 +36,10 @@ void ar_game_frame_display() {
 
 void ar_game_zomwar_display() {
     if (zomwar.visible == WHITE) {
+        const unsigned char* frame = (zomwar.action_image == 2) ? bitmap_peashooter_II : bitmap_peashooter_I;
         view_render.drawBitmap( zomwar.x, \
                                 zomwar.y - 10, \
-                                bitmap_peashooter_I, \
+                                frame, \
                                 SIZE_BITMAP_ZOMWAR_X, \
                                 SIZE_BITMAP_ZOMWAR_Y, \
                                 WHITE);
@@ -186,6 +197,44 @@ void ar_game_level_display() {
     view_render.setTextSize(1);
 }
 
+static void ar_game_bat_init() {
+	bat_anim[0].dir        = (ar_game_score & 1) ? 1 : -1;
+	bat_anim[0].y          = 4 + (uint8_t)(ar_game_score % 18);
+	bat_anim[0].x          = (bat_anim[0].dir == 1) ? -16 : 128;
+	bat_anim[0].frame      = 1;
+	bat_anim[0].frame_tick = 0;
+
+	bat_anim[1].dir        = -bat_anim[0].dir;
+	bat_anim[1].y          = bat_anim[0].y + 20;
+	bat_anim[1].x          = (bat_anim[1].dir == 1) ? -16 : 128;
+	bat_anim[1].frame      = 2;
+	bat_anim[1].frame_tick = 1;
+}
+
+static void ar_game_bat_update() {
+	for (uint8_t i = 0; i < NUM_BATS; i++) {
+		bat_anim[i].x += bat_anim[i].dir * 2;
+		if (++bat_anim[i].frame_tick >= 3) {
+			bat_anim[i].frame_tick = 0;
+			bat_anim[i].frame      = (bat_anim[i].frame % 3) + 1;
+		}
+		if (bat_anim[i].dir == 1 && bat_anim[i].x >= 128) {
+			bat_anim[i].x = -16;
+		} else if (bat_anim[i].dir == -1 && bat_anim[i].x <= -16) {
+			bat_anim[i].x = 128;
+		}
+	}
+}
+
+static void ar_game_bat_display() {
+	const unsigned char* frames[3] = {bitmap_bat_I, bitmap_bat_II, bitmap_bat_III};
+	for (uint8_t i = 0; i < NUM_BATS; i++) {
+		view_render.drawBitmap(bat_anim[i].x, bat_anim[i].y,
+		                       frames[bat_anim[i].frame - 1],
+		                       16, 16, WHITE);
+	}
+}
+
 void ar_game_warning_display() {
     if (wave_warning_active) {
         // Chớp tắt: hiện mỗi WARNING_BLINK_RATE tick
@@ -230,14 +279,16 @@ void view_scr_zomwar_game() {
 		ar_game_bang_display();
 		ar_game_car_display();
 		ar_game_warning_display();
-		ar_game_level_display();
 	}
 	else if (ar_game_state == GAME_OVER) {
 		view_render.clear();
-		view_render.setTextSize(2);
-		view_render.setTextColor(WHITE);
-		view_render.setCursor(17, 24);
-		view_render.print("END GAME");
+		view_render.drawBitmap(15, 4, bitmap_rip, 100, 54, WHITE);
+		view_render.drawBitmap(0,   0, bitmap_spiderweb_L, 16, 16, WHITE); // top-left
+		view_render.drawBitmap(110, 0, bitmap_spiderweb_R, 16, 16, WHITE); // top-right
+		view_render.drawBitmap(0, 48, bitmap_spiderweb_BL, 16, 16, WHITE); // bottom-left
+		view_render.drawBitmap(110, 48, bitmap_spiderweb_BR, 16, 16, WHITE); // bottom-right
+		
+		ar_game_bat_display();
 	}
 }
 
@@ -286,16 +337,19 @@ void scr_zomwar_game_handle(ak_msg_t* msg) {
 
 	case AR_GAME_TIME_TICK: {
 		APP_DBG_SIG("AR_GAME_TIME_TICK\n");
-		// Time tick
-		task_post_pure_msg(AR_GAME_ZOMWAR_ID, 		AR_GAME_ZOMWAR_UPDATE);
-		task_post_pure_msg(AR_GAME_BULLET_ID, 		AR_GAME_BULLET_RUN);
-		task_post_pure_msg(AR_GAME_ZOMBIE_ID, 		AR_GAME_ZOMBIE_RUN);
-		task_post_pure_msg(AR_GAME_ZOMBIE_ID, 		AR_GAME_ZOMBIE_DETONATOR);
-		task_post_pure_msg(AR_GAME_BANG_ID, 		AR_GAME_BANG_UPDATE);
-		task_post_pure_msg(AR_GAME_BORDER_ID, 		AR_GAME_LEVEL_UP);
-		task_post_pure_msg(AR_GAME_CAR_ID,  		AR_GAME_CAR_RUN);
-		task_post_pure_msg(AR_GAME_BORDER_ID, 		AR_GAME_CHECK_GAME_OVER);
-		
+		if (ar_game_state == GAME_PLAY) {
+			task_post_pure_msg(AR_GAME_ZOMWAR_ID, 		AR_GAME_ZOMWAR_UPDATE);
+			task_post_pure_msg(AR_GAME_BULLET_ID, 		AR_GAME_BULLET_RUN);
+			task_post_pure_msg(AR_GAME_ZOMBIE_ID, 		AR_GAME_ZOMBIE_DETONATOR);
+			task_post_pure_msg(AR_GAME_ZOMBIE_ID, 		AR_GAME_ZOMBIE_RUN);
+			task_post_pure_msg(AR_GAME_BANG_ID, 		AR_GAME_BANG_UPDATE);
+			task_post_pure_msg(AR_GAME_BORDER_ID, 		AR_GAME_LEVEL_UP);
+			task_post_pure_msg(AR_GAME_CAR_ID,  		AR_GAME_CAR_RUN);
+			task_post_pure_msg(AR_GAME_BORDER_ID, 		AR_GAME_CHECK_GAME_OVER);
+		}
+		else if (ar_game_state == GAME_OVER) {
+			ar_game_bat_update();
+		}
 	}
 		break;
 
@@ -315,6 +369,8 @@ void scr_zomwar_game_handle(ak_msg_t* msg) {
 					TIMER_ONE_SHOT);
 		// Save and reset Score
 		ar_game_save_and_reset_score();
+		// Init bat flying animation
+		ar_game_bat_init();
 		// State update
 		ar_game_state = GAME_OVER;
 	}

@@ -33,17 +33,17 @@
 #define CAR_POS_ITEM_ARRDESS_5          (CAR_POS_STEP_CHOSSE*5)
 #define CAR_POS_ITEM_ARRDESS_6          (CAR_POS_STEP_CHOSSE*6)
 // Text and Number
-#define CAR_POS_TEXT_AXIS_X             (20)
+#define CAR_POS_TEXT_AXIS_X             (0)
 #define CAR_POS_NUMBER_AXIS_X           (110)
 // Chosse icon
 #define CAR_POS_CHOSSE_ICON_AXIS_Y      (14)
 #define CAR_POS_CHOSSE_ICON_SIZE_W      (20)
 #define CAR_POS_CHOSSE_ICON_SIZE_H      (20)
 // Frames
-#define CAR_POS_FRAMES_AXIS_X           (20)
+#define CAR_POS_FRAMES_AXIS_X           (0)
 #define CAR_POS_FRAMES_AXIS_Y_1         (2)
 #define CAR_POS_FRAMES_STEP             (10)
-#define CAR_POS_FRAMES_SIZE_W           (103)
+#define CAR_POS_FRAMES_SIZE_W           (123)
 #define CAR_POS_FRAMES_SIZE_H           (9)
 #define CAR_POS_FRAMES_SIZE_R           (2)
 

@@ -36,48 +36,42 @@ static uint8_t get_lane_count(uint8_t i) {
 
 static void view_scr_tombstone_count() {
 	view_render.setTextSize(1);
-	view_render.setTextColor(WHITE);
 
-	// Choice icon
-	view_render.drawBitmap(	0,
-							tb_count_location_chosse -
-							TB_COUNT_CHOSSE_ICON_AXIS_Y,
-							chosse_icon,
-							TB_COUNT_CHOSSE_ICON_SIZE_W,
-							TB_COUNT_CHOSSE_ICON_SIZE_H,
-							WHITE);
+	// Item dang duoc chon (0-based): 0..TB_COUNT_NUM_LANES (EXIT)
+	uint8_t sel = (tb_count_location_chosse / TB_COUNT_STEP_CHOSSE) - 1;
 
-	// 5 lane frames
-	for (uint8_t i = 0; i < TB_COUNT_NUM_LANES; i++) {
+	for (uint8_t i = 0; i <= TB_COUNT_NUM_LANES; i++) {
 		uint8_t frame_y = TB_COUNT_FRAMES_AXIS_Y_1 + TB_COUNT_FRAMES_STEP * i;
+		bool selected   = (i == sel);
+		uint8_t fg      = selected ? BLACK : WHITE;
 
-		view_render.drawRoundRect(	TB_COUNT_FRAMES_AXIS_X,
-									frame_y,
-									TB_COUNT_FRAMES_SIZE_W,
-									TB_COUNT_FRAMES_SIZE_H,
-									TB_COUNT_FRAMES_SIZE_R,
-									WHITE);
+		if (selected) {
+			view_render.fillRoundRect(TB_COUNT_FRAMES_AXIS_X, frame_y,
+									  TB_COUNT_FRAMES_SIZE_W, TB_COUNT_FRAMES_SIZE_H,
+									  TB_COUNT_FRAMES_SIZE_R, WHITE);
+		} else {
+			view_render.drawRoundRect(TB_COUNT_FRAMES_AXIS_X, frame_y,
+									  TB_COUNT_FRAMES_SIZE_W, TB_COUNT_FRAMES_SIZE_H,
+									  TB_COUNT_FRAMES_SIZE_R, WHITE);
+		}
 
-		view_render.setCursor(TB_COUNT_TEXT_AXIS_X, frame_y + 1);
-		view_render.print(" Lane ");
-		view_render.print(i + 1);
-		view_render.print("       [ ]");
-		view_render.setCursor(TB_COUNT_NUMBER_AXIS_X, frame_y + 1);
-		view_render.print(get_lane_count(i));
+		view_render.setTextColor(fg);
+
+		if (i < TB_COUNT_NUM_LANES) {
+			view_render.setCursor(2, frame_y + 1);
+			view_render.print("Lane ");
+			view_render.print(i + 1);
+			view_render.setCursor(104, frame_y + 1);
+			view_render.print("[");
+			view_render.print(get_lane_count(i));
+			view_render.print("]");
+		} else {
+			view_render.setCursor(45, frame_y + 1);
+			view_render.print(" EXIT ");
+		}
 	}
 
-	// EXIT frame
-	uint8_t exit_frame_y = TB_COUNT_FRAMES_AXIS_Y_1 +
-							TB_COUNT_FRAMES_STEP * TB_COUNT_NUM_LANES;
-	view_render.drawRoundRect(	TB_COUNT_FRAMES_AXIS_X,
-								exit_frame_y,
-								TB_COUNT_FRAMES_SIZE_W,
-								TB_COUNT_FRAMES_SIZE_H,
-								TB_COUNT_FRAMES_SIZE_R,
-								WHITE);
-	view_render.setCursor(TB_COUNT_TEXT_AXIS_X + 32, exit_frame_y + 1);
-	view_render.print(" EXIT ");
-
+	view_render.setTextColor(WHITE);
 	view_render.update();
 }
 

@@ -20,6 +20,11 @@
 #define SIZE_BITMAP_ZOMBIES_X    (25)
 #define SIZE_BITMAP_ZOMBIES_Y    (10)
 
+/* Offset X cua pixel trai ngoai cung theo tung hang (0..9), theo frame animation.
+ * frame_idx 0 = frame I & III, frame_idx 1 = frame II */
+#define ZOMBIE_MIN_LEFT_OFFSET   (6)   /* gia tri nho nhat: dau tay frame I/III, hang 4 */
+extern const uint8_t ZOMBIE_LEFT_PX[2][SIZE_BITMAP_ZOMBIES_Y];
+
 #define ZOMBIE_Y_MIN             (2)
 #define ZOMBIE_Y_MAX             (42)
 
@@ -30,12 +35,13 @@
 #define SIZE_BITMAP_WARNING_Y   (14)
 
 typedef struct {
-    bool visible;
-    uint32_t x, y;
+    int32_t x;
+    uint32_t y;
     int8_t dy;              // hướng zigzag: -1, 0, +1
     uint8_t zigzag_timer;   // đếm tick để đổi hướng
     uint8_t action_image;
     uint8_t lane;           // giữ lại cho car tương thích
+    bool visible;
     bool rising;            // đang trồi lên từ bia mộ
     uint8_t rise_ticks;     // số tick còn lại để trồi lên
 } ar_game_zombie_t;
