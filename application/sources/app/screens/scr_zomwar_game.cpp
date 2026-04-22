@@ -283,10 +283,10 @@ void view_scr_zomwar_game() {
 	else if (ar_game_state == GAME_OVER) {
 		view_render.clear();
 		view_render.drawBitmap(15, 4, bitmap_rip, 100, 54, WHITE);
-		view_render.drawBitmap(0,   0, bitmap_spiderweb_L, 16, 16, WHITE); // top-left
-		view_render.drawBitmap(110, 0, bitmap_spiderweb_R, 16, 16, WHITE); // top-right
 		view_render.drawBitmap(0, 48, bitmap_spiderweb_BL, 16, 16, WHITE); // bottom-left
 		view_render.drawBitmap(110, 48, bitmap_spiderweb_BR, 16, 16, WHITE); // bottom-right
+		view_render.drawBitmap(85, 8, bitmap_branch_R, 50, 17, WHITE);
+		view_render.drawBitmap(-2, 4, bitmap_branch_L, 50, 17, WHITE);
 		
 		ar_game_bat_display();
 	}

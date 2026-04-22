@@ -15,11 +15,6 @@ do { \
     border.action_image = 0; \
 } while (0);
 
-/*#define AR_GAME_LEVEL_UP() \
-do { \
-     \
-} while(0); */
-
 #define AR_GAME_CHECK_GAME_OVER() \
 do { \
     for (uint8_t i = 0; i < NUM_ZOMBIES; i++) { \
@@ -51,7 +46,6 @@ void ar_game_border_handle(ak_msg_t* msg) {
 
     case AR_GAME_LEVEL_UP: {
         APP_DBG_SIG("AR_GAME_LEVEL_UP\n");
-        //AR_GAME_LEVEL_UP();
     }
         break;
 

@@ -1,22 +1,4 @@
 #include "scr_menu_game.h"
-/*****************************************************************************/
-/* Instructions for adding new items to the menu*/
-/*****************************************************************************/
-/*  ** Để làm nhanh nhấn "Ctrl + F" để tìm theo từ khóa **
-	Bước 1: Chuẩn bị icon cho item sẽ thêm vào kích thước 13-18 px*px
-	Bước 2: Thêm 1 item vào menu
-			- Tăng số lượng item: tăng "NUMBER_MENU_ITEMS" thêm 1
-			- Thêm định danh: tăng "NUMBER_MENU_ITEMS" thêm 1 item
-			- Thêm định dạng màu: tăng "MENU_ITEMS_ICON_COLOR" thêm 1 item
-	Bước 3: Thêm tên cho item vào "menu_items_name[]"
-	Bước 4: Thêm icon cho item:
-			- Thêm icon: menu_items_icon[]
-			- Thêm kich thước: menu_items_icon_size_w[], menu_items_icon_size_h[]
-	Bước 5: Thêm địa chỉ cho item:
-			- Thêm 1 item vào: "screen_tran_menu()" rồi điền địa chỉ muốn 
-			chuyển tới.
-	## Nếu icon không cân xứng vào "menu_items_icon_axis_y[3]" để điều chỉnh lại.
-*/
 
 /*****************************************************************************/
 /* Variable and Struct Declaration - Menu game */

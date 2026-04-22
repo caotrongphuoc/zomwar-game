@@ -16,7 +16,7 @@ SOURCES_CPP += sources/app/screens/scr_game_over.cpp
 SOURCES_CPP += sources/app/screens/scr_charts_game.cpp
 SOURCES_CPP += sources/app/screens/screens_bitmap.cpp
 
-# Archery game 
+# Zomwar
 # SOURCES_CPP += sources/app/screens/ar_game_zomwar.cpp
 # SOURCES_CPP += sources/app/screens/ar_game_arrow.cpp
 # SOURCES_CPP += sources/app/screens/ar_game_bang.cpp

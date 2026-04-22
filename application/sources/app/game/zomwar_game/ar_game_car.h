@@ -12,7 +12,7 @@
 #include "scr_zomwar_game.h"
 
 #define AXIS_X_CAR        (0)
-#define NUM_LANES               (5)
+#define NUM_LANES         (5)
 #define CAR_SPEED         (4)
 #define SIZE_BITMAP_CAR_X (12)
 #define SIZE_BITMAP_CAR_Y (10)

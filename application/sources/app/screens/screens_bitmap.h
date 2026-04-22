@@ -43,7 +43,8 @@ extern const unsigned char PROGMEM bitmap_bat_II [];
 extern const unsigned char PROGMEM bitmap_bat_III [];
 extern const unsigned char PROGMEM bitmap_spiderweb_BR [];
 extern const unsigned char PROGMEM bitmap_spiderweb_BL [];
-
+extern const unsigned char PROGMEM bitmap_branch_R [];
+extern const unsigned char PROGMEM bitmap_branch_L [];
 
 // scr_game_setting
 extern const unsigned char PROGMEM chosse_icon [];

@@ -4,7 +4,7 @@ CPPFLAGS	+= -I./sources/app/game/zomwar_game
 VPATH += sources/app/game/zomwar_game
 
 # CPP source files 
-# Archery game 
+# Zomwar 
 SOURCES_CPP += sources/app/game/zomwar_game/ar_game_zomwar.cpp
 SOURCES_CPP += sources/app/game/zomwar_game/ar_game_bullet.cpp
 SOURCES_CPP += sources/app/game/zomwar_game/ar_game_bang.cpp

@@ -120,7 +120,6 @@ enum {
 #define AC_DISPLAY_LOGO_INTERVAL									(10000)
 #define AC_DISPLAY_SHOW_IDLE_BALL_MOVING_UPDATE_INTERAL				(150)
 #define AC_DISPLAY_CHARTS_SPIDER_UPDATE_INTERVAL					(40)
-#define AC_DISPLAY_GAME_OVER_BAT_BLINK_INTERVAL						(200)
 
 /* define signal */
 enum {
@@ -131,7 +130,6 @@ enum {
 	AC_DISPLAY_SHOW_FW_UPDATE,
 	AC_DISPLAY_SHOW_FW_UPDATE_ERR,
 	AC_DISPLAY_CHARTS_SPIDER_UPDATE,
-	AC_DISPLAY_GAME_OVER_BAT_BLINK,
 };
 
 /*****************************************************************************/

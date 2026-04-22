@@ -5,10 +5,6 @@
 /*****************************************************************************/
 static ar_game_score_t gamescore;
 
-// Blink animation: 0..7 = eyes open (bat_I), 8 = eyes closed (bat_II)
-static uint8_t bat_blink_tick = 0;
-static bool bat_eyes_closed = false;
-
 /*****************************************************************************/
 /* View - game over */
 /*****************************************************************************/
@@ -31,18 +27,18 @@ view_screen_t scr_game_over = {
 
 // ============ GAME OVER SCREEN ============
 void view_scr_game_over() {
-  view_render.fillScreen(BLACK);
+	view_render.fillScreen(BLACK);
 
-  view_render.drawRoundRect(29, 0, 70, 54, 20, WHITE);
-  view_render.fillRect(29, 33, 21, 21, BLACK);
-  view_render.drawLine(29, 33, 29, 53, WHITE);
-  view_render.fillRect(78, 33, 21, 21, BLACK);
-  view_render.drawLine(98, 33, 98, 53, WHITE);
-  view_render.drawLine(29, 53, 98, 53, WHITE);
-  
-  const unsigned char* bat_bmp = bat_eyes_closed ? bitmap_sleepy_bat_II : bitmap_sleepy_bat_I;
-  view_render.drawBitmap(10, 0, bat_bmp, 16, 16, WHITE);
-  view_render.drawBitmap(105, 0, bat_bmp, 16, 16, WHITE);
+	view_render.drawRoundRect(29, 0, 70, 54, 20, WHITE);
+	view_render.fillRect(29, 33, 21, 21, BLACK);
+	view_render.drawLine(29, 33, 29, 53, WHITE);
+	view_render.fillRect(78, 33, 21, 21, BLACK);
+	view_render.drawLine(98, 33, 98, 53, WHITE);
+	view_render.drawLine(29, 53, 98, 53, WHITE);
+
+  //bitmap_spiderweb
+	view_render.drawBitmap(0,   0, bitmap_spiderweb_L, 16, 16, WHITE); // top-left
+	view_render.drawBitmap(110, 0, bitmap_spiderweb_R, 16, 16, WHITE); // top-right
 
   // === Content inside tombstone ===
   // Skull icon centered at arch top  (9x8 px, x=60..68, center=64)
@@ -69,7 +65,6 @@ void view_scr_game_over() {
   view_render.print(gamescore.score_now);
 
   // === Buttons (text only, 40x9 px, y=55..63) ===
-
   // [DOWN] = Retry game
   view_render.drawRoundRect(2, 55, 40, 9, 2, WHITE);
   view_render.setCursor(7, 56);
@@ -84,7 +79,6 @@ void view_scr_game_over() {
   view_render.drawRoundRect(86, 55, 40, 9, 2, WHITE);
   view_render.setCursor(94, 56);
   view_render.print("Home");
-
 }
 
 /*****************************************************************************/
@@ -122,37 +116,11 @@ void scr_game_over_handle(ak_msg_t* msg) {
 						sizeof(gamescore.score_now));
 		// Reorganize
 		rank_ranking();
-		// Start bat blink animation (one-shot: re-armed after render completes)
-		bat_blink_tick = 0;
-		bat_eyes_closed = false;
-		timer_set(AC_TASK_DISPLAY_ID, \
-				AC_DISPLAY_GAME_OVER_BAT_BLINK, \
-				AC_DISPLAY_GAME_OVER_BAT_BLINK_INTERVAL, \
-				TIMER_ONE_SHOT);
-	}
-		break;
-
-	case AC_DISPLAY_GAME_OVER_BAT_BLINK: {
-		bat_blink_tick++;
-		if (bat_blink_tick >= 9) {
-			bat_blink_tick = 0;
-			bat_eyes_closed = false;
-		} else if (bat_blink_tick == 8) {
-			bat_eyes_closed = true;
-		}
-		// Render first, then re-arm — guarantees queue depth ≤ 1
-		view_render_screen(&scr_game_over);
-		timer_set(AC_TASK_DISPLAY_ID, \
-				AC_DISPLAY_GAME_OVER_BAT_BLINK, \
-				AC_DISPLAY_GAME_OVER_BAT_BLINK_INTERVAL, \
-				TIMER_ONE_SHOT);
-		SCREEN_NONE_UPDATE_MASK();
 	}
 		break;
 
 	case AC_DISPLAY_BUTTON_MODE_RELEASED: {
 		APP_DBG_SIG("AC_DISPLAY_BUTTON_MODE_RELEASED\n");
-		timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_GAME_OVER_BAT_BLINK);
 		// Save score and go Home menu
 		eeprom_write(	EEPROM_SCORE_START_ADDR, \
 						(uint8_t*)&gamescore, \
@@ -164,7 +132,6 @@ void scr_game_over_handle(ak_msg_t* msg) {
 
 	case AC_DISPLAY_BUTTON_UP_RELEASED: {
 		APP_DBG_SIG("AC_DISPLAY_BUTTON_UP_RELEASED\n");
-		timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_GAME_OVER_BAT_BLINK);
 		// Save score and go Score board
 		eeprom_write(	EEPROM_SCORE_START_ADDR, \
 						(uint8_t*)&gamescore, \
@@ -176,7 +143,6 @@ void scr_game_over_handle(ak_msg_t* msg) {
 
 	case AC_DISPLAY_BUTTON_DOWN_RELEASED: {
 		APP_DBG_SIG("AC_DISPLAY_BUTTON_DOWN_RELEASED\n");
-		timer_remove_attr(AC_TASK_DISPLAY_ID, AC_DISPLAY_GAME_OVER_BAT_BLINK);
 		// Save score and restart game
 		eeprom_write(	EEPROM_SCORE_START_ADDR, \
 						(uint8_t*)&gamescore, \

@@ -14,8 +14,8 @@
 
 #define NUM_ZOMBIES              (100)
 #define NUM_ZOMBIES_INIT         (5)     // Số zombie ban đầu
-#define WAVE_SPAWN_COUNT            (10)    // Số zombie mỗi wave
-#define WAVE_SCORE_INTERVAL         (250)   // Mỗi 200 điểm spawn wave
+#define WAVE_SPAWN_COUNT         (10)    // Số zombie mỗi wave
+#define WAVE_SCORE_INTERVAL      (250)   // Mỗi 200 điểm spawn wave
 
 #define SIZE_BITMAP_ZOMBIES_X    (25)
 #define SIZE_BITMAP_ZOMBIES_Y    (10)
@@ -28,11 +28,11 @@ extern const uint8_t ZOMBIE_LEFT_PX[2][SIZE_BITMAP_ZOMBIES_Y];
 #define ZOMBIE_Y_MIN             (2)
 #define ZOMBIE_Y_MAX             (42)
 
-#define WARNING_BLINK_DURATION  (30)   // 3 giây ÷ 100ms/tick = 30 tick
-#define WARNING_BLINK_RATE      (3)    // chớp mỗi 3 tick (300ms)
+#define WARNING_BLINK_DURATION   (30)   // 3 giây ÷ 100ms/tick = 30 tick
+#define WARNING_BLINK_RATE       (3)    // chớp mỗi 3 tick (300ms)
 
-#define SIZE_BITMAP_WARNING_X   (16)
-#define SIZE_BITMAP_WARNING_Y   (14)
+#define SIZE_BITMAP_WARNING_X    (16)
+#define SIZE_BITMAP_WARNING_Y    (14)
 
 typedef struct {
     int32_t x;
