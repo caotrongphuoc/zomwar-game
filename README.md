@@ -1,4 +1,4 @@
-# Archery Game - Build on AK Embedded Base Kit
+# Zomwar - Game built on AK Embedded Base Kit
 
 <center><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/epcb_archery_game.webp" alt="epcb archery game" width="100%"/></center>
 
@@ -14,7 +14,13 @@
 
 ## I. Giới thiệu
 
-Archery game là một tựa game chạy trên AK Embedded Base Kit. Được xây dựng nhằm mục đích giúp các bạn có đam mê về lập trình nhúng có thể tìm hiểu và thực hành về lập trình event-driven. Trong quá trình xây dựng nên archery game, các bạn sẽ hiểu thêm về cách thiết kế và ứng dụng UML, Task, Signal, Timer, Message, State-machine,... 
+Zomwar là một tựa game sinh tồn hành động được phát triển trực tiếp trên nền tảng AK Embedded Base Kit. Dự án này được xây dựng như một học liệu thực tế, giúp những người đam mê lập trình nhúng có thể tiếp cận, tìm hiểu và thực hành chuyên sâu về tư duy lập trình hướng sự kiện (Event-driven Programming).
+Trong quá trình phát triển và vận hành Zomwar, người học sẽ được trực tiếp thiết kế và triển khai các kiến thức cốt lõi của kỹ thuật nhúng hiện đại, bao gồm:
+- Thiết kế hệ thống: Ứng dụng ngôn ngữ mô hình hóa UML để quản lý luồng logic phức tạp.
+- Quản lý tiến trình: Điều phối và thực thi các Task (nhiệm vụ) một cách tối ưu.
+- Cơ chế giao tiếp: Hiểu rõ cách vận hành của Signal, Timer và Message để xử lý các phản hồi thời gian thực trong game.
+- Logic điều khiển: Xây dựng các máy trạng thái (State-machine) bền vững để quản lý các trạng thái của nhân vật, quái vật (Zombie) và diễn biến trận đấu.
+
 
 ### 1.1 Phần cứng
 
