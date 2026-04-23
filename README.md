@@ -36,8 +36,7 @@ Không dừng lại ở việc học thuật, AK Embedded Base Kit còn định 
 ### 1.2 Mô tả trò chơi và đối tượng
 Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
 
-<p align="center"><img src="<img width="966" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/1f9e1464-907c-40f8-9d7b-3f19855afee3" />
-" alt="menu game" width="480"/></p>
+<p align="center"><img width="966" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/de7ffd76-9bea-4f40-8dca-358144082ae2" /> </p>
 <p align="center"><strong><em>Hình 2:</em></strong> Menu game</p>
 
 Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
