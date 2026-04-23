@@ -42,7 +42,7 @@ Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ 
 Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
 - **Start:** Bắt đầu chơi game.
 - **Setting:** Cài đặt các thông số của game.
-- **Charts:** Xem top 3 điểm cao nhất đạt được.
+- **Leaderboard:** Xem top 3 điểm cao nhất đạt được.
 - **Exit:** Thoát menu game vào màn hình chờ.
 
 <p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/objects_in_the_game.webp" alt="archery game play screen" width="600"/></p>
@@ -51,28 +51,28 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 #### 1.2.1 Các đối tượng (Object) trong game:
 |Đối tượng|Tên đối tượng|Mô tả|
 |---|---|---|
-|**Cung tên**|Archery|Di chuyển lên/xuống để chọn vị trí bắn ra mũi tên|
-|**Mũi tên**|Arrow|Bắn ra từ cung tên, dùng để phá hủy thiên thạch|
-|**Vụ nổ**|Bang|Hiệu ứng xuất hiện khi thiên thạch bị phá hủy|
-|**Ranh giới**|Border|Vùng an toàn phải bảo vệ không cho thiên thạch rơi vào|
-|**Thiên thạch**|Meteoroid|Vật thể bay về phía cung tên với tốc độ tăng dần, có khả năng phá hủy ranh giới|
+|**Xạ thủ**|Peashooter|Di chuyển lên xuống để chọn vị trí bắn đạn|
+|**Đạn**|Bullet|Đạn bắn ra từ xạ thủ, dùng để tiêu diệt xác sống|
+|**Vụ nổ**|Bang|Hiệu ứng xuất hiện khi xác sống bị tiêu diệt|
+|**Ranh giới**|Border|Vùng an toàn phải bảo vệ không cho xác sống xâm nhập|
+|**Xác sống**|Zombie|Đối tượng di chuyển về phía xạ thủ với tốc độ tăng dần, có khả năng phá hủy ranh giới|
+|**Bia mộ**|Tombstones|Vật thể nằm trên đường, là vị trí xác sống có thể xuất hiện bất ngờ|
+|**Ô tô**|Cars|Vật thể nằm trước ranh giới, là chốt chặn thứ 2 sau xạ thủ, được kích hoạt di chuyển tiêu diệt xác sống khi xác sống chạm vào vật thể|
 
 **(*)** Trong phần còn lại của tài liệu sẽ dùng tên của các đối tượng để đề cập đến đối tượng.
 
 #### 1.2.2 Cách chơi game: 
-- Trong trò chơi này bạn sẽ điều khiển Archery, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Arrow.
-- Khi nhấn nút **[Mode]** Arrow sẽ được bắn ra, nhằm phá hủy các Meteoroid đang bay đến.
-- Mục tiêu trò chơi là kiếm được càng nhiều điểm càng tốt, trò chơi sẽ kết thúc khi có Meteoroid chạm vào Border.
+- Trong trò chơi này bạn sẽ điều khiển Peashooter, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Arrow. Ngoài ra, để Peashooter có thể di chuyển nhanh hơn các bạn có thể nhấn và giữ nút **[Up]** để đi lên hoặc  **[Down]"" để đi xuống.
+- Khi nhấn nút **[Mode]** Bullet sẽ được bắn ra, nhằm tiêu diệt các Zombie đang chạy đến.
+- Mục tiêu trò chơi là kiếm được càng nhiều điểm càng tốt, trò chơi sẽ kết thúc khi có Zombie chạm vào Border.
 
 #### 1.2.3 Cơ chế hoạt động:
-- **Cách tính điểm:** Điểm được tính bằng số lượng Meteoroid bị phá hủy. Mỗi Meteoroid bị phá hủy tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình.
-- **Độ khó:** Mỗi khi tích lũy được 200 điểm, tốc độ bay của Meteoroid sẽ tăng lên một cấp độ. Độ khó ban đầu có thể cài đặt trong phần **Setting**.
-- **Giới hạn của Arrow:** Khi bắn thì số lượng Arrow hiện có sẽ giảm đi tương ứng số lượng Arrow đang bay, nếu Arrow hiện có giảm về "0" thì không thể bắn được và sẽ có âm thanh báo. Số lượng Arrow hiện có sẽ được hồi lại khi phá hủy được Meteoroid hoặc Arrow bay hết màn hình game. Số lượng Arrow được hiển thị ở góc dưới bên trái màn hình và có thể thay đổi trong phần **Setting**.
-
-- **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển.
-- **Kết thúc trò chơi:** Khi Meteoroid chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
-  - **Restart:** chơi lại.
-  - **Charts:** vào xem bảng xếp hạng.
+- **Cách tính điểm:** Điểm được tính bằng số lượng Zombie bị tiêu diệt. Mỗi Zombie bị tiêu  tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình.
+- **Độ khó:** Vào một khoảng thời gian nhất định sẽ có những làn sóng Zombie (Wave) tấn công, mỗi khi sống sót qua các làn sóng Zombie thì tốc độ di chuyển của Zombie sẽ tăng lên một cấp độ. Tốc độ di chuyển ban đầu của Zombie có thể tùy chỉnh trong phần **Setting**.
+- **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển. Các đối tượng có hoạt ảnh như: Peashooter, Zombie, Car.
+- **Kết thúc trò chơi:** Khi Zombie chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Giao diện “RIP” sẽ xuất hiện trong một khoảng thời gian, sau đó bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
+  - **Retry:** chơi lại.
+  - **Rank:** vào xem bảng xếp hạng.
   - **Home:** về lại menu game.
 
 <p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/game_over.webp" alt="archery game over screen" width="480"/></p>
