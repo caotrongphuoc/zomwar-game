@@ -19,7 +19,7 @@ Trong quá trình phát triển và vận hành Zomwar, người học sẽ đư
 - Thiết kế hệ thống: Ứng dụng ngôn ngữ mô hình hóa UML để quản lý luồng logic phức tạp.
 - Quản lý tiến trình: Điều phối và thực thi các Task (nhiệm vụ) một cách tối ưu.
 - Cơ chế giao tiếp: Hiểu rõ cách vận hành của Signal, Timer và Message để xử lý các phản hồi thời gian thực trong game.
-- Logic điều khiển: Xây dựng các máy trạng thái (State-machine) bền vững để quản lý các trạng thái của nhân vật, quái vật (Zombie) và diễn biến trận đấu.
+- Logic điều khiển: Xây dựng các máy trạng thái (State-machine) bền vững để quản lý các trạng thái của nhân vật, xác sống (Zombie) và diễn biến trận đấu.
 
 
 ### 1.1 Phần cứng
@@ -29,14 +29,15 @@ Trong quá trình phát triển và vận hành Zomwar, người học sẽ đư
 
 [AK Embedded Base Kit](https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu) là một evaluation kit dành cho các bạn học phần mềm nhúng nâng cao.
 
-KIT tích hợp LCD **OLED 1.3", 3 nút nhấn, và 1 loa Buzzer phát nhạc**, với các trang bị này thì đã đủ để học hệ thống event-driven thông qua thực hành thiết kế máy chơi game.
+AK Embedded Base Kit là nền tảng phát triển (evaluation kit) chuyên sâu dành cho lộ trình học lập trình nhúng nâng cao. Kit được trang bị hệ thống phần cứng tối ưu gồm màn hình OLED 1.3", cụm 3 nút nhấn điều khiển và loa Buzzer đa âm, tạo môi trường hoàn hảo để thực hành thiết kế máy chơi game cầm tay thông qua mô hình lập trình hướng sự kiện (event-driven).
 
-KIT cũng tích hợp **RS485**, **NRF24L01+**, và **Flash** lên đến 32MB, thích hợp cho prototype các ứng dụng thực tế trong hệ thống nhúng hay sử dụng như: truyền thông có dây, không dây wireless, các ứng dụng lưu trữ data logger,...
+Không dừng lại ở việc học thuật, AK Embedded Base Kit còn định hướng cho các dự án thực tế nhờ tích hợp các chuẩn giao tiếp công nghiệp và không dây như RS485, NRF24L01+, cùng khả năng lưu trữ mở rộng lên tới 32MB Flash. Những tính năng này biến bộ kit thành một giải pháp lý tưởng để xây dựng các nguyên mẫu (prototype) đa dạng: từ hệ thống truyền thông có dây/không dây đến các ứng dụng lưu trữ dữ data logger phức tạp trong môi trường công nghiệp.
 
 ### 1.2 Mô tả trò chơi và đối tượng
-Phần mô tả sau đây về **“Archery game”** , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
+Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/menu_game.webp" alt="menu game" width="480"/></p>
+<p align="center"><img src="<img width="966" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/1f9e1464-907c-40f8-9d7b-3f19855afee3" />
+" alt="menu game" width="480"/></p>
 <p align="center"><strong><em>Hình 2:</em></strong> Menu game</p>
 
 Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
