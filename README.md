@@ -27,8 +27,6 @@ Trong quá trình phát triển và vận hành Zomwar, người học sẽ đư
 <p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/AK_Embedded_Base_Kit_STM32L151.webp" alt="AK Embedded Base Kit - STM32L151" width="480"/></p>
 <p align="center"><strong><em>Hình 1:</em></strong> AK Embedded Base Kit - STM32L151</p>
 
-[AK Embedded Base Kit](https://epcb.vn/products/ak-embedded-base-kit-lap-trinh-nhung-vi-dieu-khien-mcu) là một evaluation kit dành cho các bạn học phần mềm nhúng nâng cao.
-
 AK Embedded Base Kit là nền tảng phát triển (evaluation kit) chuyên sâu dành cho lộ trình học lập trình nhúng nâng cao. Kit được trang bị hệ thống phần cứng tối ưu gồm màn hình OLED 1.3", cụm 3 nút nhấn điều khiển và loa Buzzer đa âm, tạo môi trường hoàn hảo để thực hành thiết kế máy chơi game cầm tay thông qua mô hình lập trình hướng sự kiện (event-driven).
 
 Không dừng lại ở việc học thuật, AK Embedded Base Kit còn định hướng cho các dự án thực tế nhờ tích hợp các chuẩn giao tiếp công nghiệp và không dây như RS485, NRF24L01+, cùng khả năng lưu trữ mở rộng lên tới 32MB Flash. Những tính năng này biến bộ kit thành một giải pháp lý tưởng để xây dựng các nguyên mẫu (prototype) đa dạng: từ hệ thống truyền thông có dây/không dây đến các ứng dụng lưu trữ dữ data logger phức tạp trong môi trường công nghiệp.
@@ -62,12 +60,12 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 **(*)** Trong phần còn lại của tài liệu sẽ dùng tên của các đối tượng để đề cập đến đối tượng.
 
 #### 1.2.2 Cách chơi game: 
-- Trong trò chơi này bạn sẽ điều khiển Peashooter, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Arrow. Ngoài ra, để Peashooter có thể di chuyển nhanh hơn các bạn có thể nhấn và giữ nút **[Up]** để đi lên hoặc  **[Down]"" để đi xuống.
+- Trong trò chơi này bạn sẽ điều khiển Peashooter, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Bullet. Ngoài ra, để Peashooter có thể di chuyển nhanh hơn các bạn có thể nhấn và giữ nút **[Up]** để đi lên hoặc  **[Down]** để đi xuống.
 - Khi nhấn nút **[Mode]** Bullet sẽ được bắn ra, nhằm tiêu diệt các Zombie đang chạy đến.
 - Mục tiêu trò chơi là kiếm được càng nhiều điểm càng tốt, trò chơi sẽ kết thúc khi có Zombie chạm vào Border.
 
 #### 1.2.3 Cơ chế hoạt động:
-- **Cách tính điểm:** Điểm được tính bằng số lượng Zombie bị tiêu diệt. Mỗi Zombie bị tiêu  tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình.
+- **Cách tính điểm:** Điểm được tính bằng số lượng Zombie bị tiêu diệt. Mỗi Zombie bị tiêu  tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình. Ngoài ra các bạn có thể quan sát số lượng Zombie đã bị tiêu diệt ở góc dưới bên phải màn hình.
 - **Độ khó:** Vào một khoảng thời gian nhất định sẽ có những làn sóng Zombie (Wave) tấn công, mỗi khi sống sót qua các làn sóng Zombie thì tốc độ di chuyển của Zombie sẽ tăng lên một cấp độ. Tốc độ di chuyển ban đầu của Zombie có thể tùy chỉnh trong phần **Setting**.
 - **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển. Các đối tượng có hoạt ảnh như: Peashooter, Zombie, Car.
 - **Kết thúc trò chơi:** Khi Zombie chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Giao diện “RIP” sẽ xuất hiện trong một khoảng thời gian, sau đó bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
@@ -97,45 +95,48 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 ### Ghi chú:
 **SCREEN_ENTRY:** Cài đặt các thiết lập ban đầu cho đối tượng trong game.
 - **Level setup:** Thiết lập thông số cấp độ cho game.
-- **AR_GAME_ARCHERY_SETUP:** Thiết lập thông số ban đầu cho đối tượng Archery
-- **AR_GAME_ARROW_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Arrow
-- **AR_GAME_METEOROID_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Meteoroid
-- **AR_GAME_BANG_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Bang
-- **AR_GAME_BORDER_SETUP:** Thiết lập thông số ban đầu cho đối tượng Border
+- **ZW_GAME_ZOMWAR_SETUP:** Thiết lập thông số ban đầu cho đối tượng Peashooter
+- **ZW_GAME_BULLET_SETUP** Thiết lập thông số ban đầu cho các đối tượng Bullet
+- **ZW_GAME_ZOMBIE_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Zombie
+- **ZW_GAME_BANG_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Bang
+- **ZW_GAME_BORDER_SETUP:** Thiết lập thông số ban đầu cho đối tượng Border
+- **ZW_GAME_CAR_SETUP:** Thiết lập thông số ban đầu cho đối tượng Car
 - **Setup timer - Time tick:** Khởi tạo Timer - Time tick cho game.
 - **STATE (GAME_ON):** Cập nhật trạng thái game -> GAME_ON
 
 **GAME PLAY:** Quá trình hoạt động của game.
 
 **GAME PLAY - Normal:** Game hoạt động ở trạng thái bình thường.
-- **AR_GAME_TIME_TICK:** Signal do Timer - Time tick gửi đến.
-- **AR_GAME_ARCHERY_UPDATE:** Cập nhật trạng thái Archery.
-- **AR_GAME_ARROW_RUN:** Cập nhật di chuyển của các Arrow theo thời gian.
-- **AR_GAME_METEOROID_RUN:** Cập nhật di chuyển của các Meteoroid theo thời gian.
-- **AR_GAME_METEOROID_DETONATOR:** Kiểm tra các Meteoroid có bị Arrow phá hủy.
-- **AR_GAME_BANG_UPDATE:** Cập nhật hoạt ảnh vụ nổ theo thời gian
-- **AR_GAME_BORDER_UPDATE:** Kiểm tra số điểm hiện tại để cập nhật tăng độ khó game.
-- **AR_GAME_CHECK_GAME_OVER:** Kiểm tra Meteoroid chạm vào Border. Nếu chạm vào thì gửi Signal - **AR_GAME_RESET** đến **Screen**.
+- **ZW_GAME_TIME_TICK:** Signal do Timer - Time tick gửi đến.
+- **ZW_GAME_ZOMWAR_UPDATE:** Cập nhật trạng thái Peashooter.
+- **ZW_GAME_BULLET_RUN:** Cập nhật di chuyển của các Bullet theo thời gian.
+- **ZW_GAME_ZOMBIE_RUN:** Cập nhật di chuyển của các Zombie theo thời gian.
+- **ZW_GAME_ZOMBIE_DETONATOR:** Kiểm tra các Zombie có bị Bullet hay Car tiêu diệt.
+- **ZW_GAME_CAR_RUN:** Cập nhật di chuyển của các ô tô theo thời gian.
+- **ZW_GAME_BANG_UPDATE:** Cập nhật hoạt ảnh vụ nổ theo thời gian
+- **ZW_GAME_BORDER_UPDATE:** Kiểm tra số điểm hiện tại để cập nhật tăng độ khó game.
+- **ZW_GAME_CHECK_GAME_OVER:** Kiểm tra Zombie chạm vào Border. Nếu chạm vào thì gửi Signal - **ZW_GAME_RESET** đến **Screen**.
 
 **GAME PLAY - Action:** Game hoạt động ở trạng thái có tác động của các nút nhấn.
-- **AR_GAME_ARCHERY_UP:** Player nhấn nút **[Up]** điều khiển Archery di chuyển lên.
-- **AR_GAME_ARCHERY_DOWN:** Player nhấn nút **[Down]** điều khiển Archery di chuyển xuống.
-- **AR_GAME_ARROW_SHOOT:** Player nhấn nút **[Mode]** điều khiển Archery bắn Arrow ra.
+- **ZW_GAME_ZOMWAR_UP:** Player nhấn nút **[Up]** điều khiển Peashooter di chuyển lên.
+- **ZW_GAME_ZOMWAR_DOWN:** Player nhấn nút **[Down]** điều khiển Peashooter di chuyển xuống.
+- **ZW_GAME_BULLET_SHOOT:** Player nhấn nút **[Mode]** điều khiển Peashooter bắn Bullet ra.
 
 **RESET GAME:** Quá trình cài đặt lại các thông số trước khi thoát game.
 - **STATE (GAME_OVER):** Cập nhật trạng thái game -> GAME_OVER
-- **AR_GAME_RESET:** Signal cài đặt lại game do Border gửi đến.
-- **AR_GAME_ARCHERY_RESET:** Cài đặt lại đối tượng Archery trước khi thoát.
-- **AR_GAME_ARROW_RESET:** Cài đặt lại đối tượng Arrow trước khi thoát.
-- **AR_GAME_METEOROID_RESET:** Cài đặt lại đối tượng Meteoroid trước khi thoát.
-- **AR_GAME_BANG_RESET:** Cài đặt lại đối tượng Bang trước khi thoát.
-- **AR_GAME_BORDER_RESET:** Cài đặt lại đối tượng Border trước khi thoát.
+- **ZW_GAME_RESET:** Signal cài đặt lại game do Border gửi đến.
+- **ZW_GAME_ZOMWAR_RESET:** Cài đặt lại đối tượng Peashooter trước khi thoát.
+- **ZW_GAME_BULLET_RESET:** Cài đặt lại đối tượng Bullet trước khi thoát.
+- **ZW_GAME_ZOMBIE_RESET:** Cài đặt lại đối tượng Zombie trước khi thoát.
+- **ZW_GAME_CAR_RESET:** Cài đặt lại đối tượng Car trước khi thoát.
+- **ZW_GAME_BANG_RESET:** Cài đặt lại đối tượng Bang trước khi thoát.
+- **ZW_GAME_BORDER_RESET:** Cài đặt lại đối tượng Border trước khi thoát.
 - **Save and reset Score:** Lưu số điểm hiện tại và Cài đặt lại.
 - **Timer remove - Timer tick:** Xóa Timer - Time tick
 - **Setup timer - Timer exit:** Tạo 1 timer one shot để thoát game. Nhằm tạo ra một khoảng delay cho người chơi có thể nhận thức được là mình đã game over trước khi chuyển sang màn hình thông báo game over.
 
 **EXIT:** Thoát khỏi game và chuyển sang màn hình Game Over.
-- **AR_GAME_EXIT:** Signal do Timer exit gửi đến.
+- **ZW_GAME_EXIT:** Signal do Timer exit gửi đến.
 - **STATE (GAME_OFF):** Cập nhật trạng thái game -> GAME_OFF
 - **Change the screen - SCREEN_TRAN(scr_game_over_handle, &scr_game_over):** Chuyển màn hình sang màn hình Game Over.
 
@@ -158,21 +159,23 @@ Việc liệt kê các thuộc tính của đối tượng trong game có các t
 Ví dụ:
 
     typedef struct {
-        bool visible;
-        uint32_t x, y;
-        uint8_t action_image;
-    } ar_game_archery_t;
+    bool visible;
+    uint32_t x, y;
+    uint8_t action_image;
+    } zw_game_zomwar_t;
 
-    extern ar_game_archery_t archery;
+    extern zw_game_zomwar_t zomwar;
 
 **Áp dụng struct cho các đối tượng:**
 |struct|Các biến|
 |------|--------|
-|ar_game_archery_t|archery|
-|ar_game_arrow_t|arrow[MAX_NUM_ARROW]|
-|ar_game_bang_t|bang[NUM_BANG]|
-|ar_game_border_t|border|
-|ar_game_meteoroid_t|meteoroid[NUM_METEOROIDS]|
+|zw_game_zomwar_t|zomwar|
+|zw_game_bullet_t|bullet[MAX_NUM_BULLET]|
+|zw_game_zombie_t|zombie[NUM_ZOMBIES]|
+|zw_game_car_t|car[NUM_LANES]|
+|zw_game_bang_t|bang[NUM_BANG]|
+|tombstone_t|tombstones[NUM_TOMBSTONES]|
+|zw_game_border_t|border|
 
 **(*)** Các đối tượng có số lượng nhiều thì sẽ được khai báo dạng mảng.
 
@@ -183,11 +186,13 @@ Ví dụ:
   - GAME_ON: Bật.
   - GAME_OVER: Đã thua.
 
-- **ar_game_setting_t** settingsetup : Cấu hình cấp độ của trò chơi.
+- **zw_game_setting_t** settingsetup : Cấu hình cấp độ của trò chơi.
   - settingsetup.silent : Bật/tắt chế độ im lặng.
-  - settingsetup.num_arrow : Cấu hình số lượng mũi tên.
-  - settingsetup.arrow_speed : Cấu hình tốc độ mũi tên.
-  - settingsetup.meteoroid_speed : Cấu hình tốc độ của thiên thạch.
+  - settingsetup.bullet_speed : Cấu hình tốc độ viên đạn.
+  - settingsetup.zombie_speed : Cấu hình tốc độ của xác sống.
+  - settingsetup.num_car : Cấu hình số lượng ô tô.
+  - settingsetup.tombstone_lane_1 : Cấu hình số lượng bia mộ trên đường là 1.
+  - settingsetup.tombstone_lane_2 : Cấu hình tốc độ của thiên thạch.
 
 #### 2.2.2 Task
 Trong lập trình event-driven, task là một đơn vị độc lập đảm nhiệm một nhóm công việc nhất định. Khi hệ thống scheduler tìm thấy message liên quan đến task trong hàng đợi, hệ thống sẽ gọi hàm thực thi của task để xử lý message được gửi đến. Một số tác dụng quan trọng của task:
