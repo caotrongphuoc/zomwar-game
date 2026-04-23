@@ -41,9 +41,9 @@ Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ 
 
 Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
 - **Start:** Bắt đầu chơi game.
-- **Setting:** Chọn vào để cài đặt các thông số của game.
-- **Charts:** Chọn vào để xem top 3 điểm cao nhất đạt được.
-- **Exit:** Thoát menu vào màn hình chờ.
+- **Setting:** Cài đặt các thông số của game.
+- **Charts:** Xem top 3 điểm cao nhất đạt được.
+- **Exit:** Thoát menu game vào màn hình chờ.
 
 <p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/objects_in_the_game.webp" alt="archery game play screen" width="600"/></p>
 <p align="center"><strong><em>Hình 3:</em></strong> Màn hình game play và các đối tượng</p>
