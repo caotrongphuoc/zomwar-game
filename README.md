@@ -40,7 +40,7 @@ Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ 
 <p align="center"><strong><em>Hình 2:</em></strong> Menu game</p>
 
 Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
-- **Archery Game:** Chọn vào để bắt đầu chơi game.
+- **Start:** Bắt đầu chơi game.
 - **Setting:** Chọn vào để cài đặt các thông số của game.
 - **Charts:** Chọn vào để xem top 3 điểm cao nhất đạt được.
 - **Exit:** Thoát menu vào màn hình chờ.
