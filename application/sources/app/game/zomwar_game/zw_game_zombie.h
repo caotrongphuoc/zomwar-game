@@ -1,5 +1,5 @@
-#ifndef __AR_GAME_ZOMBIE_H__
-#define __AR_GAME_ZOMBIE_H__
+#ifndef __ZW_GAME_ZOMBIE_H__
+#define __ZW_GAME_ZOMBIE_H__
 #include <stdio.h>
 #include "fsm.h"
 #include "port.h"
@@ -44,7 +44,7 @@ typedef struct {
     bool visible;
     bool rising;            // đang trồi lên từ bia mộ
     uint8_t rise_ticks;     // số tick còn lại để trồi lên
-} ar_game_zombie_t;
+} zw_game_zombie_t;
 
 #define TOMBSTONES_PER_LANE     (2)
 #define NUM_TOMBSTONES          (10)    /* 5 lanes x 2 per lane */
@@ -61,7 +61,7 @@ typedef struct {
 
 extern tombstone_t tombstones[NUM_TOMBSTONES];
 
-extern ar_game_zombie_t zombie[NUM_ZOMBIES];
+extern zw_game_zombie_t zombie[NUM_ZOMBIES];
 extern uint32_t last_wave_score;
 extern uint8_t wave_warning_timer;     // đếm ngược 30 tick
 extern bool wave_warning_active;

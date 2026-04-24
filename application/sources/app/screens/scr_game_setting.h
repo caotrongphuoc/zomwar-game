@@ -36,21 +36,21 @@
 #define SETTING_ITEM_ARRDESS_4					(STEP_SETTING_CHOSSE*4)
 #define SETTING_ITEM_ARRDESS_5					(STEP_SETTING_CHOSSE*5)
 // Text and Number
-#define AR_GAME_SETTING_TEXT_AXIS_X 			(0)
-#define AR_GAME_SETTING_NUMBER_AXIS_X			(107)
+#define ZW_GAME_SETTING_TEXT_AXIS_X 			(0)
+#define ZW_GAME_SETTING_NUMBER_AXIS_X			(107)
 // Chosse icon
-#define AR_GAME_SETTING_CHOSSE_ICON_AXIS_Y		(17)
-#define AR_GAME_SETTING_CHOSSE_ICON_SIZE_W		(20)
-#define AR_GAME_SETTING_CHOSSE_ICON_SIZE_H		(20)
+#define ZW_GAME_SETTING_CHOSSE_ICON_AXIS_Y		(17)
+#define ZW_GAME_SETTING_CHOSSE_ICON_SIZE_W		(20)
+#define ZW_GAME_SETTING_CHOSSE_ICON_SIZE_H		(20)
 // Frames (5 frames, STEP=12 để vừa màn hình 64px)
-#define AR_GAME_SETTING_FRAMES_AXIS_X			(0)
-#define AR_GAME_SETTING_FRAMES_AXIS_Y_1			(2)
-#define AR_GAME_SETTING_FRAMES_STEP 			(12)
-#define AR_GAME_SETTING_FRAMES_SIZE_W			(123)
-#define AR_GAME_SETTING_FRAMES_SIZE_H			(11)
-#define AR_GAME_SETTING_FRAMES_SIZE_R			(3)
+#define ZW_GAME_SETTING_FRAMES_AXIS_X			(0)
+#define ZW_GAME_SETTING_FRAMES_AXIS_Y_1			(2)
+#define ZW_GAME_SETTING_FRAMES_STEP 			(12)
+#define ZW_GAME_SETTING_FRAMES_SIZE_W			(123)
+#define ZW_GAME_SETTING_FRAMES_SIZE_H			(11)
+#define ZW_GAME_SETTING_FRAMES_SIZE_R			(3)
 
-extern ar_game_setting_t settingdata;
+extern zw_game_setting_t settingdata;
 
 extern view_dynamic_t dyn_view_item_game_setting;
 extern view_screen_t scr_game_setting;

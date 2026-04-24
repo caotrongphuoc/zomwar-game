@@ -120,8 +120,8 @@ view_screen_t scr_menu_game = {
 };
 
 void view_scr_menu_game() {
-#define AR_GAME_MENU_ICON_AXIS_X			(7)
-#define AR_GAME_MENU_TEXT_AXIS_X			(20)
+#define ZW_GAME_MENU_ICON_AXIS_X			(7)
+#define ZW_GAME_MENU_TEXT_AXIS_X			(20)
 	// Scroll bar
 	view_render.fillRect(	scroll_bar.axis_x - 1, \
 							scroll_bar.axis_y, \
@@ -150,7 +150,7 @@ void view_scr_menu_game() {
 									frame[i].size_r, \
 									WHITE);
 	// Icon
-		view_render.drawBitmap(	AR_GAME_MENU_ICON_AXIS_X, \
+		view_render.drawBitmap(	ZW_GAME_MENU_ICON_AXIS_X, \
 								menu_items_icon_axis_y[i], \
 								menu_items_icon[screen_menu.screen + i], \
 								menu_items_icon_size_w[screen_menu.screen + i], \
@@ -161,7 +161,7 @@ void view_scr_menu_game() {
 	view_render.setTextSize(1);
 	for (uint8_t i = 0; i < 3; i++) {
 		view_render.setTextColor(menu_items_icon_color[screen_menu.screen + i]);
-		view_render.setCursor(AR_GAME_MENU_TEXT_AXIS_X, menu_items_icon_axis_y[i]+5);
+		view_render.setCursor(ZW_GAME_MENU_TEXT_AXIS_X, menu_items_icon_axis_y[i]+5);
 		view_render.print(menu_items_name[screen_menu.screen + i]);
 	}
 }
@@ -185,7 +185,7 @@ void update_menu_screen_chosse() {
 void screen_tran_menu() {
 	switch (screen_menu.location) {
 	case 0:	// item 1
-			SCREEN_TRAN(scr_zomwar_game_handle,	&scr_zomwar_game	);
+			SCREEN_TRAN(scr_zw_game_handle,	&scr_zomwar_game	);
 		break;
 	case 1:	// item 2
 			SCREEN_TRAN(scr_game_setting_handle,	&scr_game_setting	);

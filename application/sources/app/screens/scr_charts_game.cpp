@@ -3,7 +3,7 @@
 /*****************************************************************************/
 /* Variable Declaration - Charts game */
 /*****************************************************************************/
-static ar_game_score_t gamescore_charts;
+static zw_game_score_t gamescore_charts;
 
 // Spider animation
 // 3 spiders hanging in the space above the tombstones

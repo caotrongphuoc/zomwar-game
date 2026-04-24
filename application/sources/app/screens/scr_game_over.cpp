@@ -3,7 +3,7 @@
 /*****************************************************************************/
 /* Variable Declaration - game over */
 /*****************************************************************************/
-static ar_game_score_t gamescore;
+static zw_game_score_t gamescore;
 
 /*****************************************************************************/
 /* View - game over */
@@ -147,7 +147,7 @@ void scr_game_over_handle(ak_msg_t* msg) {
 		eeprom_write(	EEPROM_SCORE_START_ADDR, \
 						(uint8_t*)&gamescore, \
 						sizeof(gamescore));
-		SCREEN_TRAN(scr_zomwar_game_handle, &scr_zomwar_game);
+		SCREEN_TRAN(scr_zw_game_handle, &scr_zomwar_game);
 	}
 		BUZZER_PlayTones(tones_cc);
 		break;

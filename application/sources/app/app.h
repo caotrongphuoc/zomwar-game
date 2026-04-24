@@ -155,14 +155,22 @@ enum {
  */
 /*****************************************************************************/
 /* define timer */
-#define AR_GAME_TIME_TICK_INTERVAL									(100)
-#define AR_GAME_TIME_EXIT_INTERVAL									(3000)
+#define ZW_GAME_TIME_TICK_INTERVAL									(100)
+#define ZW_GAME_TIME_EXIT_INTERVAL									(3000)
 /* define signal */
 enum {
-	AR_GAME_INITIAL_SETUP = AK_USER_DEFINE_SIG,
-	AR_GAME_TIME_TICK = AR_GAME_DEFINE_SIG,
-	AR_GAME_RESET,
-	AR_GAME_EXIT_GAME,
+	ZW_GAME_INITIAL_SETUP = AK_USER_DEFINE_SIG,
+	ZW_GAME_TIME_TICK = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_RESET,
+	ZW_GAME_EXIT_GAME,
+	ZW_GAME_BTN_MODE_LONG_PRESSED,
+	ZW_GAME_BTN_MODE_RELEASED,
+	ZW_GAME_BTN_UP_PRESSED,
+	ZW_GAME_BTN_UP_LONG_PRESSED,
+	ZW_GAME_BTN_UP_RELEASED,
+	ZW_GAME_BTN_DOWN_PRESSED,
+	ZW_GAME_BTN_DOWN_LONG_PRESSED,
+	ZW_GAME_BTN_DOWN_RELEASED,
 };
 
 /*****************************************************************************/
@@ -172,11 +180,12 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-	AR_GAME_ZOMWAR_SETUP = AR_GAME_DEFINE_SIG,
-	AR_GAME_ZOMWAR_UPDATE,
-	AR_GAME_ZOMWAR_UP,
-	AR_GAME_ZOMWAR_DOWN,
-	AR_GAME_ZOMWAR_RESET,
+	ZW_GAME_ZOMWAR_SETUP = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_ZOMWAR_UPDATE,
+	ZW_GAME_ZOMWAR_UP,
+	ZW_GAME_ZOMWAR_DOWN,
+	ZW_GAME_ZOMWAR_STOP,
+	ZW_GAME_ZOMWAR_RESET,
 };
 
 /*****************************************************************************/
@@ -186,10 +195,10 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-	AR_GAME_BULLET_SETUP = AR_GAME_DEFINE_SIG,
-	AR_GAME_BULLET_RUN,
-	AR_GAME_BULLET_SHOOT,
-	AR_GAME_BULLET_RESET,
+	ZW_GAME_BULLET_SETUP = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_BULLET_RUN,
+	ZW_GAME_BULLET_SHOOT,
+	ZW_GAME_BULLET_RESET,
 };
 
 /*****************************************************************************/
@@ -199,9 +208,9 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-	AR_GAME_BANG_SETUP = AR_GAME_DEFINE_SIG,
-	AR_GAME_BANG_UPDATE,
-	AR_GAME_BANG_RESET,
+	ZW_GAME_BANG_SETUP = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_BANG_UPDATE,
+	ZW_GAME_BANG_RESET,
 };
 
 /*****************************************************************************/
@@ -211,10 +220,11 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-	AR_GAME_BORDER_SETUP = AR_GAME_DEFINE_SIG,
-	AR_GAME_LEVEL_UP,
-	AR_GAME_CHECK_GAME_OVER,
-	AR_GAME_BORDER_RESET,
+	ZW_GAME_BORDER_SETUP = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_LEVEL_UP,
+	ZW_GAME_CHECK_GAME_OVER,
+	ZW_GAME_ZOMBIE_KILLED,
+	ZW_GAME_BORDER_RESET,
 };
 
 /*****************************************************************************/
@@ -224,9 +234,9 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-	AR_GAME_CAR_SETUP = AR_GAME_DEFINE_SIG,
-	AR_GAME_CAR_RUN,
-	AR_GAME_CAR_RESET,
+	ZW_GAME_CAR_SETUP = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_CAR_RUN,
+	ZW_GAME_CAR_RESET,
 };
 
 /*****************************************************************************/
@@ -241,10 +251,10 @@ enum {
 /* define timer */
 /* define signal */
 enum {
-	AR_GAME_ZOMBIE_SETUP = AR_GAME_DEFINE_SIG,
-	AR_GAME_ZOMBIE_RUN,
-	AR_GAME_ZOMBIE_DETONATOR,
-	AR_GAME_ZOMBIE_RESET,
+	ZW_GAME_ZOMBIE_SETUP = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_ZOMBIE_RUN,
+	ZW_GAME_ZOMBIE_DETONATOR,
+	ZW_GAME_ZOMBIE_RESET,
 };
 
 /*****************************************************************************/

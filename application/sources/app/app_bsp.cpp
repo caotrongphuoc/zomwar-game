@@ -9,8 +9,6 @@
 
 #include "task_list.h"
 
-#include "scr_zomwar_game.h"
-
 button_t btn_mode;
 button_t btn_up;
 button_t btn_down;
@@ -20,24 +18,18 @@ void btn_mode_callback(void* b) {
 	switch (me_b->state) {
 	case BUTTON_SW_STATE_PRESSED: {
 		APP_DBG("[btn_mode_callback] BUTTON_SW_STATE_PRESSED\n");
-		// task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_MODE_PRESSED);
 	}
 		break;
 
 	case BUTTON_SW_STATE_LONG_PRESSED: {
 		APP_DBG("[btn_mode_callback] BUTTON_SW_STATE_LONG_PRESSED\n");
-		task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_MODE_LONG_PRESSED);
+		task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_MODE_LONG_PRESSED);
 	}
 		break;
 
 	case BUTTON_SW_STATE_RELEASED: {
 		APP_DBG("[btn_mode_callback] BUTTON_SW_STATE_RELEASED\n");
-		if (ar_game_state != GAME_OFF) {
-			task_post_pure_msg(AR_GAME_BULLET_ID, AR_GAME_BULLET_SHOOT);
-		}
-		else {
-			task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_MODE_RELEASED);
-		}
+		task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_MODE_RELEASED);
 	}
 		break;
 
@@ -51,26 +43,17 @@ void btn_up_callback(void* b) {
     switch (me_b->state) {
     case BUTTON_SW_STATE_PRESSED: {
         APP_DBG("[btn_up_callback] BUTTON_SW_STATE_PRESSED\n");
-        if (ar_game_state != GAME_OFF) {
-            zomwar_moving = ZOMWAR_MOVE_UP;  // Bắt đầu di chuyển lên
-        }
+        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_UP_PRESSED);
     }
         break;
     case BUTTON_SW_STATE_LONG_PRESSED: {
         APP_DBG("[btn_up_callback] BUTTON_SW_STATE_LONG_PRESSED\n");
-        if (ar_game_state == GAME_OFF) {
-            task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_UP_LONG_PRESSED);
-        }
+        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_UP_LONG_PRESSED);
     }
         break;
     case BUTTON_SW_STATE_RELEASED: {
         APP_DBG("[btn_up_callback] BUTTON_SW_STATE_RELEASED\n");
-        if (ar_game_state != GAME_OFF) {
-            zomwar_moving = ZOMWAR_MOVE_NONE;  // Dừng di chuyển
-        }
-        else {
-            task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_UP_RELEASED);
-        }
+        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_UP_RELEASED);
     }
         break;
     default:
@@ -83,26 +66,17 @@ void btn_down_callback(void* b) {
     switch (me_b->state) {
     case BUTTON_SW_STATE_PRESSED: {
         APP_DBG("[btn_down_callback] BUTTON_SW_STATE_PRESSED\n");
-        if (ar_game_state != GAME_OFF) {
-            zomwar_moving = ZOMWAR_MOVE_DOWN;  // Bắt đầu di chuyển xuống
-        }
+        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_DOWN_PRESSED);
     }
         break;
     case BUTTON_SW_STATE_LONG_PRESSED: {
         APP_DBG("[btn_down_callback] BUTTON_SW_STATE_LONG_PRESSED\n");
-        if (ar_game_state == GAME_OFF) {
-            task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_DOWN_LONG_PRESSED);
-        }
+        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_DOWN_LONG_PRESSED);
     }
         break;
     case BUTTON_SW_STATE_RELEASED: {
         APP_DBG("[btn_down_callback] BUTTON_SW_STATE_RELEASED\n");
-        if (ar_game_state != GAME_OFF) {
-            zomwar_moving = ZOMWAR_MOVE_NONE;  // Dừng di chuyển
-        }
-        else {
-            task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_DOWN_RELEASED);
-        }
+        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_DOWN_RELEASED);
     }
         break;
     default:

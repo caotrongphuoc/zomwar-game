@@ -1,12 +1,14 @@
-#include "ar_game_car.h"
-#include "ar_game_zombie.h"
-#include "ar_game_bang.h"
+#include "zw_game_car.h"
+#include "zw_game_zombie.h"
+#include "zw_game_bang.h"
 
-ar_game_car_t car[NUM_LANES];
+zw_game_car_t car[NUM_LANES];
 static const int32_t lane_y[NUM_LANES] = {2, 12, 22, 32, 42};
+static bool game_active = false;
 
-#define AR_GAME_CAR_SETUP() \
+#define ZW_GAME_CAR_SETUP() \
 do { \
+    game_active = true; \
     for (uint8_t i = 0; i < NUM_LANES; i++) { \
         car[i].x       = AXIS_X_CAR; \
         car[i].y       = lane_y[i]; \
@@ -37,9 +39,9 @@ static int8_t find_nearest_mower(uint32_t zy) {
     return best;
 }
 
-#define AR_GAME_CAR_RUN() \
+#define ZW_GAME_CAR_RUN() \
 do { \
-    if (ar_game_state != GAME_PLAY) break; \
+    if (!game_active) break; \
     \
     bool game_over = false; \
     \
@@ -53,7 +55,7 @@ do { \
                 car[m].running = true; \
             } else { \
                 game_over = true; \
-                task_post_pure_msg(AR_GAME_SCREEN_ID, AR_GAME_RESET); \
+                task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_RESET); \
             } \
             zombie[i].visible = BLACK; \
             zombie[i].x = 200; \
@@ -104,9 +106,7 @@ do { \
                         bang[k].x            = car[i].x; \
                         bang[k].y            = car[i].y; \
                         bang[k].action_image = 1; \
-                        ar_game_kill_count++; \
-                        ar_game_score += 10; \
-                        BUZZER_PlayTones(tones_BUM); \
+                        task_post_pure_msg(ZW_GAME_BORDER_ID, ZW_GAME_ZOMBIE_KILLED); \
                         break; \
                     } \
                 } \
@@ -120,8 +120,9 @@ do { \
     } \
 } while(0);
 
-#define AR_GAME_CAR_RESET() \
+#define ZW_GAME_CAR_RESET() \
 do { \
+    game_active = false; \
     for (uint8_t i = 0; i < NUM_LANES; i++) { \
         car[i].x       = AXIS_X_CAR; \
         car[i].y       = lane_y[i]; \
@@ -130,18 +131,18 @@ do { \
     } \
 } while(0);
 
-void ar_game_car_handle(ak_msg_t* msg) {
+void zw_game_car_handle(ak_msg_t* msg) {
     switch (msg->sig) {
-    case AR_GAME_CAR_SETUP: {
-        AR_GAME_CAR_SETUP();
+    case ZW_GAME_CAR_SETUP: {
+        ZW_GAME_CAR_SETUP();
     }
         break;
-    case AR_GAME_CAR_RUN: {
-        AR_GAME_CAR_RUN();
+    case ZW_GAME_CAR_RUN: {
+        ZW_GAME_CAR_RUN();
     }
         break;
-    case AR_GAME_CAR_RESET: {
-        AR_GAME_CAR_RESET();
+    case ZW_GAME_CAR_RESET: {
+        ZW_GAME_CAR_RESET();
     }
         break;
     default:

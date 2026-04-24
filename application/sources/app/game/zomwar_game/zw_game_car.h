@@ -1,5 +1,5 @@
-#ifndef __AR_GAME_CAR_H__
-#define __AR_GAME_CAR_H__
+#ifndef __ZW_GAME_CAR_H__
+#define __ZW_GAME_CAR_H__
 #include <stdio.h>
 #include "fsm.h"
 #include "port.h"
@@ -26,8 +26,8 @@ typedef struct {
     uint32_t x, y;
     uint8_t lane;
     uint8_t action_image;
-} ar_game_car_t;
+} zw_game_car_t;
 
-extern ar_game_car_t car[NUM_LANES];
-void ar_game_car_handle(ak_msg_t* msg);
+extern zw_game_car_t car[NUM_LANES];
+void zw_game_car_handle(ak_msg_t* msg);
 #endif

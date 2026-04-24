@@ -27,7 +27,7 @@ typedef struct {
   uint32_t score_1st;
   uint32_t score_2nd;
   uint32_t score_3rd;
-} ar_game_score_t;
+} zw_game_score_t;
 
 typedef struct {
   /* setting data */
@@ -37,6 +37,6 @@ typedef struct {
   uint8_t zombie_speed;
   uint8_t tombstone_lane_1;  /* bit i = lane i có ít nhất 1 bia mộ */
   uint8_t tombstone_lane_2;  /* bit i = lane i có 2 bia mộ (cần lane_1 bit cũng set) */
-} ar_game_setting_t;
+} zw_game_setting_t;
 
 #endif //__APP_EEPROM_H__

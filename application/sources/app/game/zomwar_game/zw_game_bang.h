@@ -1,5 +1,5 @@
-#ifndef __AR_GAME_BANG_H__
-#define __AR_GAME_BANG_H__
+#ifndef __ZW_GAME_BANG_H__
+#define __ZW_GAME_BANG_H__
 
 #include <stdio.h>
 
@@ -25,8 +25,8 @@ typedef struct {
     bool visible;
     uint32_t x, y;
     uint8_t action_image;
-} ar_game_bang_t;
+} zw_game_bang_t;
 
-extern ar_game_bang_t bang[NUM_BANG];
+extern zw_game_bang_t bang[NUM_BANG];
 
-#endif //__AR_GAME_BANG_H__
+#endif //__ZW_GAME_BANG_H__

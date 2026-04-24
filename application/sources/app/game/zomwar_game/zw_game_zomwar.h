@@ -1,5 +1,5 @@
-#ifndef __AR_GAME_ZOMWAR_H__
-#define __AR_GAME_ZOMWAR_H__
+#ifndef __ZW_GAME_ZOMWAR_H__
+#define __ZW_GAME_ZOMWAR_H__
 
 #include <stdio.h>
 
@@ -18,23 +18,16 @@
 #define STEP_ZOMWAR_AXIS_Y     (10)
 #define SIZE_BITMAP_ZOMWAR_X   (25)
 #define SIZE_BITMAP_ZOMWAR_Y   (10)
-#define AXIS_X_ZOMWAR          (10)
-#define AXIS_Y_ZOMWAR          (30)
+#define AXIS_X_ZOMWAR          (14)
+#define AXIS_Y_ZOMWAR          (32)
 
 typedef struct {
     bool visible;
     uint32_t x, y;
     uint8_t action_image;
-} ar_game_zomwar_t;
+} zw_game_zomwar_t;
 
-extern ar_game_zomwar_t zomwar;
+extern zw_game_zomwar_t zomwar;
 
-typedef enum {
-    ZOMWAR_MOVE_NONE = 0,
-    ZOMWAR_MOVE_UP,
-    ZOMWAR_MOVE_DOWN,
-} zomwar_move_dir_t;
 
-extern volatile zomwar_move_dir_t zomwar_moving;
-
-#endif //__AR_GAME_ZOMWAR_H__
+#endif //__ZW_GAME_ZOMWAR_H__

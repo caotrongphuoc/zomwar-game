@@ -20,13 +20,13 @@ const task_t app_task_table[] = {
 	/*************************************************************************/
 	/* ZOMWAR GAME */
 	/*************************************************************************/
-	{AR_GAME_ZOMBIE_ID			,	TASK_PRI_LEVEL_4	,	ar_game_zombie_handle	},
-	{AR_GAME_BORDER_ID			,	TASK_PRI_LEVEL_4	,	ar_game_border_handle	},
-	{AR_GAME_ZOMWAR_ID			,	TASK_PRI_LEVEL_4	,	ar_game_zomwar_handle	},
-	{AR_GAME_BULLET_ID			,	TASK_PRI_LEVEL_4	,	ar_game_bullet_handle	},
-	{AR_GAME_BANG_ID			,	TASK_PRI_LEVEL_4	,	ar_game_bang_handle		},
-	{AR_GAME_CAR_ID				,	TASK_PRI_LEVEL_4	,	ar_game_car_handle		},
-	{AR_GAME_SCREEN_ID			,	TASK_PRI_LEVEL_4	,	scr_zomwar_game_handle	},
+	{ZW_GAME_ZOMBIE_ID			,	TASK_PRI_LEVEL_4	,	zw_game_zombie_handle	},
+	{ZW_GAME_BORDER_ID			,	TASK_PRI_LEVEL_4	,	zw_game_border_handle	},
+	{ZW_GAME_ZOMWAR_ID			,	TASK_PRI_LEVEL_4	,	zw_game_zomwar_handle	},
+	{ZW_GAME_BULLET_ID			,	TASK_PRI_LEVEL_4	,	zw_game_bullet_handle	},
+	{ZW_GAME_BANG_ID			,	TASK_PRI_LEVEL_4	,	zw_game_bang_handle		},
+	{ZW_GAME_CAR_ID				,	TASK_PRI_LEVEL_4	,	zw_game_car_handle		},
+	{ZW_GAME_SCREEN_ID			,	TASK_PRI_LEVEL_4	,	scr_zw_game_handle	},
 
 	/*************************************************************************/
 	/* LINK TASK */

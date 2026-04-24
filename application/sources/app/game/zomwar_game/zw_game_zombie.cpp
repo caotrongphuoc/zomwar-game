@@ -1,11 +1,11 @@
-#include "ar_game_zombie.h"
-#include "ar_game_bullet.h"
-#include "ar_game_bang.h"
-#include "ar_game_border.h"
-#include "scr_zomwar_game.h"
+#include "zw_game_zombie.h"
+#include "zw_game_bullet.h"
+#include "zw_game_bang.h"
+#include "zw_game_border.h"
 
-ar_game_zombie_t zombie[NUM_ZOMBIES];
+zw_game_zombie_t zombie[NUM_ZOMBIES];
 uint32_t last_wave_score = 0;
+static bool game_active = false;
 
 /* Offset X cua pixel trai ngoai cung theo tung hang va frame:
  * hang 0-9, frame_idx 0 = frame I & III, frame_idx 1 = frame II */
@@ -49,8 +49,9 @@ static void spawn_zombie_from_tombstone(uint8_t i, uint8_t tidx) {
     zombie[i].rise_ticks = ZOMBIE_RISE_TICKS;
 }
 
-#define AR_GAME_ZOMBIE_SETUP() \
+#define ZW_GAME_ZOMBIE_SETUP() \
 do { \
+    game_active = true; \
     last_wave_score = 0; \
     tombstone_spawn_timer = TOMBSTONE_SPAWN_INTERVAL; \
     wave_level = 0; \
@@ -81,9 +82,9 @@ do { \
     } \
 } while (0);
 
-#define AR_GAME_ZOMBIE_RUN() \
+#define ZW_GAME_ZOMBIE_RUN() \
 do { \
-    if (ar_game_state != GAME_PLAY) break; \
+    if (!game_active) break; \
     if (level_up_display_timer > 0) level_up_display_timer--; \
     uint8_t active_count = 0; \
     \
@@ -158,7 +159,7 @@ do { \
     } \
     \
     /* Wave warning + spawn */ \
-    if (!wave_warning_active && ar_game_score >= last_wave_score + WAVE_SCORE_INTERVAL) { \
+    if (!wave_warning_active && zw_game_score >= last_wave_score + WAVE_SCORE_INTERVAL) { \
         wave_warning_active = true; \
         wave_warning_timer = WARNING_BLINK_DURATION; \
     } \
@@ -200,7 +201,7 @@ do { \
     } \
 } while(0);
 
-#define AR_GAME_ZOMBIE_DETONATOR() \
+#define ZW_GAME_ZOMBIE_DETONATOR() \
 do { \
     for (uint8_t i = 0; i < NUM_ZOMBIES; i++) { \
         if (zombie[i].visible != WHITE) continue; \
@@ -246,9 +247,7 @@ do { \
                         break; \
                     } \
                 } \
-                ar_game_score += 10; \
-                ar_game_kill_count++; \
-                BUZZER_PlayTones(tones_BUM); \
+                task_post_pure_msg(ZW_GAME_BORDER_ID, ZW_GAME_ZOMBIE_KILLED); \
                 break; \
             } \
         } \
@@ -256,8 +255,9 @@ do { \
 } while(0);
 
 
-#define AR_GAME_ZOMBIE_RESET() \
+#define ZW_GAME_ZOMBIE_RESET() \
 do { \
+    game_active = false; \
     for (uint8_t i = 0; i < NUM_ZOMBIES; i++) { \
         zombie[i].visible = BLACK; \
         zombie[i].x = 200; \
@@ -273,26 +273,26 @@ do { \
     level_up_display_timer = 0; \
 } while (0);
 
-void ar_game_zombie_handle(ak_msg_t* msg) {
+void zw_game_zombie_handle(ak_msg_t* msg) {
     switch (msg->sig) {
-    case AR_GAME_ZOMBIE_SETUP: {
-        APP_DBG_SIG("AR_GAME_ZOMBIE_SETUP\n");
-        AR_GAME_ZOMBIE_SETUP();
+    case ZW_GAME_ZOMBIE_SETUP: {
+        APP_DBG_SIG("ZW_GAME_ZOMBIE_SETUP\n");
+        ZW_GAME_ZOMBIE_SETUP();
     }
         break;
-    case AR_GAME_ZOMBIE_RUN: {
-        APP_DBG_SIG("AR_GAME_ZOMBIE_RUN\n");
-        AR_GAME_ZOMBIE_RUN();
+    case ZW_GAME_ZOMBIE_RUN: {
+        APP_DBG_SIG("ZW_GAME_ZOMBIE_RUN\n");
+        ZW_GAME_ZOMBIE_RUN();
     }
         break;
-    case AR_GAME_ZOMBIE_DETONATOR: {
-        APP_DBG_SIG("AR_GAME_ZOMBIE_DETONATOR\n");
-        AR_GAME_ZOMBIE_DETONATOR();
+    case ZW_GAME_ZOMBIE_DETONATOR: {
+        APP_DBG_SIG("ZW_GAME_ZOMBIE_DETONATOR\n");
+        ZW_GAME_ZOMBIE_DETONATOR();
     }
         break;
-    case AR_GAME_ZOMBIE_RESET: {
-        APP_DBG_SIG("AR_GAME_ZOMBIE_RESET\n");
-        AR_GAME_ZOMBIE_RESET();
+    case ZW_GAME_ZOMBIE_RESET: {
+        APP_DBG_SIG("ZW_GAME_ZOMBIE_RESET\n");
+        ZW_GAME_ZOMBIE_RESET();
     }
         break;
     default:

@@ -3,7 +3,7 @@
 /*****************************************************************************/
 /* Variable Declaration - Setting game */
 /*****************************************************************************/
-ar_game_setting_t settingdata;
+zw_game_setting_t settingdata;
 static uint8_t setting_location_chosse;
 
 /*****************************************************************************/
@@ -33,20 +33,20 @@ void view_scr_game_setting() {
 	uint8_t sel = (setting_location_chosse / STEP_SETTING_CHOSSE) - 1;
 
 	for (uint8_t f = 0; f < 5; f++) {
-		uint8_t frame_y = AR_GAME_SETTING_FRAMES_AXIS_Y_1 + AR_GAME_SETTING_FRAMES_STEP * f;
+		uint8_t frame_y = ZW_GAME_SETTING_FRAMES_AXIS_Y_1 + ZW_GAME_SETTING_FRAMES_STEP * f;
 		bool selected  = (f == sel);
 		uint8_t fg     = selected ? BLACK : WHITE;
 
 		if (selected) {
 			view_render.fillRoundRect(
-				AR_GAME_SETTING_FRAMES_AXIS_X, frame_y,
-				AR_GAME_SETTING_FRAMES_SIZE_W, AR_GAME_SETTING_FRAMES_SIZE_H,
-				AR_GAME_SETTING_FRAMES_SIZE_R, WHITE);
+				ZW_GAME_SETTING_FRAMES_AXIS_X, frame_y,
+				ZW_GAME_SETTING_FRAMES_SIZE_W, ZW_GAME_SETTING_FRAMES_SIZE_H,
+				ZW_GAME_SETTING_FRAMES_SIZE_R, WHITE);
 		} else {
 			view_render.drawRoundRect(
-				AR_GAME_SETTING_FRAMES_AXIS_X, frame_y,
-				AR_GAME_SETTING_FRAMES_SIZE_W, AR_GAME_SETTING_FRAMES_SIZE_H,
-				AR_GAME_SETTING_FRAMES_SIZE_R, WHITE);
+				ZW_GAME_SETTING_FRAMES_AXIS_X, frame_y,
+				ZW_GAME_SETTING_FRAMES_SIZE_W, ZW_GAME_SETTING_FRAMES_SIZE_H,
+				ZW_GAME_SETTING_FRAMES_SIZE_R, WHITE);
 		}
 
 		view_render.setTextColor(fg);

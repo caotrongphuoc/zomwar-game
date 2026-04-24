@@ -25,13 +25,13 @@ enum {
 	AC_TASK_DISPLAY_ID,
 
 	/* ZOMWAR GAME ID */
-	AR_GAME_ZOMBIE_ID,
-	AR_GAME_BORDER_ID,
-	AR_GAME_ZOMWAR_ID,
-	AR_GAME_BULLET_ID,
-	AR_GAME_BANG_ID,
-	AR_GAME_CAR_ID,
-	AR_GAME_SCREEN_ID,
+	ZW_GAME_ZOMBIE_ID,
+	ZW_GAME_BORDER_ID,
+	ZW_GAME_ZOMWAR_ID,
+	ZW_GAME_BULLET_ID,
+	ZW_GAME_BANG_ID,
+	ZW_GAME_CAR_ID,
+	ZW_GAME_SCREEN_ID,
 
 	/* LINK */
 #if defined (IF_LINK_UART_EN)
@@ -70,13 +70,13 @@ extern void task_uart_if(ak_msg_t*);
 extern void task_display(ak_msg_t*);
 
 /* ZOMWAR GAME HANDLE */
-extern void ar_game_zomwar_handle(ak_msg_t*);
-extern void ar_game_bullet_handle(ak_msg_t*);
-extern void ar_game_zombie_handle(ak_msg_t*);
-extern void ar_game_border_handle(ak_msg_t*);
-extern void ar_game_bang_handle(ak_msg_t*);
-extern void ar_game_car_handle(ak_msg_t*);
-extern void scr_zomwar_game_handle(ak_msg_t*);
+extern void zw_game_zomwar_handle(ak_msg_t*);
+extern void zw_game_bullet_handle(ak_msg_t*);
+extern void zw_game_zombie_handle(ak_msg_t*);
+extern void zw_game_border_handle(ak_msg_t*);
+extern void zw_game_bang_handle(ak_msg_t*);
+extern void zw_game_car_handle(ak_msg_t*);
+extern void scr_zw_game_handle(ak_msg_t*);
 
 /* LINK TASK */
 extern void task_link_phy(ak_msg_t*);
