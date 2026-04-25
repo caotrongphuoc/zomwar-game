@@ -55,8 +55,8 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 |**Vụ nổ**|Bang|Hiệu ứng xuất hiện khi xác sống bị tiêu diệt|
 |**Ranh giới**|Border|Vùng an toàn phải bảo vệ không cho xác sống xâm nhập|
 |**Xác sống**|Zombie|Đối tượng di chuyển về phía xạ thủ với tốc độ tăng dần, có khả năng phá hủy ranh giới|
-|**Bia mộ**|Tombstones|Vật thể nằm trên đường, là vị trí xác sống có thể xuất hiện bất ngờ|
-|**Ô tô**|Cars|Vật thể nằm trước ranh giới, là chốt chặn thứ 2 sau xạ thủ, được kích hoạt di chuyển tiêu diệt xác sống khi xác sống chạm vào vật thể|
+|**Bia mộ**|Tombstone|Vật thể nằm trên đường, là vị trí xác sống có thể xuất hiện bất ngờ|
+|**Ô tô**|Car|Vật thể nằm trước ranh giới, là chốt chặn thứ 2 sau xạ thủ, được kích hoạt di chuyển tiêu diệt xác sống khi xác sống chạm vào vật thể|
 
 **(*)** Trong phần còn lại của tài liệu sẽ dùng tên của các đối tượng để đề cập đến đối tượng.
 
