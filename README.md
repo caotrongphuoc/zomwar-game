@@ -66,10 +66,10 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 - Mục tiêu trò chơi là kiếm được càng nhiều điểm càng tốt, trò chơi sẽ kết thúc khi có Zombie chạm vào Border.
 
 #### 1.2.3 Cơ chế hoạt động:
-- **Cách tính điểm:** Điểm được tính bằng số lượng Zombie bị tiêu diệt. Mỗi Zombie bị tiêu  tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình. Ngoài ra các bạn có thể quan sát số lượng Zombie đã bị tiêu diệt ở góc dưới bên phải màn hình.
+- **Cách tính điểm:** Điểm được tính bằng số lượng Zombie bị tiêu diệt. Mỗi Zombie bị tiêu diệt tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình. Ngoài ra các bạn có thể quan sát số lượng Zombie đã bị tiêu diệt ở góc dưới bên trái màn hình.
 - **Độ khó:** Vào một khoảng thời gian nhất định sẽ có những làn sóng Zombie (Wave) tấn công, mỗi khi sống sót qua các làn sóng Zombie thì tốc độ di chuyển của Zombie sẽ tăng lên một cấp độ. Tốc độ di chuyển ban đầu của Zombie có thể tùy chỉnh trong phần **Setting**.
 - **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển. Các đối tượng có hoạt ảnh như: Peashooter, Zombie, Car.
-- **Kết thúc trò chơi:** Khi Zombie chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Giao diện “RIP” sẽ xuất hiện trong một khoảng thời gian, sau đó bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
+- **Kết thúc trò chơi:** Khi Zombie chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Màn hình “RIP” sẽ xuất hiện trong một khoảng thời gian, sau đó bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
   - **Retry:** chơi lại.
   - **Rank:** vào xem bảng xếp hạng.
   - **Home:** về lại menu game.
