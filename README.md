@@ -43,8 +43,9 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 - **Leaderboard:** Xem top 3 điểm cao nhất đạt được.
 - **Exit:** Thoát menu game vào màn hình chờ.
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/objects_in_the_game.webp" alt="archery game play screen" width="600"/></p>
-<p align="center"><strong><em>Hình 3:</em></strong> Màn hình game play và các đối tượng</p>
+<p align="center"><img width="1578" height="988" alt="LCD_GP_Charts" src="https://github.com/user-attachments/assets/92087254-8c5c-4ec6-9f79-50d3dc790289" /></p>
+
+<p align="center"><strong><em>Hình 3:</em></strong> Màn hình game play</p>
 
 #### 1.2.1 Các đối tượng (Object) trong game:
 |Đối tượng|Tên đối tượng|Mô tả|
@@ -77,7 +78,7 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 
 <p align="center"><strong><em>Hình 4:</em></strong> Màn hình Game_over</p>
 
-## II. Thiết kế - ARCHERY GAME
+## II. Thiết kế - ZOMWAR
 **Các khái niệm trong event-driven:**
 
 - **Event Driven:** Nôn na là một hệ thống gửi thư (gửi message) để thực thi các công việc. Trong đó, Task đóng vai trò là người nhận thư, Signal đại diện cho nội dung công việc. Task & Signal nền tảng của một hệ Event Driven.
