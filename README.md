@@ -73,7 +73,8 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
   - **Rank:** vào xem bảng xếp hạng.
   - **Home:** về lại menu game.
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/game_over.webp" alt="archery game over screen" width="480"/></p>
+<p align="center"><img width="1023" height="513" alt="LCD_Game_Over" src="https://github.com/user-attachments/assets/74abb095-f2c5-49e4-a88d-1b6ad51fe196" /> </p>
+
 <p align="center"><strong><em>Hình 4:</em></strong> Màn hình Game_over</p>
 
 ## II. Thiết kế - ARCHERY GAME
