@@ -90,7 +90,7 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 ### 2.1 Sơ đồ trình tự
 **Sơ đồ trình tự** được sử dụng để mô tả trình tự của các Message và luồng tương tác giữa các đối tượng trong một hệ thống.
 
-<p align="center"><img width="6688" height="13848" alt="image" src="https://github.com/user-attachments/assets/86250810-0cd4-433f-bb7d-398638ee2e05" /></p>
+<p align="center"><img width="1474" height="3421" alt="Zomwar_system_UML" src="https://github.com/user-attachments/assets/dd374311-2739-4a34-a2a5-41689a1671a4" /></p>
 <p align="center"><strong><em>Hình 5:</em></strong> The sequence diagram</p>
 
 ### Ghi chú:
