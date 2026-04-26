@@ -90,26 +90,27 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 ### 2.1 Sơ đồ trình tự
 **Sơ đồ trình tự** được sử dụng để mô tả trình tự của các Message và luồng tương tác giữa các đối tượng trong một hệ thống.
 
-<p align="center"><img width="1474" height="3421" alt="Zomwar_system_UML" src="https://github.com/user-attachments/assets/dd374311-2739-4a34-a2a5-41689a1671a4" /></p>
+<p align="center"><img width="1654" height="3403" alt="zomwar_system_UM" src="https://github.com/user-attachments/assets/73499a06-e929-45cd-bc66-689ea9c9e785" />
+</p>
 <p align="center"><strong><em>Hình 5:</em></strong> The sequence diagram</p>
 
 ### Ghi chú:
 **SCREEN_ENTRY:** Cài đặt các thiết lập ban đầu cho đối tượng trong game.
 - **Level setup:** Thiết lập thông số cấp độ cho game.
-- **ZW_GAME_ZOMWAR_SETUP:** Thiết lập thông số ban đầu cho đối tượng Peashooter
+- **ZW_GAME_PEASHOOTER_SETUP:** Thiết lập thông số ban đầu cho đối tượng Peashooter
 - **ZW_GAME_BULLET_SETUP** Thiết lập thông số ban đầu cho các đối tượng Bullet
 - **ZW_GAME_ZOMBIE_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Zombie
 - **ZW_GAME_BANG_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Bang
 - **ZW_GAME_BORDER_SETUP:** Thiết lập thông số ban đầu cho đối tượng Border
 - **ZW_GAME_CAR_SETUP:** Thiết lập thông số ban đầu cho đối tượng Car
 - **Setup timer - Time tick:** Khởi tạo Timer - Time tick cho game.
-- **STATE (GAME_ON):** Cập nhật trạng thái game -> GAME_ON
+- **STATE (GAME_PLAY):** Cập nhật trạng thái game -> GAME_PLAY
 
 **GAME PLAY:** Quá trình hoạt động của game.
 
 **GAME PLAY - Normal:** Game hoạt động ở trạng thái bình thường.
 - **ZW_GAME_TIME_TICK:** Signal do Timer - Time tick gửi đến.
-- **ZW_GAME_ZOMWAR_UPDATE:** Cập nhật trạng thái Peashooter.
+- **ZW_GAME_PEASHOOTER_UPDATE:** Cập nhật trạng thái Peashooter.
 - **ZW_GAME_BULLET_RUN:** Cập nhật di chuyển của các Bullet theo thời gian.
 - **ZW_GAME_ZOMBIE_RUN:** Cập nhật di chuyển của các Zombie theo thời gian.
 - **ZW_GAME_ZOMBIE_DETONATOR:** Kiểm tra các Zombie có bị Bullet hay Car tiêu diệt.
