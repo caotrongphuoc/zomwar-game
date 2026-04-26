@@ -209,7 +209,8 @@ Trong lập trình event-driven, task là một đơn vị độc lập đảm n
 - **Tách biệt logic:** Sử dụng task giúp tách biệt logic xử lý sự kiện, điều này giúp Source code rõ ràng, dễ đọc.
 - **Phân cấp nhiệm vụ:** Task level cho phép sắp xếp trình tự ưu tiên xử lý các message của task ở trong hàng đợi của hệ thống. Trong game các task level của game điều là 4 nên task nào được gọi trước sẽ xử lý trước. 
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/table_task.webp" alt="archery tasks design" width="720"/></p>
+<p align="center"><img width="1001" height="511" alt="image" src="https://github.com/user-attachments/assets/db5d7851-895f-494a-ace0-01847aceec1d" />
+</p>
 <p align="center"><strong><em>Hình 6:</em></strong> Bảng Task của các đối tượng</p>
 
 #### 2.2.3 Message & Signal
