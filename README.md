@@ -52,10 +52,10 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 |---|---|---|
 |**Xạ thủ**|Peashooter|Di chuyển lên xuống để chọn vị trí bắn đạn|
 |**Đạn**|Bullet|Đạn bắn ra từ xạ thủ, dùng để tiêu diệt xác sống|
-|**Vụ nổ**|Bang|Hiệu ứng xuất hiện khi xác sống bị tiêu diệt|
-|**Ranh giới**|Border|Vùng an toàn phải bảo vệ không cho xác sống xâm nhập|
 |**Xác sống**|Zombie|Đối tượng di chuyển về phía xạ thủ với tốc độ tăng dần, có khả năng phá hủy ranh giới|
 |**Ô tô**|Car|Vật thể nằm trước ranh giới, là chốt chặn thứ 2 sau xạ thủ, được kích hoạt di chuyển tiêu diệt xác sống khi xác sống chạm vào vật thể|
+|**Vụ nổ**|Bang|Hiệu ứng xuất hiện khi xác sống bị tiêu diệt|
+|**Ranh giới**|Border|Vùng an toàn phải bảo vệ không cho xác sống xâm nhập|
 
 **(*)** Trong phần còn lại của tài liệu sẽ dùng tên của các đối tượng để đề cập đến đối tượng.
 
@@ -116,29 +116,30 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 - **ZW_GAME_ZOMBIE_DETONATOR:** Kiểm tra các Zombie có bị Bullet hay Car tiêu diệt.
 - **ZW_GAME_CAR_RUN:** Cập nhật di chuyển của các ô tô theo thời gian.
 - **ZW_GAME_BANG_UPDATE:** Cập nhật hoạt ảnh vụ nổ theo thời gian
-- **ZW_GAME_BORDER_UPDATE:** Kiểm tra số điểm hiện tại để cập nhật tăng độ khó game.
-- **ZW_GAME_CHECK_GAME_OVER:** Kiểm tra Zombie chạm vào Border. Nếu chạm vào thì gửi Signal - **ZW_GAME_RESET** đến **Screen**.
+- **ZW_GAME_CHECK_GAME_OVER:** Kiểm tra Zombie chạm vào Border. Nếu chạm vào thì gửi Signal **ZW_GAME_RESET** đến **Screen**.
 
 **GAME PLAY - Action:** Game hoạt động ở trạng thái có tác động của các nút nhấn.
-- **ZW_GAME_ZOMWAR_UP:** Player nhấn nút **[Up]** điều khiển Peashooter di chuyển lên.
-- **ZW_GAME_ZOMWAR_DOWN:** Player nhấn nút **[Down]** điều khiển Peashooter di chuyển xuống.
-- **ZW_GAME_BULLET_SHOOT:** Player nhấn nút **[Mode]** điều khiển Peashooter bắn Bullet ra.
+- **ZW_GAME_BTN_MODE_RELEASED:** Player nhấn nút **[Mode]** điều khiển Peashooter bắn Bullet ra.
+- **ZW_GAME_BTN_UP_PRESSED:** Player nhấn giữ nút **[Up]** điều khiển Peashooter di chuyển lên.
+- **ZW_GAME_BTN_UP_RELEASED:** Player thả nút **[Up]** điều khiển Peashooter ngừng di chuyển lên.
+- **ZW_GAME_BTN_DOWN_PRESSED:** Player nhấn giữ nút **[Down]** điều khiển Peashooter di chuyển xuống.
+- **ZW_GAME_BTN_DOWN_RELEASED:** Player thả nút **[DOWN]** điều khiển Peashooter ngừng di chuyển xuống.
 
 **RESET GAME:** Quá trình cài đặt lại các thông số trước khi thoát game.
-- **STATE (GAME_OVER):** Cập nhật trạng thái game -> GAME_OVER
 - **ZW_GAME_RESET:** Signal cài đặt lại game do Border gửi đến.
-- **ZW_GAME_ZOMWAR_RESET:** Cài đặt lại đối tượng Peashooter trước khi thoát.
+- **ZW_GAME_PEASHOOTER_RESET:** Cài đặt lại đối tượng Peashooter trước khi thoát.
 - **ZW_GAME_BULLET_RESET:** Cài đặt lại đối tượng Bullet trước khi thoát.
 - **ZW_GAME_ZOMBIE_RESET:** Cài đặt lại đối tượng Zombie trước khi thoát.
 - **ZW_GAME_CAR_RESET:** Cài đặt lại đối tượng Car trước khi thoát.
 - **ZW_GAME_BANG_RESET:** Cài đặt lại đối tượng Bang trước khi thoát.
 - **ZW_GAME_BORDER_RESET:** Cài đặt lại đối tượng Border trước khi thoát.
-- **Save and reset Score:** Lưu số điểm hiện tại và Cài đặt lại.
-- **Timer remove - Timer tick:** Xóa Timer - Time tick
 - **Setup timer - Timer exit:** Tạo 1 timer one shot để thoát game. Nhằm tạo ra một khoảng delay cho người chơi có thể nhận thức được là mình đã game over trước khi chuyển sang màn hình thông báo game over.
+- **Save and reset Score:** Lưu số điểm hiện tại và Cài đặt lại.
+- **Init bat flying animation (game over screen):** Hiệu ứng trang trí màn hình GAME OVER - 2 con dơi bay qua lại trên màn hình khi game kết thúc.
+- **STATE (GAME_OVER):** Cập nhật trạng thái game -> GAME_OVER
 
 **EXIT:** Thoát khỏi game và chuyển sang màn hình Game Over.
-- **ZW_GAME_EXIT:** Signal do Timer exit gửi đến.
+- **ZW_GAME_EXIT_GAME:** Signal do Timer exit gửi đến.
 - **STATE (GAME_OFF):** Cập nhật trạng thái game -> GAME_OFF
 - **Change the screen - SCREEN_TRAN(scr_game_over_handle, &scr_game_over):** Chuyển màn hình sang màn hình Game Over.
 
@@ -161,29 +162,33 @@ Việc liệt kê các thuộc tính của đối tượng trong game có các t
 Ví dụ:
 
     typedef struct {
-    bool visible;
-    uint32_t x, y;
-    uint8_t action_image;
-    } zw_game_zomwar_t;
-
-    extern zw_game_zomwar_t zomwar;
+        bool visible;
+        uint32_t x, y;
+        uint8_t action_image;
+    } zw_game_peashooter_t;
+    
+    extern zw_game_peashooter_t peashooter;
 
 **Áp dụng struct cho các đối tượng:**
 |struct|Các biến|
 |------|--------|
-|zw_game_zomwar_t|zomwar|
+|zw_game_peashooter_t|zomwar|
 |zw_game_bullet_t|bullet[MAX_NUM_BULLET]|
 |zw_game_zombie_t|zombie[NUM_ZOMBIES]|
 |zw_game_car_t|car[NUM_LANES]|
 |zw_game_bang_t|bang[NUM_BANG]|
-|tombstone_t|tombstones[NUM_TOMBSTONES]|
 |zw_game_border_t|border|
 
 **(*)** Các đối tượng có số lượng nhiều thì sẽ được khai báo dạng mảng.
 
 **Các biến quan trọng:**
-- **ar_game_score:** Điểm của trò chơi.
-- **ar_game_status:** Trạng thái quả trò chơi.
+- **zw_game_score:** Điểm của trò chơi.
+- **zw_game_kill_count:** Số lượng Zombie bị tiêu diệt.
+- **wave_level:** level của làn sóng (wave) hiện tại (0 = LV0).
+- **last_wave_score:** Score tại lần tăng level gần nhất.
+- **wave_warning_active:** Có đang hiện cảnh báo làn sóng (wave) mới không.
+- **wave_warning_timer:** Đếm ngược 30 tick hiển thị cảnh báo.
+- **zw_game_state:** Trạng thái quả trò chơi.
   - GAME_OFF: Tắt .
   - GAME_ON: Bật.
   - GAME_OVER: Đã thua.
