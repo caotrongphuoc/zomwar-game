@@ -188,7 +188,7 @@ Ví dụ:
 - **last_wave_score:** Score tại lần tăng level gần nhất.
 - **wave_warning_active:** Có đang hiện cảnh báo làn sóng (wave) mới không.
 - **wave_warning_timer:** Đếm ngược 30 tick hiển thị cảnh báo.
-- **zw_game_state:** Trạng thái quả trò chơi.
+- **zw_game_state:** Trạng thái cuả trò chơi.
   - GAME_OFF: Tắt .
   - GAME_ON: Bật.
   - GAME_OVER: Đã thua.
