@@ -67,11 +67,11 @@ Toàn bộ logic game của bạn sẽ được viết bên trong thư mục app
 
 - Tạo file header trong thư mục screens:
 
-<img width="920" height="502" alt="image" src="https://github.com/user-attachments/assets/aa019658-4519-4cdd-a12e-900bf925133a" />
+<p align="center"><img width="920" height="502" alt="image" src="https://github.com/user-attachments/assets/aa019658-4519-4cdd-a12e-900bf925133a" /></p>
 
 - Tạo file xử lý bitmap trong thư mục screens:
 
-<img width="1265" height="884" alt="image" src="https://github.com/user-attachments/assets/04768ea3-f7d9-44ba-b0cd-b00853e706cc" />
+<p align="center"><img width="1265" height="884" alt="image" src="https://github.com/user-attachments/assets/04768ea3-f7d9-44ba-b0cd-b00853e706cc" /></p>
 
 
 ### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
