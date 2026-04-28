@@ -24,7 +24,7 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 
 Sau khi create, GitHub hiển thị repo của ak-base-kit-stm32l151, đây là "bộ khung" cơ bản để bạn có thể phát triển và hoàn thiện game của mình:
 
-<p align="center"><img width="1908" height="826" alt="Screenshot from 2026-04-28 14-47-53" src="https://github.com/user-attachments/assets/6d80c126-d6bc-4f36-9247-7320b3f1de9c" /></p>
+<p align="center"><img width="2523" height="1000" alt="image" src="https://github.com/user-attachments/assets/37821fde-90e9-4c4e-babb-2c7dc03fa07c" /></p>
 
 ## II. Các bước setup để build và chạy thử trên kit
 
