@@ -11,5 +11,10 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 - Fork: Nhấn nút Fork ở góc trên bên phải của repo này để copy dự án về tài khoản cá nhân của bạn.
 
 <p align="center"><img width="1141" height="258" alt="Screenshot from 2026-04-28 14-20-55" src="https://github.com/user-attachments/assets/591ff540-c556-4fdc-9fec-e1974bd7cdd2" /></p>
+fork
+- Create: Tạo bản fork
 
 <p align="center"><img width="672" height="518" alt="image" src="https://github.com/user-attachments/assets/4541eb61-2a45-451e-8670-7e2e340f7e03" /></p>
+
+<img width="1908" height="826" alt="image" src="https://github.com/user-attachments/assets/1c0733f4-b725-4d0f-adbd-719cae4237d2" />
+<p align="center"><strong><em>Hình 1:</em></strong> Repository sau khi fork</p>
