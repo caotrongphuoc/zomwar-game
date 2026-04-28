@@ -73,7 +73,7 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
   - **Rank:** vào xem bảng xếp hạng.
   - **Home:** về lại menu game.
 
-<p align="center"><img width="128" height="64" alt="LCD_game_play(1)(2)(1)" src="https://github.com/user-attachments/assets/a70318ca-db17-441e-8075-7be0f4a60bb5" /></p>
+<p align="center"><img width="1021" height="505" alt="Screenshot from 2026-04-28 10-37-37" src="https://github.com/user-attachments/assets/7f7574c3-00fc-4208-bb91-898378e9f9af" /></p>
 
 <p align="center"><strong><em>Hình 4:</em></strong> Màn hình Game_over</p>
 
