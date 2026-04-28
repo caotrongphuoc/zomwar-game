@@ -20,4 +20,7 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 
 <p align="center"><img width="951" height="404" alt="Screenshot from 2026-04-28 15-03-19" src="https://github.com/user-attachments/assets/b68d45cf-e34a-469b-a9d7-005618c83909" /></p>
 
+<p align="center"><img width="958" height="546" alt="image" src="https://github.com/user-attachments/assets/75bf1a34-f7b5-4d31-9ff4-68f5f9e4c3b5" /></p>
+
+
 
