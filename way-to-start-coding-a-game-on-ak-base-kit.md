@@ -2,7 +2,7 @@
 
 Chào mừng các bạn đến với dự án phát triển Game trên vi điều khiển STM32L151! Repository này cung cấp bộ source code nền tảng (Base Kit) cùng tài liệu hướng dẫn chi tiết, giúp bạn nhanh chóng làm quen với kiến trúc hệ thống và bắt tay vào lập trình tựa game của riêng mình.
 
-## I. Hướng dẫn fork và tải source code căn bản từ GitHub
+## I. Tạo :Sân chơi riêng" (Fork)
 
 Để bắt đầu dự án cá nhân của mình, các bạn thực hiện đúng các bước sau:
 
@@ -24,8 +24,30 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 
 Các bước setup các bạn làm theo link này nhé: https://epcb.vn/blogs/ak-embedded-software/ak-embedded-base-kit-stm32l151-getting-started
 
-## III. Modify và submit code lên GitHub
+## III. Quy trình lập trình game hằng ngày
 
+Vì chúng ta đang phát triển phần mềm nhúng, các bạn hãy sử dụng Terminal trên môi trường Ubuntu/Linux để thao tác cho chuẩn xác nhé.
+
+### Bước 1: Kép repo cá nhân về máy (Chỉ làm 1 lần đầu)
+
+Mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
+  
+  git clone https://github.com/ten-cua-ban/ak-base-kit-stm32l151.git
+
+### Bước 2: Modify Game
+
+Toàn bộ logic game của bạn sẽ được viết bên trong thư mục application/.
+
+### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
+
+Sau khi code xong một tính năng (ví dụ: nhân vật bắn được đạn), hãy lưu lại tiến độ lên repo của bạn:
+  
+  git add .
+  
+  git commit -m "Tính năng: Thêm logic bắn đạn cho Peashooter"
+  
+  git push origin main
+Sau bước này, mọi người có thể trực tiếp vào đường link GitHub của bạn để xem tiến độ và trải nghiệm code game bạn viếtviết
 
 
 
