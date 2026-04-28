@@ -1,8 +1,8 @@
-# Hướng dẫn lập trình game trên AK Embedded Base Kit
+# HƯỚNG DẪN BẮT ĐẦU LẬP TRÌNH GAME VỚI AK-BASE-KIT
 
 Chào mừng các bạn đến với dự án phát triển Game trên vi điều khiển STM32L151! Repository này cung cấp bộ source code nền tảng (Base Kit) cùng tài liệu hướng dẫn chi tiết, giúp bạn nhanh chóng làm quen với kiến trúc hệ thống và bắt tay vào lập trình tựa game của riêng mình.
 
-## I. Giới thiệu
+## I. Hướng dẫn fork và tải source code căn bản từ GitHub
 
 Để bắt đầu dự án cá nhân của mình, các bạn thực hiện đúng các bước sau:
 
