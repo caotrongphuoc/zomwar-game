@@ -34,9 +34,25 @@ Các bước setup các bạn làm theo link này nhé: https://epcb.vn/blogs/ak
 
 Vì chúng ta đang phát triển phần mềm nhúng, các bạn hãy sử dụng Terminal trên môi trường Ubuntu/Linux để thao tác cho chuẩn xác nhé.
 
+### Bước 0: Tạo thư mục làm việc
+
+Từ Home, các bạn tạo một thư mục làm việc (Workspace) - Đây là nơi chứa các source code cũng như các công cụ lập trình.
+
+<p align="center"><img width="966" height="314" alt="image" src="https://github.com/user-attachments/assets/60eff60e-e2d2-4f8e-9183-c67934ea0a28" /></p>
+
+Trong Workspace, các bạn tạo 2 thư mục:
+
+- Source: nơi chứa các dự án lập trình của bạn.
+
+<p align="center"><img width="1027" height="310" alt="image" src="https://github.com/user-attachments/assets/82f64f3f-55c3-430b-93f6-1200490dbbc5" /></p>
+
+- Tools: nơi chứa các công cụ lập trình của bạn (Các công cụ lập trình các bạn có thể tham khảo trong phần II).
+
+<p align="center"><img width="1033" height="313" alt="image" src="https://github.com/user-attachments/assets/d36afb07-f632-42fc-b008-836f457e1edf" /></p>
+
 ### Bước 1: Kép repo cá nhân về máy (Chỉ làm 1 lần đầu)
 
-Mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
+Trong thư mục Source đã tạo ở bước 0, các bạn mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
   
     git clone https://github.com/ten-cua-ban/ak-base-kit-stm32l151.git
 
