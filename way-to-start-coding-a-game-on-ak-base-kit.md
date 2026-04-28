@@ -45,7 +45,7 @@ Trong Workspace, các bạn tạo 2 thư mục:
 - Sources: nơi chứa các dự án lập trình của bạn.
 - Tools: nơi chứa các công cụ lập trình của bạn (Các công cụ lập trình các bạn có thể tham khảo trong phần II).
 
-<p align="center"><img width="1376" height="468" alt="image" src="https://github.com/user-attachments/assets/29701a12-9301-471c-aaa5-0b267f0c8ca1" /></p>
+<p align="center"><img width="1376" height="468" alt="image" src="https://github.com/user-attachments/assets/b1fa5a0f-ef28-4eba-b823-bec7030117fb" /></p>
 
 ### Bước 1: Kép repo cá nhân về máy (Chỉ làm 1 lần đầu)
 
