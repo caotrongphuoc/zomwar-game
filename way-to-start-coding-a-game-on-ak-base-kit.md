@@ -32,7 +32,7 @@ Vì chúng ta đang phát triển phần mềm nhúng, các bạn hãy sử dụ
 
 Mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
   
-  git clone https://github.com/ten-cua-ban/ak-base-kit-stm32l151.git
+    git clone https://github.com/ten-cua-ban/ak-base-kit-stm32l151.git
 
   <p align="center"><img width="725" height="467" alt="image" src="https://github.com/user-attachments/assets/59f68752-22e8-45e0-9e02-ec4e9e6780fe" /></p>
 
@@ -44,11 +44,12 @@ Toàn bộ logic game của bạn sẽ được viết bên trong thư mục app
 
 Sau khi code xong một tính năng (ví dụ: nhân vật bắn được đạn), hãy lưu lại tiến độ lên repo của bạn:
   
-  git add .
+    git add .
   
-  git commit -m "Tính năng: Thêm logic bắn đạn cho Peashooter"
+    git commit -m "Tính năng: Thêm logic bắn đạn cho Peashooter"
   
-  git push origin main
+    git push origin main
+  
 Sau bước này, mọi người có thể trực tiếp vào đường link GitHub của bạn để xem tiến độ và trải nghiệm code game bạn viếtviết
 
 
