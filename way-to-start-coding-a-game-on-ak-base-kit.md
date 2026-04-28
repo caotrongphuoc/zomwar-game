@@ -16,9 +16,9 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 
 <p align="center"><img width="672" height="518" alt="image" src="https://github.com/user-attachments/assets/4541eb61-2a45-451e-8670-7e2e340f7e03" /></p>
 
-- Sau khi create sẽ xuât hiện repository ak-base-kit-stm32l151, đây là "bộ khung" cơ bản để các bạn có thể phát triển con game của riêng mình:
 
 <p align="center"><img width="1908" height="826" alt="Screenshot from 2026-04-28 14-47-53" src="https://github.com/user-attachments/assets/6d80c126-d6bc-4f36-9247-7320b3f1de9c" /></p>
+<p align="center"><strong><em>Hình 3:</em></strong> Repository ak-base-kit-stm32l151</p>
 
 ## II. Các bước setup để build và chạy thử trên kit
 
