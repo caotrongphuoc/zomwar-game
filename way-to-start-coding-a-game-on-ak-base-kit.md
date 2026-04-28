@@ -84,10 +84,10 @@ Toàn bộ logic game của bạn sẽ được viết bên trong thư mục app
 - Build và nạp lên kit (Casch build và nạp các bạn có thể tham khảo phần II nhé):
 
 <p align="center"><img width="828" height="1430" alt="a23f6fefedea6cb435fb" src="https://github.com/user-attachments/assets/d9032475-3f4c-4f79-8073-ecb10345333f" /></p>
-
+trên
 ### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
 
-Sau khi code xong một tính năng (ví dụ: nhân vật bắn được đạn), hãy lưu lại tiến độ lên repo của bạn:
+Sau khi code xong một tính năng (như ví dụ trên), hãy lưu lại tiến độ lên repo của bạn:
   
     git add .
   
