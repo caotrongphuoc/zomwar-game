@@ -61,7 +61,7 @@ Các bạn mở VSCode trên Linux rồi mở repo mình mới fork rồi bắt 
 
 Toàn bộ logic game của bạn sẽ được viết bên trong thư mục application/.
 
-<p align="center"><img width="1458" height="924" alt="image" src="https://github.com/user-attachments/assets/daa5166b-24f3-4788-acfe-164cb4e1d765" /></p>
+<p align="center"><img width="1474" height="910" alt="image" src="https://github.com/user-attachments/assets/c403a5a8-80c3-42fc-a96f-499c05c92a73" /></p>
 
 ### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
 
