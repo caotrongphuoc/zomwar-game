@@ -49,7 +49,7 @@ Trong Workspace, các bạn tạo 2 thư mục:
 
 ### Bước 1: Kép repo cá nhân về máy (Chỉ làm 1 lần đầu)
 
-Trong thư mục Source đã tạo ở bước 0, các bạn mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
+Trong thư mục Sources đã tạo ở bước 0, các bạn mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
   
     git clone https://github.com/ten-cua-ban/ten-repo-da-fork-cua-ban.git
 
@@ -57,7 +57,7 @@ Trong thư mục Source đã tạo ở bước 0, các bạn mở Terminal và c
 
 ### Bước 2: Modify Game
 
-Các bạn mở VSCode trên Linux rồi mở repo mình mới fork rồi bắt đầu lập trình game nhé.
+Các bạn mở VSCode trên Linux rồi mở repo mình mới clone rồi bắt đầu lập trình game nhé.
 
 Toàn bộ logic game của bạn sẽ được viết bên trong thư mục application/.
 
