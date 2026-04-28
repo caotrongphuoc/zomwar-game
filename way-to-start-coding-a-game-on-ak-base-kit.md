@@ -51,9 +51,9 @@ Trong Workspace, các bạn tạo 2 thư mục:
 
 Trong thư mục Source đã tạo ở bước 0, các bạn mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
   
-    git clone https://github.com/ten-cua-ban/ak-base-kit-stm32l151.git
+    git clone https://github.com/ten-cua-ban/ten-repo-da-fork-cua-ban.git
 
-  <p align="center"><img width="725" height="467" alt="image" src="https://github.com/user-attachments/assets/59f68752-22e8-45e0-9e02-ec4e9e6780fe" /></p>
+  <p align="center"><img width="1179" height="258" alt="image" src="https://github.com/user-attachments/assets/6ba6e15d-ce85-483e-9519-61fcb017dafb" /></p>
 
 ### Bước 2: Modify Game
 
