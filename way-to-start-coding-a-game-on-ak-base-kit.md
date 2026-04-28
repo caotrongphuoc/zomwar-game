@@ -20,7 +20,7 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 
 - Tên của repo cũng sẽ là tên con game của bạn.
 
-- Các bạn có thể mô tả về con game củaa bạn trong phần description.
+- Các bạn có thể mô tả về con game của bạn trong phần description.
 
 Sau khi create, GitHub hiển thị repo của ak-base-kit-stm32l151, đây là "bộ khung" cơ bản để bạn có thể phát triển và hoàn thiện game của mình:
 
