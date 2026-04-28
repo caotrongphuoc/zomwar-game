@@ -57,7 +57,11 @@ Trong thư mục Source đã tạo ở bước 0, các bạn mở Terminal và c
 
 ### Bước 2: Modify Game
 
+Các bạn mở VSCode trên Linux rồi mở repo mình mới fork rồi bắt đầu lập trình game nhé.
+
 Toàn bộ logic game của bạn sẽ được viết bên trong thư mục application/.
+
+<p align="center"><img width="1458" height="924" alt="image" src="https://github.com/user-attachments/assets/daa5166b-24f3-4788-acfe-164cb4e1d765" /></p>
 
 ### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
 
