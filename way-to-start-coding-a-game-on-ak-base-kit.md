@@ -16,5 +16,8 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 
 <p align="center"><img width="672" height="518" alt="image" src="https://github.com/user-attachments/assets/4541eb61-2a45-451e-8670-7e2e340f7e03" /></p>
 
-<img width="1908" height="826" alt="image" src="https://github.com/user-attachments/assets/1c0733f4-b725-4d0f-adbd-719cae4237d2" />
-<p align="center"><strong><em>Hình 1:</em></strong> Repository sau khi fork</p>
+- Sau khi create sẽ xuât hiện repository ak-base-kit-stm32l151, các bạn tải source về để lập trình, đây là "bộ khung" cơ bản để các bạn có thể phát triển con game của riêng mình:
+
+<p align="center"><img width="951" height="404" alt="Screenshot from 2026-04-28 15-03-19" src="https://github.com/user-attachments/assets/b68d45cf-e34a-469b-a9d7-005618c83909" /></p>
+
+
