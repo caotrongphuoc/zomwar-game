@@ -84,18 +84,28 @@ Toàn bộ logic game của bạn sẽ được viết bên trong thư mục app
 - Build và nạp lên kit (Casch build và nạp các bạn có thể tham khảo phần II nhé):
 
 <p align="center"><img width="828" height="1430" alt="a23f6fefedea6cb435fb" src="https://github.com/user-attachments/assets/d9032475-3f4c-4f79-8073-ecb10345333f" /></p>
-trên
+
 ### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
 
-Sau khi code xong một tính năng (như ví dụ trên), hãy lưu lại tiến độ lên repo của bạn:
+Sau khi code xong một tính năng (như ví dụ trên), hãy lưu lại tiến độ lên repo của bạn bằng cách gõ các lệnh này trên termianal (Chú ý đường dẫn phải đang là ngay thư mục gốc):
   
     git add .
   
-    git commit -m "Tính năng: Thêm logic bắn đạn cho Peashooter"
+    git commit -m "Tính năng: Cập nhật logo AK Foundation"
   
     git push origin main
-  
-Sau bước này, mọi người có thể trực tiếp vào đường link GitHub của bạn để xem tiến độ và trải nghiệm code game bạn viếtviết
+
+Kết qủa sau ghi gõ 3 lệnh trên:
+ 
+ <p align="center"><img width="860" height="257" alt="image" src="https://github.com/user-attachments/assets/ff8edf7a-e368-42c2-82dc-123d16843b01" /></p>
+
+Repo của bạn đã được cập nhật trên GitHub:
+
+ <p align="center"><img width="1188" height="359" alt="image" src="https://github.com/user-attachments/assets/d09a9419-0d1b-47d8-9148-ef494f58932a" /></p>
+
+Sau bước này, mọi người có thể trực tiếp vào đường link GitHub của bạn để xem tiến độ và trải nghiệm code game bạn viết:
+
+
 
 
 
