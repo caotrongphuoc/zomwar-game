@@ -14,7 +14,9 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 
 - Create: Tạo bản fork
 
-<p align="center"><img width="672" height="518" alt="image" src="https://github.com/user-attachments/assets/4541eb61-2a45-451e-8670-7e2e340f7e03" /></p>
+<p align="center"><img width="628" height="473" alt="image" src="https://github.com/user-attachments/assets/11ac1af3-9e5c-41e9-a8ba-57711374106f" /></p>
+
+*Note: Tên của repo cũng sẽ là tên con game của bạn.
 
 Sau khi create, GitHub hiển thị repo của ak-base-kit-stm32l151, đây là "bộ khung" cơ bản để bạn có thể phát triển và hoàn thiện game của mình:
 
