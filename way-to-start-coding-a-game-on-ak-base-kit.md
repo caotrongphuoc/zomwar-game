@@ -11,3 +11,5 @@ Chào mừng các bạn đến với dự án phát triển Game trên vi điề
 - Fork: Nhấn nút Fork ở góc trên bên phải của repo này để copy dự án về tài khoản cá nhân của bạn.
 
 <p align="center"><img width="1141" height="258" alt="Screenshot from 2026-04-28 14-20-55" src="https://github.com/user-attachments/assets/591ff540-c556-4fdc-9fec-e1974bd7cdd2" /></p>
+
+<p align="center"><img width="686" height="526" alt="Screenshot from 2026-04-28 14-35-50" src="https://github.com/user-attachments/assets/7b6a3d50-f892-4381-9dc8-6823e784ef4b" /></p>
