@@ -73,6 +73,17 @@ Toàn bộ logic game của bạn sẽ được viết bên trong thư mục app
 
 <p align="center"><img width="1265" height="884" alt="image" src="https://github.com/user-attachments/assets/04768ea3-f7d9-44ba-b0cd-b00853e706cc" /></p>
 
+- Include file header vào scr_startup_h:
+
+<p align="center"><img width="871" height="393" alt="image" src="https://github.com/user-attachments/assets/f15b90a6-9d31-4b5b-aaee-93a6644003b7" /></p>
+
+- Trong file scr_startup.cpp, cập nhật lại hàm view_scr_startup():
+
+<p align="center"><img width="876" height="381" alt="image" src="https://github.com/user-attachments/assets/9d497da1-3adf-4f9c-83bf-7bbdbe6580c0" /></p>
+
+- Build và nạp lên kit (Casch build và nạp các bạn có thể tham khảo phần II nhé):
+
+<p align="center"><img width="828" height="1430" alt="a23f6fefedea6cb435fb" src="https://github.com/user-attachments/assets/d9032475-3f4c-4f79-8073-ecb10345333f" /></p>
 
 ### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
 
