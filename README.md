@@ -31,7 +31,7 @@ AK Embedded Base Kit là nền tảng phát triển (evaluation kit) chuyên sâ
 
 Không dừng lại ở việc học thuật, AK Embedded Base Kit còn định hướng cho các dự án thực tế nhờ tích hợp các chuẩn giao tiếp công nghiệp và không dây như RS485, NRF24L01+, cùng khả năng lưu trữ mở rộng lên tới 32MB Flash. Những tính năng này biến bộ kit thành một giải pháp lý tưởng để xây dựng các nguyên mẫu (prototype) đa dạng: từ hệ thống truyền thông có dây/không dây đến các ứng dụng lưu trữ dữ data logger phức tạp trong môi trường công nghiệp.
 
-Các bạn có thể tìm hiểu chi tiết về schematic của kit thông qua link sau: https://github.com/caotrongphuoc/Zomwar/blob/main/hardware/schematic/schematic-ak-embedded-base-kit-version-3.pdf
+Các bạn có thể tìm hiểu chi tiết về schematic của kit thông qua link sau: [schematic-ak-embedded-base-kit-version-3.pdf](https://github.com/caotrongphuoc/Zomwar/blob/main/hardware/schematic/schematic-ak-embedded-base-kit-version-3.pdf)
 
 ### 1.2 Mô tả trò chơi và đối tượng
 Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
