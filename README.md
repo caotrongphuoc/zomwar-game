@@ -24,12 +24,14 @@ Trong quá trình phát triển và vận hành Zomwar, người học sẽ đư
 
 ### 1.1 Phần cứng
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/AK_Embedded_Base_Kit_STM32L151.webp" alt="AK Embedded Base Kit - STM32L151" width="480"/></p>
+<p align="center"><img width="1999" height="1545" alt="image" src="https://github.com/user-attachments/assets/b211d3f5-529d-46f8-86ae-79580f0b9a04" /></p>
 <p align="center"><strong><em>Hình 1:</em></strong> AK Embedded Base Kit - STM32L151</p>
 
-AK Embedded Base Kit là nền tảng phát triển (evaluation kit) chuyên sâu dành cho lộ trình học lập trình nhúng nâng cao. Kit được trang bị hệ thống phần cứng tối ưu gồm màn hình OLED 1.3", cụm 3 nút nhấn điều khiển và loa Buzzer đa âm, tạo môi trường hoàn hảo để thực hành thiết kế máy chơi game cầm tay thông qua mô hình lập trình hướng sự kiện (event-driven).
+AK Embedded Base Kit là nền tảng phát triển (evaluation kit) chuyên sâu dành cho lộ trình học lập trình nhúng nâng cao. Kit được trang bị hệ thống phần cứng tối ưu gồm màn hình OLED 1.54", cụm 3 nút nhấn điều khiển và loa Buzzer đa âm, tạo môi trường hoàn hảo để thực hành thiết kế máy chơi game cầm tay thông qua mô hình lập trình hướng sự kiện (event-driven).
 
 Không dừng lại ở việc học thuật, AK Embedded Base Kit còn định hướng cho các dự án thực tế nhờ tích hợp các chuẩn giao tiếp công nghiệp và không dây như RS485, NRF24L01+, cùng khả năng lưu trữ mở rộng lên tới 32MB Flash. Những tính năng này biến bộ kit thành một giải pháp lý tưởng để xây dựng các nguyên mẫu (prototype) đa dạng: từ hệ thống truyền thông có dây/không dây đến các ứng dụng lưu trữ dữ data logger phức tạp trong môi trường công nghiệp.
+
+Các bạn có thể tìm hiểu chi tiết về schematic của kit thông qua link sau: https://github.com/caotrongphuoc/Zomwar/blob/main/hardware/schematic/schematic-ak-embedded-base-kit-version-3.pdf
 
 ### 1.2 Mô tả trò chơi và đối tượng
 Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
