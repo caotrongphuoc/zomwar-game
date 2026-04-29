@@ -1,5 +1,5 @@
-#ifndef __SCREENS_BITMAP_H__
-#define __SCREENS_BITMAP_H__
+#ifndef __SCR_BITMAP_H__
+#define __SCR_BITMAP_H__
 
 #include "view_render.h"
 

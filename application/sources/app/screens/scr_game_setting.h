@@ -21,7 +21,7 @@
 #include "app_eeprom.h"
 
 #include "screens.h"
-#include "screens_bitmap.h"
+#include "scr_bitmap.h"
 
 #include "scr_car_position.h"
 #include "scr_tombstone_count.h"

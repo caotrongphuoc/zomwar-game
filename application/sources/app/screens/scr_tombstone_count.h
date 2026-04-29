@@ -20,7 +20,7 @@
 #include "eeprom.h"
 #include "app_eeprom.h"
 
-#include "screens_bitmap.h"
+#include "scr_bitmap.h"
 
 #define TB_COUNT_NUM_LANES          (5)
 #define TB_COUNT_STEP_CHOSSE        (10)

@@ -21,7 +21,7 @@
 #include "app_eeprom.h"
 
 #include "screens.h"
-#include "screens_bitmap.h"
+#include "scr_bitmap.h"
 
 extern view_dynamic_t dyn_view_item_charts_game;
 extern view_screen_t scr_charts_game;

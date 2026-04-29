@@ -18,7 +18,7 @@
 #include "buzzer.h"
 
 #include "screens.h"
-#include "screens_bitmap.h"
+#include "scr_bitmap.h"
 
 extern view_dynamic_t dyn_view_item_menu_game;
 extern view_screen_t scr_menu_game;

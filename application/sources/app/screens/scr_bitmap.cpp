@@ -1,4 +1,4 @@
-#include "screens_bitmap.h"
+#include "scr_bitmap.h"
 
 /*****************************************************************************/
 /* scr_archery_game - Bitmap*/

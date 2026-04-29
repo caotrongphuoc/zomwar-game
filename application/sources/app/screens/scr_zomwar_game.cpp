@@ -38,14 +38,14 @@ void zw_game_frame_display() {
 	view_render.drawRect(0, 0, 128, 64, 1);
 }
 
-void zw_game_zomwar_display() {
-    if (zomwar.visible == WHITE) {
-        const unsigned char* frame = (zomwar.action_image == 2) ? bitmap_peashooter_II : bitmap_peashooter_I;
-        view_render.drawBitmap( zomwar.x, \
-                                zomwar.y - 10, \
+void zw_game_peashooter_display() {
+    if (peashooter.visible == WHITE) {
+        const unsigned char* frame = (peashooter.action_image == 2) ? bitmap_peashooter_II : bitmap_peashooter_I;
+        view_render.drawBitmap( peashooter.x, \
+                                peashooter.y - 10, \
                                 frame, \
-                                SIZE_BITMAP_ZOMWAR_X, \
-                                SIZE_BITMAP_ZOMWAR_Y, \
+                                SIZE_BITMAP_PEASHOOTER_X, \
+                                SIZE_BITMAP_PEASHOOTER_Y, \
                                 WHITE);
     }
 }
@@ -277,7 +277,7 @@ void view_scr_zomwar_game() {
 		zw_game_frame_display();
 		zw_game_grass_display();
 		zw_game_tombstone_display();
-		zw_game_zomwar_display();
+		zw_game_peashooter_display();
 		zw_game_bullet_display();
 		zw_game_zombie_display();
 		zw_game_bang_display();
@@ -326,12 +326,12 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 		zw_game_level_setup();
 		
 		// Setup game Object
-		task_post_pure_msg(ZW_GAME_ZOMWAR_ID, 	 	ZW_GAME_ZOMWAR_SETUP);
+		task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, 	ZW_GAME_PEASHOOTER_SETUP);
 		task_post_pure_msg(ZW_GAME_BULLET_ID, 	 	ZW_GAME_BULLET_SETUP);
 		task_post_pure_msg(ZW_GAME_ZOMBIE_ID, 		ZW_GAME_ZOMBIE_SETUP);
+		task_post_pure_msg(ZW_GAME_CAR_ID, 			ZW_GAME_CAR_SETUP);
 		task_post_pure_msg(ZW_GAME_BANG_ID, 	 	ZW_GAME_BANG_SETUP);
 		task_post_pure_msg(ZW_GAME_BORDER_ID, 	 	ZW_GAME_BORDER_SETUP);
-		task_post_pure_msg(ZW_GAME_CAR_ID, 			ZW_GAME_CAR_SETUP);
 		// Setup timer
 		zw_game_time_tick_setup();
 		// State update
@@ -342,49 +342,17 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 	case ZW_GAME_TIME_TICK: {
 		APP_DBG_SIG("ZW_GAME_TIME_TICK\n");
 		if (zw_game_state == GAME_PLAY) {
-			task_post_pure_msg(ZW_GAME_ZOMWAR_ID, 		ZW_GAME_ZOMWAR_UPDATE);
+			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, 	ZW_GAME_PEASHOOTER_UPDATE);
 			task_post_pure_msg(ZW_GAME_BULLET_ID, 		ZW_GAME_BULLET_RUN);
-			task_post_pure_msg(ZW_GAME_ZOMBIE_ID, 		ZW_GAME_ZOMBIE_DETONATOR);
 			task_post_pure_msg(ZW_GAME_ZOMBIE_ID, 		ZW_GAME_ZOMBIE_RUN);
-			task_post_pure_msg(ZW_GAME_BANG_ID, 		ZW_GAME_BANG_UPDATE);
-			task_post_pure_msg(ZW_GAME_BORDER_ID, 		ZW_GAME_LEVEL_UP);
+			task_post_pure_msg(ZW_GAME_ZOMBIE_ID, 		ZW_GAME_ZOMBIE_DETONATOR);
 			task_post_pure_msg(ZW_GAME_CAR_ID,  		ZW_GAME_CAR_RUN);
+			task_post_pure_msg(ZW_GAME_BANG_ID, 		ZW_GAME_BANG_UPDATE);
 			task_post_pure_msg(ZW_GAME_BORDER_ID, 		ZW_GAME_CHECK_GAME_OVER);
 		}
 		else if (zw_game_state == GAME_OVER) {
 			zw_game_bat_update();
 		}
-	}
-		break;
-
-	case ZW_GAME_RESET: {
-		APP_DBG_SIG("ZW_GAME_RESET\n");
-		// Reset game Object
-		task_post_pure_msg(ZW_GAME_ZOMWAR_ID, 		ZW_GAME_ZOMWAR_RESET);
-		task_post_pure_msg(ZW_GAME_BULLET_ID, 		ZW_GAME_BULLET_RESET);
-		task_post_pure_msg(ZW_GAME_ZOMBIE_ID,		ZW_GAME_ZOMBIE_RESET);
-		task_post_pure_msg(ZW_GAME_BANG_ID, 		ZW_GAME_BANG_RESET);
-		task_post_pure_msg(ZW_GAME_BORDER_ID, 		ZW_GAME_BORDER_RESET);
-		task_post_pure_msg(ZW_GAME_CAR_ID,  		ZW_GAME_CAR_RESET);
-		// Timer Exit
-		timer_set(	AC_TASK_DISPLAY_ID, \
-					ZW_GAME_EXIT_GAME, \
-					ZW_GAME_TIME_EXIT_INTERVAL, \
-					TIMER_ONE_SHOT);
-		// Save and reset Score
-		zw_game_save_and_reset_score();
-		// Init bat flying animation
-		zw_game_bat_init();
-		// State update
-		zw_game_state = GAME_OVER;
-	}
-		BUZZER_PlayTones(tones_3beep);
-		break;
-
-	case ZW_GAME_EXIT_GAME: {
-		APP_DBG_SIG("ZW_GAME_EXIT_GAME\n");
-		zw_game_state = GAME_OFF;
-		SCREEN_TRAN(scr_game_over_handle, &scr_game_over);
 	}
 		break;
 
@@ -405,7 +373,7 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 	case ZW_GAME_BTN_UP_PRESSED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_ZOMWAR_ID, ZW_GAME_ZOMWAR_UP);
+			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_UP);
 		}
 	}
 		break;
@@ -419,7 +387,7 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 	case ZW_GAME_BTN_UP_RELEASED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_ZOMWAR_ID, ZW_GAME_ZOMWAR_STOP);
+			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_STOP);
 		}
 		else {
 			task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_UP_RELEASED);
@@ -429,7 +397,7 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 	case ZW_GAME_BTN_DOWN_PRESSED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_ZOMWAR_ID, ZW_GAME_ZOMWAR_DOWN);
+			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_DOWN);
 		}
 	}
 		break;
@@ -443,11 +411,42 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 	case ZW_GAME_BTN_DOWN_RELEASED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_ZOMWAR_ID, ZW_GAME_ZOMWAR_STOP);
+			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_STOP);
 		}
 		else {
 			task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_DOWN_RELEASED);
 		}
+	}
+		break;
+
+	case ZW_GAME_RESET: {
+		APP_DBG_SIG("ZW_GAME_RESET\n");
+		// Reset game Object
+		task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, 	ZW_GAME_PEASHOOTER_RESET);
+		task_post_pure_msg(ZW_GAME_BULLET_ID, 		ZW_GAME_BULLET_RESET);
+		task_post_pure_msg(ZW_GAME_ZOMBIE_ID,		ZW_GAME_ZOMBIE_RESET);
+		task_post_pure_msg(ZW_GAME_CAR_ID,  		ZW_GAME_CAR_RESET);
+		task_post_pure_msg(ZW_GAME_BANG_ID, 		ZW_GAME_BANG_RESET);
+		task_post_pure_msg(ZW_GAME_BORDER_ID, 		ZW_GAME_BORDER_RESET);
+		// Timer Exit
+		timer_set(	AC_TASK_DISPLAY_ID, \
+					ZW_GAME_EXIT_GAME, \
+					ZW_GAME_TIME_EXIT_INTERVAL, \
+					TIMER_ONE_SHOT);
+		// Save and reset Score
+		zw_game_save_and_reset_score();
+		// Init bat flying animation
+		zw_game_bat_init();
+		// State update
+		zw_game_state = GAME_OVER;
+	}
+		BUZZER_PlayTones(tones_3beep);
+		break;
+
+	case ZW_GAME_EXIT_GAME: {
+		APP_DBG_SIG("ZW_GAME_EXIT_GAME\n");
+		zw_game_state = GAME_OFF;
+		SCREEN_TRAN(scr_game_over_handle, &scr_game_over);
 	}
 		break;
 

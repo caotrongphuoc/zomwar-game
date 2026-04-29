@@ -20,7 +20,7 @@
 #include "eeprom.h"
 #include "app_eeprom.h"
 
-#include "screens_bitmap.h"
+#include "scr_bitmap.h"
 
 #define CAR_POS_NUM_CARS                (5)
 #define CAR_POS_STEP_CHOSSE             (10)

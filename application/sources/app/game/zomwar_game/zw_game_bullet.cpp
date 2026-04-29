@@ -1,6 +1,6 @@
 #include "zw_game_bullet.h"
-#include "zw_game_zomwar.h"
-#include "scr_zomwar_game.h"
+#include "zw_game_peashooter.h"
+#include "zw_game_peashooter.h"
 
 zw_game_bullet_t bullet[MAX_NUM_BULLET];
 
@@ -32,9 +32,9 @@ do { \
     for (uint8_t i = 0; i < MAX_NUM_BULLET; i++) { \
         if (bullet[i].visible == BLACK) { \
             bullet[i].visible = WHITE; \
-            bullet[i].x = zomwar.x + 15; \
-            bullet[i].y = zomwar.y -8; \
-            zomwar.action_image = 2; \
+            bullet[i].x = peashooter.x + 15; \
+            bullet[i].y = peashooter.y -8; \
+            peashooter.action_image = 2; \
             BUZZER_PlayTones(tones_cc); \
             break; \
         } \

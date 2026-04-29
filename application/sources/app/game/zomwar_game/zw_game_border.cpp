@@ -1,7 +1,7 @@
 #include "zw_game_border.h"
 
 #include "zw_game_zombie.h"
-#include "zw_game_zomwar.h"
+#include "zw_game_peashooter.h"
 #include "zw_game_car.h"
 
 zw_game_border_t border;
@@ -41,11 +41,6 @@ void zw_game_border_handle(ak_msg_t* msg) {
     case ZW_GAME_BORDER_SETUP: {
         APP_DBG_SIG("ZW_GAME_BORDER_SETUP\n");
         ZW_GAME_BORDER_SETUP();
-    }
-        break;
-
-    case ZW_GAME_LEVEL_UP: {
-        APP_DBG_SIG("ZW_GAME_LEVEL_UP\n");
     }
         break;
 

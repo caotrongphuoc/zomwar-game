@@ -174,18 +174,18 @@ enum {
 };
 
 /*****************************************************************************/
-/*  Zomwar game 'ZOMWAR' task define
+/*  Zomwar game 'PEASHOOTER' task define
  */
 /*****************************************************************************/
 /* define timer */
 /* define signal */
 enum {
-	ZW_GAME_ZOMWAR_SETUP = ZW_GAME_DEFINE_SIG,
-	ZW_GAME_ZOMWAR_UPDATE,
-	ZW_GAME_ZOMWAR_UP,
-	ZW_GAME_ZOMWAR_DOWN,
-	ZW_GAME_ZOMWAR_STOP,
-	ZW_GAME_ZOMWAR_RESET,
+	ZW_GAME_PEASHOOTER_SETUP = ZW_GAME_DEFINE_SIG,
+	ZW_GAME_PEASHOOTER_UPDATE,
+	ZW_GAME_PEASHOOTER_UP,
+	ZW_GAME_PEASHOOTER_DOWN,
+	ZW_GAME_PEASHOOTER_STOP,
+	ZW_GAME_PEASHOOTER_RESET,
 };
 
 /*****************************************************************************/
@@ -221,7 +221,6 @@ enum {
 /* define signal */
 enum {
 	ZW_GAME_BORDER_SETUP = ZW_GAME_DEFINE_SIG,
-	ZW_GAME_LEVEL_UP,
 	ZW_GAME_CHECK_GAME_OVER,
 	ZW_GAME_ZOMBIE_KILLED,
 	ZW_GAME_BORDER_RESET,
