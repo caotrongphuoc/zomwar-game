@@ -36,7 +36,7 @@ Các bạn có thể tìm hiểu chi tiết về schematic của kit thông qua 
 ### 1.2 Mô tả trò chơi và đối tượng
 Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
 
-<p align="center"><img width="966" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/de7ffd76-9bea-4f40-8dca-358144082ae2" /> </p>
+<p align="center"><img width="1300" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/de7ffd76-9bea-4f40-8dca-358144082ae2" /> </p>
 <p align="center"><strong><em>Hình 2:</em></strong> Menu game</p>
 
 Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
@@ -45,7 +45,7 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 - **Leaderboard:** Xem top 3 điểm cao nhất đạt được.
 - **Exit:** Thoát menu game vào màn hình chờ.
 
-<p align="center"><img width="1522" height="912" alt="LCD_GP_Charts" src="https://github.com/user-attachments/assets/152ab3ca-16d7-482e-a06d-7c6e1804b278" />
+<p align="center"><img width="1300" height="912" alt="LCD_GP_Charts" src="https://github.com/user-attachments/assets/152ab3ca-16d7-482e-a06d-7c6e1804b278" />
 </p>
 
 <p align="center"><strong><em>Hình 3:</em></strong> Màn hình game play</p>
@@ -76,7 +76,7 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
   - **Rank:** vào xem bảng xếp hạng.
   - **Home:** về lại menu game.
 
-<p align="center"><img width="1262" height="628" alt="LCD_GO" src="https://github.com/user-attachments/assets/00b50754-7b37-47dd-bfa9-e3e861b90b77" /></p>
+<p align="center"><img width="1300" height="628" alt="LCD_GO" src="https://github.com/user-attachments/assets/00b50754-7b37-47dd-bfa9-e3e861b90b77" /></p>
 
 <p align="center"><strong><em>Hình 4:</em></strong> Màn hình Game_over</p>
 
