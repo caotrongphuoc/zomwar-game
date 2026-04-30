@@ -36,7 +36,7 @@ Các bạn có thể tìm hiểu chi tiết về schematic của kit thông qua 
 ### 1.2 Mô tả trò chơi và đối tượng
 Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
 
-<p align="center"><img width="1300" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/de7ffd76-9bea-4f40-8dca-358144082ae2" /> </p>
+<p align="center"><img width="962" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/de7ffd76-9bea-4f40-8dca-358144082ae2" /> </p>
 <p align="center"><strong><em>Hình 2:</em></strong> Menu game</p>
 
 Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
