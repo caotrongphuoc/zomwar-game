@@ -45,7 +45,8 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 - **Leaderboard:** Xem top 3 điểm cao nhất đạt được.
 - **Exit:** Thoát menu game vào màn hình chờ.
 
-<p align="center"><img width="1521" height="904" alt="LCD_GP_Charts" src="https://github.com/user-attachments/assets/d3984b8f-0e15-4091-8527-5f2ffb3b8919" /></p>
+<p align="center"><img width="1522" height="912" alt="LCD_GP_Charts" src="https://github.com/user-attachments/assets/152ab3ca-16d7-482e-a06d-7c6e1804b278" />
+</p>
 
 <p align="center"><strong><em>Hình 3:</em></strong> Màn hình game play</p>
 
