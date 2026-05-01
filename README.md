@@ -54,7 +54,7 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 #### 1.2.1 Các đối tượng (Object) trong game:
 |Đối tượng|Tên đối tượng|Mô tả|
 |---|---|---|
-|**Xạ thủ**|Peashooter|Di chuyển lên xuống để chọn vị trí bắn đạn|
+|**Xạ thủ**|Gunner|Di chuyển lên xuống để chọn vị trí bắn đạn|
 |**Đạn**|Bullet|Đạn bắn ra từ xạ thủ, dùng để tiêu diệt xác sống|
 |**Xác sống**|Zombie|Đối tượng di chuyển về phía xạ thủ với tốc độ tăng dần, có khả năng phá hủy ranh giới|
 |**Ô tô**|Car|Vật thể nằm trước ranh giới, là chốt chặn thứ 2 sau xạ thủ, được kích hoạt di chuyển tiêu diệt xác sống khi xác sống chạm vào vật thể|
@@ -64,14 +64,14 @@ Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn 
 **(*)** Trong phần còn lại của tài liệu sẽ dùng tên của các đối tượng để đề cập đến đối tượng.
 
 #### 1.2.2 Cách chơi game: 
-- Trong trò chơi này bạn sẽ điều khiển Peashooter, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Bullet. Ngoài ra, để Peashooter có thể di chuyển nhanh hơn các bạn có thể nhấn và giữ nút **[Up]** để đi lên hoặc  **[Down]** để đi xuống.
+- Trong trò chơi này bạn sẽ điều khiển Gunner, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Bullet. Ngoài ra, để Gunner có thể di chuyển nhanh hơn các bạn có thể nhấn và giữ nút **[Up]** để đi lên hoặc  **[Down]** để đi xuống.
 - Khi nhấn nút **[Mode]** Bullet sẽ được bắn ra, nhằm tiêu diệt các Zombie đang chạy đến.
 - Mục tiêu trò chơi là kiếm được càng nhiều điểm càng tốt, trò chơi sẽ kết thúc khi có Zombie chạm vào Border.
 
 #### 1.2.3 Cơ chế hoạt động:
 - **Cách tính điểm:** Điểm được tính bằng số lượng Zombie bị tiêu diệt. Mỗi Zombie bị tiêu diệt tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình. Ngoài ra các bạn có thể quan sát số lượng Zombie đã bị tiêu diệt ở góc dưới bên trái màn hình.
 - **Độ khó:** Vào một khoảng thời gian nhất định sẽ có những làn sóng Zombie (Wave) tấn công, mỗi khi sống sót qua các làn sóng Zombie thì tốc độ di chuyển của Zombie sẽ tăng lên một cấp độ. Tốc độ di chuyển ban đầu của Zombie có thể tùy chỉnh trong phần **Setting**.
-- **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển. Các đối tượng có hoạt ảnh như: Peashooter, Zombie, Car.
+- **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển. Các đối tượng có hoạt ảnh như: Gunner, Zombie, Car.
 - **Kết thúc trò chơi:** Khi Zombie chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Màn hình “RIP” sẽ xuất hiện trong một khoảng thời gian, sau đó bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
   - **Retry:** chơi lại.
   - **Rank:** vào xem bảng xếp hạng.
@@ -101,7 +101,7 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 ### Ghi chú:
 **SCREEN_ENTRY:** Cài đặt các thiết lập ban đầu cho đối tượng trong game.
 - **Level setup:** Thiết lập thông số cấp độ cho game.
-- **ZW_GAME_PEASHOOTER_SETUP:** Thiết lập thông số ban đầu cho đối tượng Peashooter
+- **ZW_GAME_Gunner_SETUP:** Thiết lập thông số ban đầu cho đối tượng Gunner
 - **ZW_GAME_BULLET_SETUP** Thiết lập thông số ban đầu cho các đối tượng Bullet
 - **ZW_GAME_ZOMBIE_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Zombie
 - **ZW_GAME_BANG_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Bang
@@ -114,7 +114,7 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 
 **GAME PLAY - Normal:** Game hoạt động ở trạng thái bình thường.
 - **ZW_GAME_TIME_TICK:** Signal do Timer - Time tick gửi đến.
-- **ZW_GAME_PEASHOOTER_UPDATE:** Cập nhật trạng thái Peashooter.
+- **ZW_GAME_Gunner_UPDATE:** Cập nhật trạng thái Gunner.
 - **ZW_GAME_BULLET_RUN:** Cập nhật di chuyển của các Bullet theo thời gian.
 - **ZW_GAME_ZOMBIE_RUN:** Cập nhật di chuyển của các Zombie theo thời gian.
 - **ZW_GAME_ZOMBIE_DETONATOR:** Kiểm tra các Zombie có bị Bullet hay Car tiêu diệt.
@@ -123,15 +123,15 @@ Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embed
 - **ZW_GAME_CHECK_GAME_OVER:** Kiểm tra Zombie chạm vào Border. Nếu chạm vào thì gửi Signal **ZW_GAME_RESET** đến **Screen**.
 
 **GAME PLAY - Action:** Game hoạt động ở trạng thái có tác động của các nút nhấn.
-- **ZW_GAME_BTN_MODE_RELEASED:** Player nhấn nút **[Mode]** điều khiển Peashooter bắn Bullet ra.
-- **ZW_GAME_BTN_UP_PRESSED:** Player nhấn giữ nút **[Up]** điều khiển Peashooter di chuyển lên.
-- **ZW_GAME_BTN_UP_RELEASED:** Player thả nút **[Up]** điều khiển Peashooter ngừng di chuyển lên.
-- **ZW_GAME_BTN_DOWN_PRESSED:** Player nhấn giữ nút **[Down]** điều khiển Peashooter di chuyển xuống.
-- **ZW_GAME_BTN_DOWN_RELEASED:** Player thả nút **[DOWN]** điều khiển Peashooter ngừng di chuyển xuống.
+- **ZW_GAME_BTN_MODE_RELEASED:** Player nhấn nút **[Mode]** điều khiển Gunner bắn Bullet ra.
+- **ZW_GAME_BTN_UP_PRESSED:** Player nhấn giữ nút **[Up]** điều khiển Gunner di chuyển lên.
+- **ZW_GAME_BTN_UP_RELEASED:** Player thả nút **[Up]** điều khiển Gunner ngừng di chuyển lên.
+- **ZW_GAME_BTN_DOWN_PRESSED:** Player nhấn giữ nút **[Down]** điều khiển Gunner di chuyển xuống.
+- **ZW_GAME_BTN_DOWN_RELEASED:** Player thả nút **[DOWN]** điều khiển Gunner ngừng di chuyển xuống.
 
 **RESET GAME:** Quá trình cài đặt lại các thông số trước khi thoát game.
 - **ZW_GAME_RESET:** Signal cài đặt lại game do Border gửi đến.
-- **ZW_GAME_PEASHOOTER_RESET:** Cài đặt lại đối tượng Peashooter trước khi thoát.
+- **ZW_GAME_Gunner_RESET:** Cài đặt lại đối tượng Gunner trước khi thoát.
 - **ZW_GAME_BULLET_RESET:** Cài đặt lại đối tượng Bullet trước khi thoát.
 - **ZW_GAME_ZOMBIE_RESET:** Cài đặt lại đối tượng Zombie trước khi thoát.
 - **ZW_GAME_CAR_RESET:** Cài đặt lại đối tượng Car trước khi thoát.
@@ -169,14 +169,14 @@ Ví dụ:
         bool visible;
         uint32_t x, y;
         uint8_t action_image;
-    } zw_game_peashooter_t;
+    } zw_game_Gunner_t;
     
-    extern zw_game_peashooter_t peashooter;
+    extern zw_game_Gunner_t Gunner;
 
 **Áp dụng struct cho các đối tượng:**
 |struct|Các biến|
 |------|--------|
-|zw_game_peashooter_t|zomwar|
+|zw_game_Gunner_t|zomwar|
 |zw_game_bullet_t|bullet[MAX_NUM_BULLET]|
 |zw_game_zombie_t|zombie[NUM_ZOMBIES]|
 |zw_game_car_t|car[NUM_LANES]|
