@@ -219,7 +219,7 @@ Trong lập trình event-driven, task là một đơn vị độc lập đảm n
 #### 2.2.3 Message & Signal
 **Message** được chia làm 2 loại chính, Message chỉ chứa Signal và Message vừa chứa Signal và Data. **Message** tương đương với **Signal**
 
-<p align="center"><img width="559" height="972" alt="Screenshot 2026-04-27 010610" src="https://github.com/user-attachments/assets/cdeff60e-1d00-4fe8-b9b2-d33cb6471638" /></p>
+<p align="center"><img width="666" height="1100" alt="signal" src="https://github.com/user-attachments/assets/34c7113f-5030-478e-9905-55f75813174a" /></p>
 <p align="center"><strong><em>Hình 7:</em></strong> Bảng Signal của từng Task</p>
 
 **(*)** Tác dụng của các Signal trong game: xem tại Ghi chú - Hình 5
