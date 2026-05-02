@@ -350,7 +350,7 @@ Hàm ar_game_Gunner_handle() là một hàm xử lý các thông điệp (messag
 
 **Sequence diagram:**
 
-<p align="center"><img src="https://github.com/ak-embedded-software/Gunner-game/blob/main/resources/images/sequence_object/bang_sequence.webp" alt="bang sequence" width="640"/></p>
+<p align="center"><img width="941" height="803" alt="Bang drawio" src="https://github.com/user-attachments/assets/7d776fa0-94a2-41bf-b2b2-b3dabc3c0844" /></p>
 <p align="center"><strong><em>Hình 10:</em></strong> Bang sequence</p>
 
 **Tóm tắt nguyên lý:** Bang sẽ nhận Signal thông được gửi từ Screen. Quá trình xử lý của đối tượng phân làm 3 giai đoạn:
