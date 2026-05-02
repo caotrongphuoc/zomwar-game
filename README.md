@@ -334,7 +334,7 @@ Hàm ar_game_Gunner_handle() là một hàm xử lý các thông điệp (messag
 
 **Sequence diagram:**
 
-<p align="center"><img src="https://github.com/ak-embedded-software/Gunner-game/blob/main/resources/images/sequence_object/arrow_sequence.webp" alt="arrow sequence" width="640"/></p>
+<p align="center"><img width="702" height="643" alt="bullet drawio" src="https://github.com/user-attachments/assets/e39a9ec2-aa01-48dc-893a-8e0b104e0c30" /></p>
 <p align="center"><strong><em>Hình 9:</em></strong> Arrow sequence</p>
 
 **Tóm tắt nguyên lý:** Arrow sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
