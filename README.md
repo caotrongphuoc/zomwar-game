@@ -228,8 +228,8 @@ Trong lập trình event-driven, task là một đơn vị độc lập đảm n
 ### 3.1 Archery
 **Sequence diagram:**
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/archery_sequence.webp" alt="archery sequence" width="640"/></p>
-<p align="center"><strong><em>Hình 8:</em></strong> Archery sequence</p>
+<p align="center"><img width="702" height="1363" alt="gunner drawio" src="https://github.com/user-attachments/assets/8a4e64dc-1fd2-498b-a0fd-e4ce0bb0f6f0" /></p>
+<p align="center"><strong><em>Hình 8:</em></strong> Gunner sequence</p>
 
 **Tóm tắt nguyên lý:** Archery sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
 - **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Archery như vị trí và hình ảnh.
