@@ -7,7 +7,7 @@
 
 
 <div align="center">
-    <video src="https://github.com/ak-embedded-software/archery-game/assets/54855481/d493703c-bf5b-4fd2-ae04-b86784a01231" alt="epcb archery game" height=200/>
+    <video src="https://github.com/ak-embedded-software/Gunner-game/assets/54855481/d493703c-bf5b-4fd2-ae04-b86784a01231" alt="epcb Gunner game" height=200/>
 </div>
 
 
@@ -225,18 +225,18 @@ Trong lập trình event-driven, task là một đơn vị độc lập đảm n
 **(*)** Tác dụng của các Signal trong game: xem tại Ghi chú - Hình 5
 
 ## III. Hướng dẫn chi tiết code trong đối tượng
-### 3.1 Archery
+### 3.1 Gunner
 **Sequence diagram:**
 
 <p align="center"><img width="702" height="1363" alt="gunner drawio" src="https://github.com/user-attachments/assets/8a4e64dc-1fd2-498b-a0fd-e4ce0bb0f6f0" /></p>
 <p align="center"><strong><em>Hình 8:</em></strong> Gunner sequence</p>
 
-**Tóm tắt nguyên lý:** Archery sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
-- **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Archery như vị trí và hình ảnh.
+**Tóm tắt nguyên lý:** Gunner sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
+- **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Gunner như vị trí và hình ảnh.
 - **Giai đoạn 2:** Chơi game, trong giai đoạn này chia làm 2 hoạt động là:
-  - Cập nhật: Screen gửi Signal cập nhật cho Archery mỗi 100ms để cập nhật trạng thái hiện tại của Archery.
-  - Hành động: Button gửi Signal di chuyển lên/xuống cho Archery mỗi khi nhấn nút.
-- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Archery trước khi thoát game.
+  - Cập nhật: Screen gửi Signal cập nhật cho Gunner mỗi 100ms để cập nhật trạng thái hiện tại của Gunner.
+  - Hành động: Button gửi Signal di chuyển lên/xuống cho Gunner mỗi khi nhấn nút.
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Gunner trước khi thoát game.
 
 **Code:**
 
@@ -249,78 +249,78 @@ Trong code bạn có thể dùng macro để thay thế hàm void trong nhiều 
 
 Khai báo: Thư viện, struct và biến.
 
-    #include "ar_game_archery.h"
+    #include "ar_game_Gunner.h"
 
-    ar_game_archery_t archery;
-    static uint32_t archery_y = AXIS_Y_ARCHERY;
+    ar_game_Gunner_t Gunner;
+    static uint32_t Gunner_y = AXIS_Y_Gunner;
 
-AR_GAME_ARCHERY_SETUP() là một macro được dùng định nghĩa để cài đặt trạng thái ban đầu của trò chơi bắn cung. Nó đặt các giá trị của biến archery và sử dụng các hằng số được định nghĩa trước đó để thiết lập tọa độ, màu sắc và hình ảnh của cung.
+AR_GAME_Gunner_SETUP() là một macro được dùng định nghĩa để cài đặt trạng thái ban đầu của trò chơi bắn cung. Nó đặt các giá trị của biến Gunner và sử dụng các hằng số được định nghĩa trước đó để thiết lập tọa độ, màu sắc và hình ảnh của cung.
 
-    #define AR_GAME_ARCHERY_SETUP() \
+    #define AR_GAME_Gunner_SETUP() \
     do { \
-        archery.x = AXIS_X_ARCHERY; \
-        archery.y = AXIS_Y_ARCHERY; \
-        archery.visible = WHITE; \
-        archery.action_image = 1; \
+        Gunner.x = AXIS_X_Gunner; \
+        Gunner.y = AXIS_Y_Gunner; \
+        Gunner.visible = WHITE; \
+        Gunner.action_image = 1; \
     } while (0);
 
-AR_GAME_ARCHERY_UP() là một macro được sử dụng để di chuyển cung lên trên. Nó giảm giá trị của archery_y bằng một giá trị STEP_ARCHERY_AXIS_Y và kiểm tra nếu giá trị mới bằng 0, nó được gán lại là 10.
+AR_GAME_Gunner_UP() là một macro được sử dụng để di chuyển cung lên trên. Nó giảm giá trị của Gunner_y bằng một giá trị STEP_Gunner_AXIS_Y và kiểm tra nếu giá trị mới bằng 0, nó được gán lại là 10.
 
-    #define AR_GAME_ARCHERY_UP() \
+    #define AR_GAME_Gunner_UP() \
     do { \
-        archery_y -= STEP_ARCHERY_AXIS_Y; \
-        if (archery_y == 0) {archery_y = 10;} \
+        Gunner_y -= STEP_Gunner_AXIS_Y; \
+        if (Gunner_y == 0) {Gunner_y = 10;} \
     } while(0);
 
-AR_GAME_ARCHERY_DOWN() là một macro được sử dụng để di chuyển cung xuống dưới. Nó tăng giá trị của archery_y bằng một giá trị STEP_ARCHERY_AXIS_Y và kiểm tra nếu giá trị mới vượt quá 50, nó được gán lại là 50.
+AR_GAME_Gunner_DOWN() là một macro được sử dụng để di chuyển cung xuống dưới. Nó tăng giá trị của Gunner_y bằng một giá trị STEP_Gunner_AXIS_Y và kiểm tra nếu giá trị mới vượt quá 50, nó được gán lại là 50.
 
-    #define AR_GAME_ARCHERY_DOWN() \
+    #define AR_GAME_Gunner_DOWN() \
     do { \
-        archery_y += STEP_ARCHERY_AXIS_Y; \
-        if (archery_y > 50) {archery_y = 50;} \
+        Gunner_y += STEP_Gunner_AXIS_Y; \
+        if (Gunner_y > 50) {Gunner_y = 50;} \
     } while(0);
 
-AR_GAME_ARCHERY_RESET() là một macro được sử dụng để đặt lại trạng thái ban đầu của trò chơi cung bắn. Nó đặt lại giá trị của archery, archery_y và làm cho cung trở nên không hiển thị.
+AR_GAME_Gunner_RESET() là một macro được sử dụng để đặt lại trạng thái ban đầu của trò chơi cung bắn. Nó đặt lại giá trị của Gunner, Gunner_y và làm cho cung trở nên không hiển thị.
 
-    #define AR_GAME_ARCHERY_RESET() \
+    #define AR_GAME_Gunner_RESET() \
     do { \
-        archery.x = AXIS_X_ARCHERY; \
-        archery.y = AXIS_Y_ARCHERY; \
-        archery.visible = BLACK; \
-        archery_y = AXIS_Y_ARCHERY; \
+        Gunner.x = AXIS_X_Gunner; \
+        Gunner.y = AXIS_Y_Gunner; \
+        Gunner.visible = BLACK; \
+        Gunner_y = AXIS_Y_Gunner; \
     } while(0);
 
-Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messages) liên quan đến trò chơi cung bắn. Nó chứa một câu lệnh switch-case để xử lý các thông điệp khác nhau. Các thông điệp được gửi đến hàm này thông qua một tham số msg có kiểu dữ liệu ak_msg_t. Mỗi case trong switch-case xử lý một thông điệp cụ thể.
+Hàm ar_game_Gunner_handle() là một hàm xử lý các thông điệp (messages) liên quan đến trò chơi cung bắn. Nó chứa một câu lệnh switch-case để xử lý các thông điệp khác nhau. Các thông điệp được gửi đến hàm này thông qua một tham số msg có kiểu dữ liệu ak_msg_t. Mỗi case trong switch-case xử lý một thông điệp cụ thể.
 
-    void ar_game_archery_handle(ak_msg_t* msg) {
+    void ar_game_Gunner_handle(ak_msg_t* msg) {
         switch (msg->sig) {
-        case AR_GAME_ARCHERY_SETUP: {
-            APP_DBG_SIG("AR_GAME_ARCHERY_SETUP\n");
-            AR_GAME_ARCHERY_SETUP();
+        case AR_GAME_Gunner_SETUP: {
+            APP_DBG_SIG("AR_GAME_Gunner_SETUP\n");
+            AR_GAME_Gunner_SETUP();
         }
             break;
 
-        case AR_GAME_ARCHERY_UPDATE: {
-            APP_DBG_SIG("AR_GAME_ARCHERY_UPDATE\n");
-            archery.y = archery_y;
+        case AR_GAME_Gunner_UPDATE: {
+            APP_DBG_SIG("AR_GAME_Gunner_UPDATE\n");
+            Gunner.y = Gunner_y;
         }
             break;
 
-        case AR_GAME_ARCHERY_UP: {
-            APP_DBG_SIG("AR_GAME_ARCHERY_UP\n");
-            AR_GAME_ARCHERY_UP();
+        case AR_GAME_Gunner_UP: {
+            APP_DBG_SIG("AR_GAME_Gunner_UP\n");
+            AR_GAME_Gunner_UP();
         }
             break;
 
-        case AR_GAME_ARCHERY_DOWN: {
-            APP_DBG_SIG("AR_GAME_ARCHERY_DOWN\n");
-            AR_GAME_ARCHERY_DOWN();
+        case AR_GAME_Gunner_DOWN: {
+            APP_DBG_SIG("AR_GAME_Gunner_DOWN\n");
+            AR_GAME_Gunner_DOWN();
         }
             break;
 
-        case AR_GAME_ARCHERY_RESET: {
-            APP_DBG_SIG("AR_GAME_ARCHERY_RESET\n");
-            AR_GAME_ARCHERY_RESET();
+        case AR_GAME_Gunner_RESET: {
+            APP_DBG_SIG("AR_GAME_Gunner_RESET\n");
+            AR_GAME_Gunner_RESET();
         }
             break;
 
@@ -334,23 +334,23 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
 
 **Sequence diagram:**
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/arrow_sequence.webp" alt="arrow sequence" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/Gunner-game/blob/main/resources/images/sequence_object/arrow_sequence.webp" alt="arrow sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 9:</em></strong> Arrow sequence</p>
 
 **Tóm tắt nguyên lý:** Arrow sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
 - **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Arrow. Tất cả Arrow vào trạng thái lặn, không hiển thị trên màn hình.
 - **Giai đoạn 2:** Chơi game, trong giai đoạn này chia làm 2 hoạt động là:
   - Cập nhật: Screen gửi Signal di chuyển cho Arrow mỗi 100ms để tăng trạng thái của Arrow tạo sự di chuyển cho Arrow.
-  - Hành động: Button gửi Signal bắn tên cho Arrow mỗi khi nhấn nút. Arrow sẽ sẽ kiểm tra số mũi tên và nếu còn thì sẽ cập nhật trạng thái để bắn mũi tên ra tại vị trí hiện tại của Archery
+  - Hành động: Button gửi Signal bắn tên cho Arrow mỗi khi nhấn nút. Arrow sẽ sẽ kiểm tra số mũi tên và nếu còn thì sẽ cập nhật trạng thái để bắn mũi tên ra tại vị trí hiện tại của Gunner
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+**Code:** Tương tự Gunner (link tham khảo [Gunner_game](https://github.com/ak-embedded-software/Gunner-game.git))
 
 ### 3.3 Bang
 
 **Sequence diagram:**
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/bang_sequence.webp" alt="bang sequence" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/Gunner-game/blob/main/resources/images/sequence_object/bang_sequence.webp" alt="bang sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 10:</em></strong> Bang sequence</p>
 
 **Tóm tắt nguyên lý:** Bang sẽ nhận Signal thông được gửi từ Screen. Quá trình xử lý của đối tượng phân làm 3 giai đoạn:
@@ -358,13 +358,13 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
 - **Giai đoạn 2:** Chơi game, Vụ nổ chỉ xuất sau khi Meteoroid bị phá hủy. Vụ nổ bao gồm các hoạt ảnh được cập nhật sau mỗi 100ms sau 3 hoạt ảnh thì sẽ tự reset.
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+**Code:** Tương tự Gunner (link tham khảo [Gunner_game](https://github.com/ak-embedded-software/Gunner-game.git))
 
 ### 3.4 Border
 
 **Sequence diagram:**
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/border_sequence.webp" alt="border sequence" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/Gunner-game/blob/main/resources/images/sequence_object/border_sequence.webp" alt="border sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 11:</em></strong> Border sequence</p>
 
 **Tóm tắt nguyên lý:** Border là 1 đối tượng bất động trong game. Có nhiệm vụ update level khi đến mốc điểm quy định và kiểm tra game over.
@@ -374,13 +374,13 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
   - Kiểm tra vị trí của các Meteoroid nếu Meteoroid chạm vào Border thì gửi tín hiệu Reset đến Screen
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Border trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+**Code:** Tương tự Gunner (link tham khảo [Gunner_game](https://github.com/ak-embedded-software/Gunner-game.git))
 
 ###  3.5 Meteoroid
 
 **Sequence diagram:**
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/meteoroid_sequence.webp" alt="meteoroid sequence" width="640"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/Gunner-game/blob/main/resources/images/sequence_object/meteoroid_sequence.webp" alt="meteoroid sequence" width="640"/></p>
 <p align="center"><strong><em>Hình 12:</em></strong> Meteoroid sequence</p>
 
 **Tóm tắt nguyên lý:** Meteoroid là đối tượng xuất hiện và di chuyển liên tục trong game nhận signal từ Screen. Chia làm 3 giai đoạn:
@@ -390,7 +390,7 @@ Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messa
   - Kiểm tra vị trí của các Arrow nếu Arrow chạm vào Meteoroid thì thực hiện reset Arrow và Meteoroid rồi tạo Bang.
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Meteoroid trước khi thoát game.
 
-**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+**Code:** Tương tự Gunner (link tham khảo [Gunner_game](https://github.com/ak-embedded-software/Gunner-game.git))
 
 ## IV. Hiển thị và âm thanh trong trò chơi bắn cung
 ### 4.1 Đồ họa
@@ -401,7 +401,7 @@ Trong trò chơi, màn hình hiện thị là 1 màn hình **LCD OLed 1.3"** có
 
 #### 4.1.1 Thiết kế đồ họa cho các đối tượng
 
-<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/table_bitmap.webp" alt="archery game bitmap" width="720"/></p>
+<p align="center"><img src="https://github.com/ak-embedded-software/Gunner-game/blob/main/resources/images/table_bitmap.webp" alt="Gunner game bitmap" width="720"/></p>
 <p align="center"><strong><em>Hình 13:</em></strong> Bitmap của các đối tượng</p>
 
 **Bitmap** là một cấu trúc dữ liệu được sử dụng để lưu trữ và hiển thị hình ảnh trong game.
@@ -414,21 +414,21 @@ Trong trò chơi, màn hình hiện thị là 1 màn hình **LCD OLed 1.3"** có
 
 **Archer display:**
 ```sh
-void ar_game_archery_display() {
-if (archery.visible == WHITE && settingsetup.num_arrow != 0) {
-    view_render.drawBitmap( archery.x, \
-                            archery.y - 10, \
-                            bitmap_archery_I, \
-                            SIZE_BITMAP_ARCHERY_X, \
-                            SIZE_BITMAP_ARCHERY_Y, \
+void ar_game_Gunner_display() {
+if (Gunner.visible == WHITE && settingsetup.num_arrow != 0) {
+    view_render.drawBitmap( Gunner.x, \
+                            Gunner.y - 10, \
+                            bitmap_Gunner_I, \
+                            SIZE_BITMAP_Gunner_X, \
+                            SIZE_BITMAP_Gunner_Y, \
                             WHITE);
 }
-else if (archery.visible == WHITE && settingsetup.num_arrow == 0) {
-    view_render.drawBitmap( archery.x, \
-                            archery.y - 10, \
-                            bitmap_archery_II, \
-                            SIZE_BITMAP_ARCHERY_X, \
-                            SIZE_BITMAP_ARCHERY_Y, \
+else if (Gunner.visible == WHITE && settingsetup.num_arrow == 0) {
+    view_render.drawBitmap( Gunner.x, \
+                            Gunner.y - 10, \
+                            bitmap_Gunner_II, \
+                            SIZE_BITMAP_Gunner_X, \
+                            SIZE_BITMAP_Gunner_Y, \
                             WHITE);
 }
 }
@@ -555,10 +555,10 @@ void ar_game_frame_display() {
 
 **Screen display:**
 ```sh
-void view_scr_archery_game() {
+void view_scr_Gunner_game() {
     if (ar_game_status == GAME_ON) {
         ar_game_frame_display();
-        ar_game_archery_display();
+        ar_game_Gunner_display();
         ar_game_arrow_display();
         ar_game_meteoroid_display();
         ar_game_bang_display();
