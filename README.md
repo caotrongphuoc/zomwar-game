@@ -284,69 +284,76 @@ ZW_GAME_GUNNER_UPDATE() là một macro được sử dụng để cập nhật 
         gunner.action_image = 1; \
     } while(0);
 
-AR_GAME_Gunner_RESET() là một macro được sử dụng để đặt lại trạng thái ban đầu của trò chơi cung bắn. Nó đặt lại giá trị của Gunner, Gunner_y và làm cho cung trở nên không hiển thị.
+ZW_GAME_GUNNER_RESET là một macro được sử dụng để đặt lại trạng thái ban đầu của trò chơi sinh tồn tiêu diệt xác sống. Nó đặt lại giá trị của gunner, gunner_y và làm cho xạ thủ trở nên không hiển thị.
 
-    #define AR_GAME_Gunner_RESET() \
+    #define ZW_GAME_GUNNER_RESET() \
     do { \
-        Gunner.x = AXIS_X_Gunner; \
-        Gunner.y = AXIS_Y_Gunner; \
-        Gunner.visible = BLACK; \
-        Gunner_y = AXIS_Y_Gunner; \
+        gunner.x = AXIS_X_GUNNER; \
+        gunner.y = AXIS_Y_GUNNER; \
+        gunner.visible = BLACK; \
+        gunner_y = AXIS_Y_GUNNER; \
+        gunner_moving = GUNNER_MOVE_NONE; \
     } while(0);
 
-Hàm ar_game_Gunner_handle() là một hàm xử lý các thông điệp (messages) liên quan đến trò chơi cung bắn. Nó chứa một câu lệnh switch-case để xử lý các thông điệp khác nhau. Các thông điệp được gửi đến hàm này thông qua một tham số msg có kiểu dữ liệu ak_msg_t. Mỗi case trong switch-case xử lý một thông điệp cụ thể.
+Hàm zw_game_gunner_handle() là một hàm xử lý các thông điệp (messages) liên quan đến trò chơi cung bắn. Nó chứa một câu lệnh switch-case để xử lý các thông điệp khác nhau. Các thông điệp được gửi đến hàm này thông qua một tham số msg có kiểu dữ liệu ak_msg_t. Mỗi case trong switch-case xử lý một thông điệp cụ thể.
 
-    void ar_game_Gunner_handle(ak_msg_t* msg) {
+    void zw_game_gunner_handle(ak_msg_t* msg) {
         switch (msg->sig) {
-        case AR_GAME_Gunner_SETUP: {
-            APP_DBG_SIG("AR_GAME_Gunner_SETUP\n");
-            AR_GAME_Gunner_SETUP();
+        case ZW_GAME_GUNNER_SETUP: {
+            APP_DBG_SIG("ZW_GAME_GUNNER_SETUP\n");
+            ZW_GAME_GUNNER_SETUP();
         }
             break;
-
-        case AR_GAME_Gunner_UPDATE: {
-            APP_DBG_SIG("AR_GAME_Gunner_UPDATE\n");
-            Gunner.y = Gunner_y;
+    
+        case ZW_GAME_GUNNER_UPDATE: {
+            APP_DBG_SIG("ZW_GAME_GUNNER_UPDATE\n");
+            ZW_GAME_GUNNER_UPDATE();
         }
             break;
-
-        case AR_GAME_Gunner_UP: {
-            APP_DBG_SIG("AR_GAME_Gunner_UP\n");
-            AR_GAME_Gunner_UP();
+    
+        case ZW_GAME_GUNNER_UP: {
+            APP_DBG_SIG("ZW_GAME_GUNNER_UP\n");
+            gunner_moving = GUNNER_MOVE_UP;
         }
             break;
-
-        case AR_GAME_Gunner_DOWN: {
-            APP_DBG_SIG("AR_GAME_Gunner_DOWN\n");
-            AR_GAME_Gunner_DOWN();
+    
+        case ZW_GAME_GUNNER_DOWN: {
+            APP_DBG_SIG("ZW_GAME_GUNNER_DOWN\n");
+            gunner_moving = GUNNER_MOVE_DOWN;
         }
             break;
-
-        case AR_GAME_Gunner_RESET: {
-            APP_DBG_SIG("AR_GAME_Gunner_RESET\n");
-            AR_GAME_Gunner_RESET();
+    
+        case ZW_GAME_GUNNER_STOP: {
+            APP_DBG_SIG("ZW_GAME_GUNNER_STOP\n");
+            gunner_moving = GUNNER_MOVE_NONE;
         }
             break;
-
+    
+        case ZW_GAME_GUNNER_RESET: {
+            APP_DBG_SIG("ZW_GAME_GUNNER_RESET\n");
+            ZW_GAME_GUNNER_RESET();
+        }
+            break;
+    
         default:
             break;
         }
     }
 
 
-### 3.2 Arrow
+### 3.2 Bullet
 
 **Sequence diagram:**
 
 <p align="center"><img width="702" height="643" alt="bullet drawio" src="https://github.com/user-attachments/assets/e39a9ec2-aa01-48dc-893a-8e0b104e0c30" /></p>
-<p align="center"><strong><em>Hình 9:</em></strong> Arrow sequence</p>
+<p align="center"><strong><em>Hình 9:</em></strong> Bullet sequence</p>
 
-**Tóm tắt nguyên lý:** Arrow sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
-- **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Arrow. Tất cả Arrow vào trạng thái lặn, không hiển thị trên màn hình.
+**Tóm tắt nguyên lý:** Bullet sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
+- **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Bullet. Tất cả Bullet vào trạng thái lặn, không hiển thị trên màn hình.
 - **Giai đoạn 2:** Chơi game, trong giai đoạn này chia làm 2 hoạt động là:
-  - Cập nhật: Screen gửi Signal di chuyển cho Arrow mỗi 100ms để tăng trạng thái của Arrow tạo sự di chuyển cho Arrow.
-  - Hành động: Button gửi Signal bắn tên cho Arrow mỗi khi nhấn nút. Arrow sẽ sẽ kiểm tra số mũi tên và nếu còn thì sẽ cập nhật trạng thái để bắn mũi tên ra tại vị trí hiện tại của Gunner
-- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
+  - Cập nhật: Screen gửi Signal di chuyển cho Bullet mỗi 100ms để tăng trạng thái của Bullet tạo sự di chuyển cho Bullet.
+  - Hành động: Button gửi Signal bắn tên cho Bullet mỗi khi nhấn nút. Bullet sẽ sẽ kiểm tra số mũi tên và nếu còn thì sẽ cập nhật trạng thái để bắn mũi tên ra tại vị trí hiện tại của Gunner
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Bullet trước khi thoát game.
 
 **Code:** Tương tự Gunner (link tham khảo [Gunner_game](https://github.com/ak-embedded-software/Gunner-game.git))
 
@@ -359,8 +366,8 @@ Hàm ar_game_Gunner_handle() là một hàm xử lý các thông điệp (messag
 
 **Tóm tắt nguyên lý:** Bang sẽ nhận Signal thông được gửi từ Screen. Quá trình xử lý của đối tượng phân làm 3 giai đoạn:
 - **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Bang. Cho tất cả các bang về trạng thái lặn, không xuất hiện trên màn hình.
-- **Giai đoạn 2:** Chơi game, Vụ nổ chỉ xuất sau khi Meteoroid bị phá hủy. Vụ nổ bao gồm các hoạt ảnh được cập nhật sau mỗi 100ms sau 3 hoạt ảnh thì sẽ tự reset.
-- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
+- **Giai đoạn 2:** Chơi game, Vụ nổ chỉ xuất sau khi Zombie bị tiêu diệt. Vụ nổ bao gồm các hoạt ảnh được cập nhật sau mỗi 100ms sau 3 hoạt ảnh thì sẽ tự reset.
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Bullet trước khi thoát game.
 
 **Code:** Tương tự Gunner (link tham khảo [Gunner_game](https://github.com/ak-embedded-software/Gunner-game.git))
 
@@ -391,7 +398,7 @@ Hàm ar_game_Gunner_handle() là một hàm xử lý các thông điệp (messag
 - **Giai đoạn 1:** Bắt đầu game, cài đặt thông số của Meteoroid. Cấp điểm xuất phát ngẫu nghiên cho Meteoroid, hiển thị lên màn hình.
 - **Giai đoạn 2:** Chơi game, thực hiện các nhiệm vụ theo chu kỳ 100ms
   - Cập nhật vị trí và hoạt ảnh di chuyển cho Meteoroid
-  - Kiểm tra vị trí của các Arrow nếu Arrow chạm vào Meteoroid thì thực hiện reset Arrow và Meteoroid rồi tạo Bang.
+  - Kiểm tra vị trí của các Bullet nếu Bullet chạm vào Meteoroid thì thực hiện reset Bullet và Meteoroid rồi tạo Bang.
 - **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Meteoroid trước khi thoát game.
 
 **Code:** Tương tự Gunner (link tham khảo [Gunner_game](https://github.com/ak-embedded-software/Gunner-game.git))
@@ -419,7 +426,7 @@ Trong trò chơi, màn hình hiện thị là 1 màn hình **LCD OLed 1.3"** có
 **Archer display:**
 ```sh
 void ar_game_Gunner_display() {
-if (Gunner.visible == WHITE && settingsetup.num_arrow != 0) {
+if (Gunner.visible == WHITE && settingsetup.num_Bullet != 0) {
     view_render.drawBitmap( Gunner.x, \
                             Gunner.y - 10, \
                             bitmap_Gunner_I, \
@@ -427,7 +434,7 @@ if (Gunner.visible == WHITE && settingsetup.num_arrow != 0) {
                             SIZE_BITMAP_Gunner_Y, \
                             WHITE);
 }
-else if (Gunner.visible == WHITE && settingsetup.num_arrow == 0) {
+else if (Gunner.visible == WHITE && settingsetup.num_Bullet == 0) {
     view_render.drawBitmap( Gunner.x, \
                             Gunner.y - 10, \
                             bitmap_Gunner_II, \
@@ -438,16 +445,16 @@ else if (Gunner.visible == WHITE && settingsetup.num_arrow == 0) {
 }
 ```
 
-**Arrow display:**
+**Bullet display:**
 ```sh
-void ar_game_arrow_display() {
-    for (uint8_t i = 0; i < MAX_NUM_ARROW; i++) {
-        if (arrow[i].visible == WHITE) {
-            view_render.drawBitmap( arrow[i].x, \
-                                    arrow[i].y, \
-                                    bitmap_arrow, \
-                                    SIZE_BITMAP_ARROW_X, \
-                                    SIZE_BITMAP_ARROW_Y, \
+void ar_game_Bullet_display() {
+    for (uint8_t i = 0; i < MAX_NUM_Bullet; i++) {
+        if (Bullet[i].visible == WHITE) {
+            view_render.drawBitmap( Bullet[i].x, \
+                                    Bullet[i].y, \
+                                    bitmap_Bullet, \
+                                    SIZE_BITMAP_Bullet_X, \
+                                    SIZE_BITMAP_Bullet_Y, \
                                     WHITE);
         }
     }
@@ -546,8 +553,8 @@ void ar_game_frame_display() {
     view_render.setTextSize(1);
     view_render.setTextColor(WHITE);
     view_render.setCursor(2,55);
-    view_render.print("Arrow:");
-    view_render.print(settingsetup.num_arrow);
+    view_render.print("Bullet:");
+    view_render.print(settingsetup.num_Bullet);
     view_render.setCursor(60,55);
     view_render.print(" Score:");
     view_render.print(ar_game_score);
@@ -563,7 +570,7 @@ void view_scr_Gunner_game() {
     if (ar_game_status == GAME_ON) {
         ar_game_frame_display();
         ar_game_Gunner_display();
-        ar_game_arrow_display();
+        ar_game_Bullet_display();
         ar_game_meteoroid_display();
         ar_game_bang_display();
         ar_game_border_display();
