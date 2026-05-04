@@ -249,35 +249,39 @@ Trong code bạn có thể dùng macro để thay thế hàm void trong nhiều 
 
 Khai báo: Thư viện, struct và biến.
 
-    #include "ar_game_Gunner.h"
+    #include "zw_game_gunner.h"
 
-    ar_game_Gunner_t Gunner;
-    static uint32_t Gunner_y = AXIS_Y_Gunner;
+    zw_game_gunner_t gunner;
 
-AR_GAME_Gunner_SETUP() là một macro được dùng định nghĩa để cài đặt trạng thái ban đầu của trò chơi bắn cung. Nó đặt các giá trị của biến Gunner và sử dụng các hằng số được định nghĩa trước đó để thiết lập tọa độ, màu sắc và hình ảnh của cung.
+ZW_GAME_GUNNER_SETUP() là một macro được dùng định nghĩa để cài đặt trạng thái ban đầu của trò chơi sinh tồn tiêu diệt xác sống. Nó đặt các giá trị của biến gunner và sử dụng các hằng số được định nghĩa trước đó để thiết lập tọa độ, màu sắc và hình ảnh của xạ thủ.
 
-    #define AR_GAME_Gunner_SETUP() \
+    #define ZW_GAME_GUNNER_SETUP() \
     do { \
-        Gunner.x = AXIS_X_Gunner; \
-        Gunner.y = AXIS_Y_Gunner; \
-        Gunner.visible = WHITE; \
-        Gunner.action_image = 1; \
+        gunner.x = AXIS_X_GUNNER; \
+        gunner.y = AXIS_Y_GUNNER; \
+        gunner.visible = WHITE; \
+        gunner.action_image = 1; \
+        gunner_moving = GUNNER_MOVE_NONE; \
+        gunner_y = AXIS_Y_GUNNER; \
     } while (0);
 
-AR_GAME_Gunner_UP() là một macro được sử dụng để di chuyển cung lên trên. Nó giảm giá trị của Gunner_y bằng một giá trị STEP_Gunner_AXIS_Y và kiểm tra nếu giá trị mới bằng 0, nó được gán lại là 10.
+ZW_GAME_GUNNER_UPDATE() là một macro được sử dụng để cập nhật vị trí của xạ thủ. Nếu xạ thủ di chuyển lên, nó giảm giá trị của gunner_y bằng một giá trị STEP_GUNNER_AXIS_Y và kiểm tra nếu giá trị mới lớn hơn 12, nó được gán lại là 12, nếu xạ thủ di chuyển xuống, nó tăng giá trị của gunner_y bằng một giá trị STEP_GUNNER_AXIS_Y và kiểm tra nếu giá trị mới > 52, nó được gán lại là 52.
 
-    #define AR_GAME_Gunner_UP() \
+    #define ZW_GAME_GUNNER_UPDATE() \
     do { \
-        Gunner_y -= STEP_Gunner_AXIS_Y; \
-        if (Gunner_y == 0) {Gunner_y = 10;} \
-    } while(0);
-
-AR_GAME_Gunner_DOWN() là một macro được sử dụng để di chuyển cung xuống dưới. Nó tăng giá trị của Gunner_y bằng một giá trị STEP_Gunner_AXIS_Y và kiểm tra nếu giá trị mới vượt quá 50, nó được gán lại là 50.
-
-    #define AR_GAME_Gunner_DOWN() \
-    do { \
-        Gunner_y += STEP_Gunner_AXIS_Y; \
-        if (Gunner_y > 50) {Gunner_y = 50;} \
+        if (gunner_moving == GUNNER_MOVE_UP) { \
+            if (gunner_y > STEP_GUNNER_AXIS_Y + 2) { \
+                gunner_y -= STEP_GUNNER_AXIS_Y; \
+            } else { \
+                gunner_y = 12; \
+            } \
+        } \
+        else if (gunner_moving == GUNNER_MOVE_DOWN) { \
+            gunner_y += STEP_GUNNER_AXIS_Y; \
+            if (gunner_y > 52) { gunner_y = 52; } \
+        } \
+        gunner.y = gunner_y; \
+        gunner.action_image = 1; \
     } while(0);
 
 AR_GAME_Gunner_RESET() là một macro được sử dụng để đặt lại trạng thái ban đầu của trò chơi cung bắn. Nó đặt lại giá trị của Gunner, Gunner_y và làm cho cung trở nên không hiển thị.
