@@ -1,0 +1,777 @@
+# Zomwar - Game built on AK Embedded Base Kit
+
+<center><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/epcb_archery_game.webp" alt="epcb archery game" width="100%"/></center>
+
+<hr>
+
+
+<div align="center">
+    <video src="https://github.com/ak-embedded-software/archery-game/assets/54855481/d493703c-bf5b-4fd2-ae04-b86784a01231" alt="epcb archery game" height=200/>
+</div>
+
+
+<hr>
+
+## I. Giới thiệu
+
+Zomwar là một tựa game sinh tồn hành động được phát triển trực tiếp trên nền tảng AK Embedded Base Kit. Dự án này được xây dựng như một học liệu thực tế, giúp những người đam mê lập trình nhúng có thể tiếp cận, tìm hiểu và thực hành chuyên sâu về tư duy lập trình hướng sự kiện (Event-driven Programming).
+Trong quá trình phát triển và vận hành Zomwar, người học sẽ được trực tiếp thiết kế và triển khai các kiến thức cốt lõi của kỹ thuật nhúng hiện đại, bao gồm:
+- Thiết kế hệ thống: Ứng dụng ngôn ngữ mô hình hóa UML để quản lý luồng logic phức tạp.
+- Quản lý tiến trình: Điều phối và thực thi các Task (nhiệm vụ) một cách tối ưu.
+- Cơ chế giao tiếp: Hiểu rõ cách vận hành của Signal, Timer và Message để xử lý các phản hồi thời gian thực trong game.
+- Logic điều khiển: Xây dựng các máy trạng thái (State-machine) bền vững để quản lý các trạng thái của nhân vật, xác sống (Zombie) và diễn biến trận đấu.
+
+
+### 1.1 Phần cứng
+
+<p align="center"><img width="1999" height="1545" alt="image" src="https://github.com/user-attachments/assets/b211d3f5-529d-46f8-86ae-79580f0b9a04" /></p>
+<p align="center"><strong><em>Hình 1:</em></strong> AK Embedded Base Kit - STM32L151</p>
+
+AK Embedded Base Kit là nền tảng phát triển (evaluation kit) chuyên sâu dành cho lộ trình học lập trình nhúng nâng cao. Kit được trang bị hệ thống phần cứng tối ưu gồm màn hình OLED 1.54", cụm 3 nút nhấn điều khiển và loa Buzzer đa âm, tạo môi trường hoàn hảo để thực hành thiết kế máy chơi game cầm tay thông qua mô hình lập trình hướng sự kiện (event-driven).
+
+Không dừng lại ở việc học thuật, AK Embedded Base Kit còn định hướng cho các dự án thực tế nhờ tích hợp các chuẩn giao tiếp công nghiệp và không dây như RS485, NRF24L01+, cùng khả năng lưu trữ mở rộng lên tới 32MB Flash. Những tính năng này biến bộ kit thành một giải pháp lý tưởng để xây dựng các nguyên mẫu (prototype) đa dạng: từ hệ thống truyền thông có dây/không dây đến các ứng dụng lưu trữ dữ data logger phức tạp trong môi trường công nghiệp.
+
+Các bạn có thể tìm hiểu chi tiết về schematic của kit thông qua link sau: [schematic-ak-embedded-base-kit-version-3.pdf](https://github.com/caotrongphuoc/Zomwar/blob/main/hardware/schematic/schematic-ak-embedded-base-kit-version-3.pdf)
+
+### 1.2 Mô tả trò chơi và đối tượng
+Phần mô tả sau đây về “Zomwar” , giải thích cách chơi và cơ chế xử lý của trò chơi. Tài liệu này dùng để tham khảo thiết kế và phát triển trò chơi về sau.
+
+<p align="center"><img width="966" height="508" alt="menu_game" src="https://github.com/user-attachments/assets/de7ffd76-9bea-4f40-8dca-358144082ae2" /> </p>
+<p align="center"><strong><em>Hình 2:</em></strong> Menu game</p>
+
+Trò chơi bắt đầu bằng màn hình **Menu game** với các lựa chọn sau: 
+- **Start:** Bắt đầu chơi game.
+- **Setting:** Cài đặt các thông số của game.
+- **Leaderboard:** Xem top 3 điểm cao nhất đạt được.
+- **Exit:** Thoát menu game vào màn hình chờ.
+
+<p align="center"><img width="1447" height="871" alt="LCD_GP_Charts" src="https://github.com/user-attachments/assets/6b3c99c2-06a0-4a14-ab18-52cfd0c4945d" /></p>
+
+<p align="center"><strong><em>Hình 3:</em></strong> Màn hình game play</p>
+
+#### 1.2.1 Các đối tượng (Object) trong game:
+|Đối tượng|Tên đối tượng|Mô tả|
+|---|---|---|
+|**Xạ thủ**|Peashooter|Di chuyển lên xuống để chọn vị trí bắn đạn|
+|**Đạn**|Bullet|Đạn bắn ra từ xạ thủ, dùng để tiêu diệt xác sống|
+|**Xác sống**|Zombie|Đối tượng di chuyển về phía xạ thủ với tốc độ tăng dần, có khả năng phá hủy ranh giới|
+|**Ô tô**|Car|Vật thể nằm trước ranh giới, là chốt chặn thứ 2 sau xạ thủ, được kích hoạt di chuyển tiêu diệt xác sống khi xác sống chạm vào vật thể|
+|**Vụ nổ**|Bang|Hiệu ứng xuất hiện khi xác sống bị tiêu diệt|
+|**Ranh giới**|Border|Vùng an toàn phải bảo vệ không cho xác sống xâm nhập|
+
+**(*)** Trong phần còn lại của tài liệu sẽ dùng tên của các đối tượng để đề cập đến đối tượng.
+
+#### 1.2.2 Cách chơi game: 
+- Trong trò chơi này bạn sẽ điều khiển Peashooter, di chuyển **lên/xuống** bằng hai nút **[Up]/[Down]**, để chọn vị trí **bắn ra** Bullet. Ngoài ra, để Peashooter có thể di chuyển nhanh hơn các bạn có thể nhấn và giữ nút **[Up]** để đi lên hoặc  **[Down]** để đi xuống.
+- Khi nhấn nút **[Mode]** Bullet sẽ được bắn ra, nhằm tiêu diệt các Zombie đang chạy đến.
+- Mục tiêu trò chơi là kiếm được càng nhiều điểm càng tốt, trò chơi sẽ kết thúc khi có Zombie chạm vào Border.
+
+#### 1.2.3 Cơ chế hoạt động:
+- **Cách tính điểm:** Điểm được tính bằng số lượng Zombie bị tiêu diệt. Mỗi Zombie bị tiêu diệt tương ứng với 10 điểm. Số điểm tích lũy được sẽ hiển thị ở góc dưới bên phải màn hình. Ngoài ra các bạn có thể quan sát số lượng Zombie đã bị tiêu diệt ở góc dưới bên trái màn hình.
+- **Độ khó:** Vào một khoảng thời gian nhất định sẽ có những làn sóng Zombie (Wave) tấn công, mỗi khi sống sót qua các làn sóng Zombie thì tốc độ di chuyển của Zombie sẽ tăng lên một cấp độ. Tốc độ di chuyển ban đầu của Zombie có thể tùy chỉnh trong phần **Setting**.
+- **Animation:** Để trò chơi thêm phần sinh động thì các đối tượng sẽ có thêm hoạt ảnh lúc di chuyển. Các đối tượng có hoạt ảnh như: Peashooter, Zombie, Car.
+- **Kết thúc trò chơi:** Khi Zombie chạm vào Border, trò chơi sẽ kết thúc. Các đối tượng sẽ được reset và số điểm sẽ được lưu. Màn hình “RIP” sẽ xuất hiện trong một khoảng thời gian, sau đó bạn sẽ vào màn hình “Game Over” với 3 lựa chọn là:
+  - **Retry:** chơi lại.
+  - **Rank:** vào xem bảng xếp hạng.
+  - **Home:** về lại menu game.
+
+<p align="center"><img width="1021" height="505" alt="Screenshot from 2026-04-28 10-37-37" src="https://github.com/user-attachments/assets/7f7574c3-00fc-4208-bb91-898378e9f9af" /></p>
+
+<p align="center"><strong><em>Hình 4:</em></strong> Màn hình Game_over</p>
+
+## II. Thiết kế - ZOMWAR
+**Các khái niệm trong event-driven:**
+
+- **Event Driven:** Nôn na là một hệ thống gửi thư (gửi message) để thực thi các công việc. Trong đó, Task đóng vai trò là người nhận thư, Signal đại diện cho nội dung công việc. Task & Signal nền tảng của một hệ Event Driven.
+- **Task:** Thông thường mỗi Task sẽ nhận một nhóm công công việc nào nào đó, ví dụ: quản lý state-machine, quản lý hiển thị của màn hình, quản lý việc cập nhật phần mềm, quản lý hệ thống watchdog ... 
+- **Message:** Được chia làm 2 loại chính, Message chỉ chứa Signal, hoặc vừa chứa Signal và Data. Message tương đương với Signal.
+- **Handler:** Chỗ thực thi một công việc nào đó thì gọi là Handler.
+
+Chi tiết các khái niệm các bạn tham khảo tại bài viết: [AK Embedded Base Kit - STM32L151 - Event Driven: Task & Signal](https://epcb.vn/blogs/ak-embedded-software/ak-embedded-base-kit-stm32l151-event-driven-task-signal)
+
+### 2.1 Sơ đồ trình tự
+**Sơ đồ trình tự** được sử dụng để mô tả trình tự của các Message và luồng tương tác giữa các đối tượng trong một hệ thống.
+
+<p align="center"><img width="1654" height="3403" alt="zomwar_system_UM" src="https://github.com/user-attachments/assets/73499a06-e929-45cd-bc66-689ea9c9e785" />
+</p>
+<p align="center"><strong><em>Hình 5:</em></strong> The sequence diagram</p>
+
+### Ghi chú:
+**SCREEN_ENTRY:** Cài đặt các thiết lập ban đầu cho đối tượng trong game.
+- **Level setup:** Thiết lập thông số cấp độ cho game.
+- **ZW_GAME_PEASHOOTER_SETUP:** Thiết lập thông số ban đầu cho đối tượng Peashooter
+- **ZW_GAME_BULLET_SETUP** Thiết lập thông số ban đầu cho các đối tượng Bullet
+- **ZW_GAME_ZOMBIE_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Zombie
+- **ZW_GAME_BANG_SETUP:** Thiết lập thông số ban đầu cho các đối tượng Bang
+- **ZW_GAME_BORDER_SETUP:** Thiết lập thông số ban đầu cho đối tượng Border
+- **ZW_GAME_CAR_SETUP:** Thiết lập thông số ban đầu cho đối tượng Car
+- **Setup timer - Time tick:** Khởi tạo Timer - Time tick cho game.
+- **STATE (GAME_PLAY):** Cập nhật trạng thái game -> GAME_PLAY
+
+**GAME PLAY:** Quá trình hoạt động của game.
+
+**GAME PLAY - Normal:** Game hoạt động ở trạng thái bình thường.
+- **ZW_GAME_TIME_TICK:** Signal do Timer - Time tick gửi đến.
+- **ZW_GAME_PEASHOOTER_UPDATE:** Cập nhật trạng thái Peashooter.
+- **ZW_GAME_BULLET_RUN:** Cập nhật di chuyển của các Bullet theo thời gian.
+- **ZW_GAME_ZOMBIE_RUN:** Cập nhật di chuyển của các Zombie theo thời gian.
+- **ZW_GAME_ZOMBIE_DETONATOR:** Kiểm tra các Zombie có bị Bullet hay Car tiêu diệt.
+- **ZW_GAME_CAR_RUN:** Cập nhật di chuyển của các ô tô theo thời gian.
+- **ZW_GAME_BANG_UPDATE:** Cập nhật hoạt ảnh vụ nổ theo thời gian
+- **ZW_GAME_CHECK_GAME_OVER:** Kiểm tra Zombie chạm vào Border. Nếu chạm vào thì gửi Signal **ZW_GAME_RESET** đến **Screen**.
+
+**GAME PLAY - Action:** Game hoạt động ở trạng thái có tác động của các nút nhấn.
+- **ZW_GAME_BTN_MODE_RELEASED:** Player nhấn nút **[Mode]** điều khiển Peashooter bắn Bullet ra.
+- **ZW_GAME_BTN_UP_PRESSED:** Player nhấn giữ nút **[Up]** điều khiển Peashooter di chuyển lên.
+- **ZW_GAME_BTN_UP_RELEASED:** Player thả nút **[Up]** điều khiển Peashooter ngừng di chuyển lên.
+- **ZW_GAME_BTN_DOWN_PRESSED:** Player nhấn giữ nút **[Down]** điều khiển Peashooter di chuyển xuống.
+- **ZW_GAME_BTN_DOWN_RELEASED:** Player thả nút **[DOWN]** điều khiển Peashooter ngừng di chuyển xuống.
+
+**RESET GAME:** Quá trình cài đặt lại các thông số trước khi thoát game.
+- **ZW_GAME_RESET:** Signal cài đặt lại game do Border gửi đến.
+- **ZW_GAME_PEASHOOTER_RESET:** Cài đặt lại đối tượng Peashooter trước khi thoát.
+- **ZW_GAME_BULLET_RESET:** Cài đặt lại đối tượng Bullet trước khi thoát.
+- **ZW_GAME_ZOMBIE_RESET:** Cài đặt lại đối tượng Zombie trước khi thoát.
+- **ZW_GAME_CAR_RESET:** Cài đặt lại đối tượng Car trước khi thoát.
+- **ZW_GAME_BANG_RESET:** Cài đặt lại đối tượng Bang trước khi thoát.
+- **ZW_GAME_BORDER_RESET:** Cài đặt lại đối tượng Border trước khi thoát.
+- **Setup timer - Timer exit:** Tạo 1 timer one shot để thoát game. Nhằm tạo ra một khoảng delay cho người chơi có thể nhận thức được là mình đã game over trước khi chuyển sang màn hình thông báo game over.
+- **Save and reset Score:** Lưu số điểm hiện tại và Cài đặt lại.
+- **Init bat flying animation (game over screen):** Hiệu ứng trang trí màn hình GAME OVER - 2 con dơi bay qua lại trên màn hình khi game kết thúc.
+- **STATE (GAME_OVER):** Cập nhật trạng thái game -> GAME_OVER
+
+**EXIT:** Thoát khỏi game và chuyển sang màn hình Game Over.
+- **ZW_GAME_EXIT_GAME:** Signal do Timer exit gửi đến.
+- **STATE (GAME_OFF):** Cập nhật trạng thái game -> GAME_OFF
+- **Change the screen - SCREEN_TRAN(scr_game_over_handle, &scr_game_over):** Chuyển màn hình sang màn hình Game Over.
+
+### 2.2 Chi tiết
+
+Sau khi xác định được các đối tượng trong game mà chúng ta cần, tiếp theo chúng ta phải liệt kê ra các thuộc tính, các task, các signal và bitmap mà trong game sẽ sử dụng tới.
+Việc liệt kê càng chi tiết thì việc làm game diễn ra càng nhanh và tạo tình rõ ràng minh bạch cho phần tài nguyên giúp phần code game diễn ra suông sẻ hơn.
+
+#### 2.2.1 Thuộc tính đối tượng
+Việc liệt kê các thuộc tính của đối tượng trong game có các tác dụng quan trọng sau:
+- Giúp xác định rõ thông tin về đối tượng trong game.
+- Giúp xác định cấu trúc dữ liệu phù hợp để lưu trữ thông tin của đối tượng.
+- Khi bạn xác định trước các thuộc tính cần thiết, bạn giảm thiểu khả năng bỏ sót hoặc nhầm lẫn trong việc xử lý và sử dụng các thuộc tính.
+
+**Trạng thái** của một đối tượng được biểu diễn bởi các **thuộc tính**. Trong trò chơi này các đối tượng có các thuộc tính cụ thể là:
+- **visible:** Quy định hiển thị, ẩn/hiện của đối tượng.
+- **x, y:** Quy định vị trí của đối tượng trên màn hình.
+- **action_image:** Quy định hoạt ảnh tạo animation.
+
+Ví dụ:
+
+    typedef struct {
+        bool visible;
+        uint32_t x, y;
+        uint8_t action_image;
+    } zw_game_peashooter_t;
+    
+    extern zw_game_peashooter_t peashooter;
+
+**Áp dụng struct cho các đối tượng:**
+|struct|Các biến|
+|------|--------|
+|zw_game_peashooter_t|zomwar|
+|zw_game_bullet_t|bullet[MAX_NUM_BULLET]|
+|zw_game_zombie_t|zombie[NUM_ZOMBIES]|
+|zw_game_car_t|car[NUM_LANES]|
+|zw_game_bang_t|bang[NUM_BANG]|
+|zw_game_border_t|border|
+
+**(*)** Các đối tượng có số lượng nhiều thì sẽ được khai báo dạng mảng.
+
+**Các biến quan trọng:**
+- **zw_game_score:** Điểm của trò chơi.
+- **zw_game_kill_count:** Số lượng Zombie bị tiêu diệt.
+- **wave_level:** level của làn sóng (wave) hiện tại (0 = LV0).
+- **last_wave_score:** Score tại lần tăng level gần nhất.
+- **wave_warning_active:** Có đang hiện cảnh báo làn sóng (wave) mới không.
+- **wave_warning_timer:** Đếm ngược 30 tick hiển thị cảnh báo.
+- **zw_game_state:** Trạng thái cuả trò chơi.
+  - GAME_OFF: Tắt .
+  - GAME_ON: Bật.
+  - GAME_OVER: Đã thua.
+
+- **zw_game_setting_t** settingsetup : Cấu hình cấp độ của trò chơi.
+  - settingsetup.silent : Bật/tắt chế độ im lặng.
+  - settingsetup.bullet_speed : Cấu hình tốc độ viên đạn.
+  - settingsetup.zombie_speed : Cấu hình tốc độ của xác sống.
+  - settingsetup.num_car : Cấu hình số lượng ô tô.
+  - settingsetup.tombstone_lane_1 : Cấu hình số lượng bia mộ trên đường là 1.
+  - settingsetup.tombstone_lane_2 : Cấu hình tốc độ của thiên thạch.
+
+#### 2.2.2 Task
+Trong lập trình event-driven, task là một đơn vị độc lập đảm nhiệm một nhóm công việc nhất định. Khi hệ thống scheduler tìm thấy message liên quan đến task trong hàng đợi, hệ thống sẽ gọi hàm thực thi của task để xử lý message được gửi đến. Một số tác dụng quan trọng của task:
+- **Xử lý sự kiện:** Task được sử dụng để xử lý các message được bắn đến khi có sự kiện xảy ra. Mỗi task có thể được liên kết với một sự kiện cụ thể và thực thi một loạt các hành động khi sự kiện đó xảy ra.
+- **Đồng bộ hóa:** Task cung cấp cơ chế đồng bộ hóa cho việc xử lý các sự kiện. Khi một sự kiện xảy ra, task tương ứng được kích hoạt và thực thi. Các task khác sẽ đợi cho đến khi task hiện tại hoàn thành trước khi được kích hoạt. Điều này giúp đảm bảo rằng các hành động xử lý sự kiện được thực hiện theo một thứ tự nhất định và tránh xung đột.
+- **Quản lý luồng điều khiển:** Task cho phép quản lý luồng sự kiện trong ứng dụng event-driven. Bằng cách sử dụng task, bạn có thể xác định thứ tự thực thi của các hành động khi xảy ra các sự kiện khác nhau.
+- **Tách biệt logic:** Sử dụng task giúp tách biệt logic xử lý sự kiện, điều này giúp Source code rõ ràng, dễ đọc.
+- **Phân cấp nhiệm vụ:** Task level cho phép sắp xếp trình tự ưu tiên xử lý các message của task ở trong hàng đợi của hệ thống. Trong game các task level của game điều là 4 nên task nào được gọi trước sẽ xử lý trước. 
+
+<p align="center"><img width="1001" height="511" alt="image" src="https://github.com/user-attachments/assets/db5d7851-895f-494a-ace0-01847aceec1d" />
+</p>
+<p align="center"><strong><em>Hình 6:</em></strong> Bảng Task của các đối tượng</p>
+
+#### 2.2.3 Message & Signal
+**Message** được chia làm 2 loại chính, Message chỉ chứa Signal và Message vừa chứa Signal và Data. **Message** tương đương với **Signal**
+
+<p align="center"><img width="559" height="972" alt="Screenshot 2026-04-27 010610" src="https://github.com/user-attachments/assets/cdeff60e-1d00-4fe8-b9b2-d33cb6471638" /></p>
+<p align="center"><strong><em>Hình 7:</em></strong> Bảng Signal của từng Task</p>
+
+**(*)** Tác dụng của các Signal trong game: xem tại Ghi chú - Hình 5
+
+## III. Hướng dẫn chi tiết code trong đối tượng
+### 3.1 Archery
+**Sequence diagram:**
+
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/archery_sequence.webp" alt="archery sequence" width="640"/></p>
+<p align="center"><strong><em>Hình 8:</em></strong> Archery sequence</p>
+
+**Tóm tắt nguyên lý:** Archery sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
+- **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Archery như vị trí và hình ảnh.
+- **Giai đoạn 2:** Chơi game, trong giai đoạn này chia làm 2 hoạt động là:
+  - Cập nhật: Screen gửi Signal cập nhật cho Archery mỗi 100ms để cập nhật trạng thái hiện tại của Archery.
+  - Hành động: Button gửi Signal di chuyển lên/xuống cho Archery mỗi khi nhấn nút.
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Archery trước khi thoát game.
+
+**Code:**
+
+Trong code bạn có thể dùng macro để thay thế hàm void trong nhiều trường hợp.
+
+    #define TEN_DOAN_CODE()
+    do { \
+        /*code*/ \
+    } while(0);
+
+Khai báo: Thư viện, struct và biến.
+
+    #include "ar_game_archery.h"
+
+    ar_game_archery_t archery;
+    static uint32_t archery_y = AXIS_Y_ARCHERY;
+
+AR_GAME_ARCHERY_SETUP() là một macro được dùng định nghĩa để cài đặt trạng thái ban đầu của trò chơi bắn cung. Nó đặt các giá trị của biến archery và sử dụng các hằng số được định nghĩa trước đó để thiết lập tọa độ, màu sắc và hình ảnh của cung.
+
+    #define AR_GAME_ARCHERY_SETUP() \
+    do { \
+        archery.x = AXIS_X_ARCHERY; \
+        archery.y = AXIS_Y_ARCHERY; \
+        archery.visible = WHITE; \
+        archery.action_image = 1; \
+    } while (0);
+
+AR_GAME_ARCHERY_UP() là một macro được sử dụng để di chuyển cung lên trên. Nó giảm giá trị của archery_y bằng một giá trị STEP_ARCHERY_AXIS_Y và kiểm tra nếu giá trị mới bằng 0, nó được gán lại là 10.
+
+    #define AR_GAME_ARCHERY_UP() \
+    do { \
+        archery_y -= STEP_ARCHERY_AXIS_Y; \
+        if (archery_y == 0) {archery_y = 10;} \
+    } while(0);
+
+AR_GAME_ARCHERY_DOWN() là một macro được sử dụng để di chuyển cung xuống dưới. Nó tăng giá trị của archery_y bằng một giá trị STEP_ARCHERY_AXIS_Y và kiểm tra nếu giá trị mới vượt quá 50, nó được gán lại là 50.
+
+    #define AR_GAME_ARCHERY_DOWN() \
+    do { \
+        archery_y += STEP_ARCHERY_AXIS_Y; \
+        if (archery_y > 50) {archery_y = 50;} \
+    } while(0);
+
+AR_GAME_ARCHERY_RESET() là một macro được sử dụng để đặt lại trạng thái ban đầu của trò chơi cung bắn. Nó đặt lại giá trị của archery, archery_y và làm cho cung trở nên không hiển thị.
+
+    #define AR_GAME_ARCHERY_RESET() \
+    do { \
+        archery.x = AXIS_X_ARCHERY; \
+        archery.y = AXIS_Y_ARCHERY; \
+        archery.visible = BLACK; \
+        archery_y = AXIS_Y_ARCHERY; \
+    } while(0);
+
+Hàm ar_game_archery_handle() là một hàm xử lý các thông điệp (messages) liên quan đến trò chơi cung bắn. Nó chứa một câu lệnh switch-case để xử lý các thông điệp khác nhau. Các thông điệp được gửi đến hàm này thông qua một tham số msg có kiểu dữ liệu ak_msg_t. Mỗi case trong switch-case xử lý một thông điệp cụ thể.
+
+    void ar_game_archery_handle(ak_msg_t* msg) {
+        switch (msg->sig) {
+        case AR_GAME_ARCHERY_SETUP: {
+            APP_DBG_SIG("AR_GAME_ARCHERY_SETUP\n");
+            AR_GAME_ARCHERY_SETUP();
+        }
+            break;
+
+        case AR_GAME_ARCHERY_UPDATE: {
+            APP_DBG_SIG("AR_GAME_ARCHERY_UPDATE\n");
+            archery.y = archery_y;
+        }
+            break;
+
+        case AR_GAME_ARCHERY_UP: {
+            APP_DBG_SIG("AR_GAME_ARCHERY_UP\n");
+            AR_GAME_ARCHERY_UP();
+        }
+            break;
+
+        case AR_GAME_ARCHERY_DOWN: {
+            APP_DBG_SIG("AR_GAME_ARCHERY_DOWN\n");
+            AR_GAME_ARCHERY_DOWN();
+        }
+            break;
+
+        case AR_GAME_ARCHERY_RESET: {
+            APP_DBG_SIG("AR_GAME_ARCHERY_RESET\n");
+            AR_GAME_ARCHERY_RESET();
+        }
+            break;
+
+        default:
+            break;
+        }
+    }
+
+
+### 3.2 Arrow
+
+**Sequence diagram:**
+
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/arrow_sequence.webp" alt="arrow sequence" width="640"/></p>
+<p align="center"><strong><em>Hình 9:</em></strong> Arrow sequence</p>
+
+**Tóm tắt nguyên lý:** Arrow sẽ nhận Signal thông được gửi từ 2 nguồn là Screen và Button. Quá trình xử lý của đối tượng phần làm 3 giai đoạn:
+- **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Arrow. Tất cả Arrow vào trạng thái lặn, không hiển thị trên màn hình.
+- **Giai đoạn 2:** Chơi game, trong giai đoạn này chia làm 2 hoạt động là:
+  - Cập nhật: Screen gửi Signal di chuyển cho Arrow mỗi 100ms để tăng trạng thái của Arrow tạo sự di chuyển cho Arrow.
+  - Hành động: Button gửi Signal bắn tên cho Arrow mỗi khi nhấn nút. Arrow sẽ sẽ kiểm tra số mũi tên và nếu còn thì sẽ cập nhật trạng thái để bắn mũi tên ra tại vị trí hiện tại của Archery
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
+
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+
+### 3.3 Bang
+
+**Sequence diagram:**
+
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/bang_sequence.webp" alt="bang sequence" width="640"/></p>
+<p align="center"><strong><em>Hình 10:</em></strong> Bang sequence</p>
+
+**Tóm tắt nguyên lý:** Bang sẽ nhận Signal thông được gửi từ Screen. Quá trình xử lý của đối tượng phân làm 3 giai đoạn:
+- **Giai đoạn 1:** Bắt đầu game, cài đặt các thông số của Bang. Cho tất cả các bang về trạng thái lặn, không xuất hiện trên màn hình.
+- **Giai đoạn 2:** Chơi game, Vụ nổ chỉ xuất sau khi Meteoroid bị phá hủy. Vụ nổ bao gồm các hoạt ảnh được cập nhật sau mỗi 100ms sau 3 hoạt ảnh thì sẽ tự reset.
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Arrow trước khi thoát game.
+
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+
+### 3.4 Border
+
+**Sequence diagram:**
+
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/border_sequence.webp" alt="border sequence" width="640"/></p>
+<p align="center"><strong><em>Hình 11:</em></strong> Border sequence</p>
+
+**Tóm tắt nguyên lý:** Border là 1 đối tượng bất động trong game. Có nhiệm vụ update level khi đến mốc điểm quy định và kiểm tra game over.
+- **Giai đoạn 1:** Bắt đầu game, cài đặt thông số vị trí và hiển thị của Border.
+- **Giai đoạn 2:** Chơi game, thực hiện các nhiệm vụ theo chu kỳ 100ms
+  - Kiểm tra số điểm nếu số điểm thêm 200 thì tăng tốc độ của Meteoroid.
+  - Kiểm tra vị trí của các Meteoroid nếu Meteoroid chạm vào Border thì gửi tín hiệu Reset đến Screen
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Border trước khi thoát game.
+
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+
+###  3.5 Meteoroid
+
+**Sequence diagram:**
+
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/sequence_object/meteoroid_sequence.webp" alt="meteoroid sequence" width="640"/></p>
+<p align="center"><strong><em>Hình 12:</em></strong> Meteoroid sequence</p>
+
+**Tóm tắt nguyên lý:** Meteoroid là đối tượng xuất hiện và di chuyển liên tục trong game nhận signal từ Screen. Chia làm 3 giai đoạn:
+- **Giai đoạn 1:** Bắt đầu game, cài đặt thông số của Meteoroid. Cấp điểm xuất phát ngẫu nghiên cho Meteoroid, hiển thị lên màn hình.
+- **Giai đoạn 2:** Chơi game, thực hiện các nhiệm vụ theo chu kỳ 100ms
+  - Cập nhật vị trí và hoạt ảnh di chuyển cho Meteoroid
+  - Kiểm tra vị trí của các Arrow nếu Arrow chạm vào Meteoroid thì thực hiện reset Arrow và Meteoroid rồi tạo Bang.
+- **Giai đoạn 3:** Kết thúc game, thực hiện cài đặt lại trạng thái của Meteoroid trước khi thoát game.
+
+**Code:** Tương tự Archery (link tham khảo [Archery_game](https://github.com/ak-embedded-software/archery-game.git))
+
+## IV. Hiển thị và âm thanh trong trò chơi bắn cung
+### 4.1 Đồ họa
+
+Trong trò chơi, màn hình hiện thị là 1 màn hình **LCD OLed 1.3"** có kích thước là **128px*64px**. Nên các đối tượng được hiển thị trong game phải có kích thước hiển thị phù hợp với màn hình nên cần được thiết kế riêng. 
+
+Đồ họa được thiết kế từng phần theo từng đối tượng bằng phần mềm [Photopea](https://www.photopea.com/)
+
+#### 4.1.1 Thiết kế đồ họa cho các đối tượng
+
+<p align="center"><img src="https://github.com/ak-embedded-software/archery-game/blob/main/resources/images/table_bitmap.webp" alt="archery game bitmap" width="720"/></p>
+<p align="center"><strong><em>Hình 13:</em></strong> Bitmap của các đối tượng</p>
+
+**Bitmap** là một cấu trúc dữ liệu được sử dụng để lưu trữ và hiển thị hình ảnh trong game.
+
+**Animation** là ứng dụng việc nối ảnh của của nhiều ảnh liên tiếp tạo thành hoạt ảnh cho đổi tượng muốn miêu tả. Trong game, biến “action_image” trong đối tượng được sử dụng nối các ảnh theo thứ tự tạo thành animation.
+
+**Ghi chú:** Trong thiết kế trên có nhiều ảnh khác nhau cho cùng 1 đối tượng để tạo animation cho đối tượng đó nhằm tăng tính chân thật lúc chơi game.
+
+#### 4.1.2 Code
+
+**Archer display:**
+```sh
+void ar_game_archery_display() {
+if (archery.visible == WHITE && settingsetup.num_arrow != 0) {
+    view_render.drawBitmap( archery.x, \
+                            archery.y - 10, \
+                            bitmap_archery_I, \
+                            SIZE_BITMAP_ARCHERY_X, \
+                            SIZE_BITMAP_ARCHERY_Y, \
+                            WHITE);
+}
+else if (archery.visible == WHITE && settingsetup.num_arrow == 0) {
+    view_render.drawBitmap( archery.x, \
+                            archery.y - 10, \
+                            bitmap_archery_II, \
+                            SIZE_BITMAP_ARCHERY_X, \
+                            SIZE_BITMAP_ARCHERY_Y, \
+                            WHITE);
+}
+}
+```
+
+**Arrow display:**
+```sh
+void ar_game_arrow_display() {
+    for (uint8_t i = 0; i < MAX_NUM_ARROW; i++) {
+        if (arrow[i].visible == WHITE) {
+            view_render.drawBitmap( arrow[i].x, \
+                                    arrow[i].y, \
+                                    bitmap_arrow, \
+                                    SIZE_BITMAP_ARROW_X, \
+                                    SIZE_BITMAP_ARROW_Y, \
+                                    WHITE);
+        }
+    }
+}
+```
+
+**Meteoroid display:**
+```sh
+void ar_game_meteoroid_display() {
+    for (uint8_t i = 0; i < NUM_METEOROIDS; i++) {
+        if (meteoroid[i].visible == WHITE) {
+            if (meteoroid[i].action_image == 1) {
+                view_render.drawBitmap( meteoroid[i].x, \
+                                        meteoroid[i].y, \
+                                        bitmap_meteoroid_I, \
+                                        SIZE_BITMAP_METEOROIDS_X, \
+                                        SIZE_BITMAP_METEOROIDS_Y, \
+                                         WHITE);
+            }
+            else if (meteoroid[i].action_image == 2) {
+                view_render.drawBitmap( meteoroid[i].x, \
+                                        meteoroid[i].y, \
+                                        bitmap_meteoroid_II, \
+                                        SIZE_BITMAP_METEOROIDS_X, \
+                                        SIZE_BITMAP_METEOROIDS_Y, \
+                                        WHITE);
+            }
+            else if (meteoroid[i].action_image == 3) {
+                view_render.drawBitmap( meteoroid[i].x, \
+                                        meteoroid[i].y, \
+                                        bitmap_meteoroid_III, \
+                                        SIZE_BITMAP_METEOROIDS_X, \
+                                        SIZE_BITMAP_METEOROIDS_Y, \
+                                        WHITE);
+            }
+        }
+    }
+}
+```
+
+**Bang display:**
+```sh
+void ar_game_bang_display() {
+    for (uint8_t i = 0; i < NUM_BANG; i++) {
+        if (bang[i].visible == WHITE) {
+            if (bang[i].action_image == 1) {
+                view_render.drawBitmap( bang[i].x, \
+                                        bang[i].y, \
+                                        bitmap_bang_I, \
+                                        SIZE_BITMAP_BANG_I_X, \
+                                        SIZE_BITMAP_BANG_I_Y, \
+                                        WHITE);
+            }
+            else if (bang[i].action_image == 2) {
+                view_render.drawBitmap( bang[i].x, \
+                                        bang[i].y, \
+                                        bitmap_bang_II, \
+                                        SIZE_BITMAP_BANG_I_X, \
+                                        SIZE_BITMAP_BANG_I_Y, \
+                                        WHITE);
+            }
+            else if (bang[i].action_image == 3) {
+                view_render.drawBitmap( bang[i].x + 2, \
+                                        bang[i].y - 1, \
+                                        bitmap_bang_III, \
+                                        SIZE_BITMAP_BANG_II_X, \
+                                        SIZE_BITMAP_BANG_II_Y, \
+                                        WHITE);
+            }
+        }
+    }
+}
+```
+
+**Border display:**
+```sh
+void ar_game_border_display() {
+    if (border.visible == WHITE) {
+        view_render.drawFastVLine(  border.x, \
+                                    AXIS_Y_BORDER_ON, \
+                                    AXIS_Y_BORDER_UNDER, \
+                                    WHITE);
+        for (uint8_t i = 0; i < NUM_METEOROIDS; i++) {
+            view_render.fillCircle( border.x, \
+                                    meteoroid[i].y + 5, \
+                                    1, \
+                                    WHITE);
+        }
+    }
+}
+```
+
+**Game frame display:**
+```sh
+void ar_game_frame_display() {
+    view_render.setTextSize(1);
+    view_render.setTextColor(WHITE);
+    view_render.setCursor(2,55);
+    view_render.print("Arrow:");
+    view_render.print(settingsetup.num_arrow);
+    view_render.setCursor(60,55);
+    view_render.print(" Score:");
+    view_render.print(ar_game_score);
+    view_render.drawLine(0, LCD_HEIGHT,    LCD_WIDTH, LCD_HEIGHT,    WHITE);
+    view_render.drawLine(0, LCD_HEIGHT-10, LCD_WIDTH, LCD_HEIGHT-10, WHITE);
+    view_render.drawRect(0, 0, 128, 64, 1);
+}
+```
+
+**Screen display:**
+```sh
+void view_scr_archery_game() {
+    if (ar_game_status == GAME_ON) {
+        ar_game_frame_display();
+        ar_game_archery_display();
+        ar_game_arrow_display();
+        ar_game_meteoroid_display();
+        ar_game_bang_display();
+        ar_game_border_display();
+    }
+    else if (ar_game_status == GAME_OVER) {
+        view_render.clear();
+        view_render.setTextSize(2);
+        view_render.setTextColor(WHITE);
+        view_render.setCursor(17, 24);
+        view_render.print("YOU LOSE");
+    }
+}
+```
+
+</details>
+
+### 4.2 Âm thanh
+Âm thành được thiết kế qua website [Arduino Music](https://www.instructables.com/Arduino-Music-From-Sheet-Music/)
+
+Trong khi chơi, để trò chơi thêm phần xinh động và chân thật thì việc có âm thanh là điều cần thiết. 
+
+Các âm thanh cần thiết kế: nút nhấn, bắn tên, vụ nổ, nhạc game.
+
+**Code:**
+
+```sh
+// Âm thanh Bắt đầu game 
+BUZZER_PlayTones(tones_SMB);
+
+// Âm thanh Vụ nổ 
+BUZZER_PlayTones(tones_BUM);
+
+// Âm thanh nút nhấn
+BUZZER_PlayTones(tones_cc);
+
+// Âm thanh cảnh báo
+BUZZER_PlayTones(tones_3beep);
+
+// Merry Christmas
+BUZZER_PlayTones(tones_merryChristmas);
+
+/*________________BUZZER______________*/
+
+void BUZZER_Sleep(bool sleep);
+/*  sleep = 0 : bật âm thanh 
+    sleep = 1 : tắt âm thanh */
+static const Tone_TypeDef tones_BUM[] = {
+    {3000,3},
+    {4500,6},
+    {   0,0}
+};
+
+static const Tone_TypeDef tones_cc[] = {
+    {2000,2}, 
+    {   0,0}, 
+};
+
+static const Tone_TypeDef tones_startup[] = {
+    {2000,3},
+    {   0,3},
+    {3000,3},
+    {   0,3},
+    {4000,3},
+    {   0,3},
+    {1200,4},
+    {   0,6},
+    {4500,6},
+    {   0,0}     // <-- tones end
+};
+
+static const Tone_TypeDef tones_3beep[] = {
+    {4000, 3},
+    {   0,10},
+    {1000, 6},
+    {   0,10},
+    {4000, 3},
+    {   0, 0}
+};
+
+// "Super Mario bros." =
+static const Tone_TypeDef tones_SMB[] = {
+    {2637,18}, // E7 x2
+    {   0, 9}, // x3
+    {2637, 9}, // E7
+    {   0, 9}, // x3
+    {2093, 9}, // C7
+    {2637, 9}, // E7
+    {   0, 9}, // x3
+    {3136, 9}, // G7
+    {   0,27}, // x3
+    {1586, 9}, // G6
+    {   0,27}, // x3
+
+    {2093, 9}, // C7
+    {   0,18}, // x2
+    {1586, 9}, // G6
+    {   0,18}, // x2
+    {1319, 9}, // E6
+    {   0,18}, // x2
+    {1760, 9}, // A6
+    {   0, 9}, // x1
+    {1976, 9}, // B6
+    {   0, 9}, // x1
+    {1865, 9}, // AS6
+    {1760, 9}, // A6
+    {   0, 9}, // x1
+
+    {1586,12}, // G6
+    {2637,12}, // E7
+    {3136,12}, // G7
+    {3520, 9}, // A7
+    {   0, 9}, // x1
+    {2794, 9}, // F7
+    {3136, 9}, // G7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2093, 9}, // C7
+    {2349, 9}, // D7
+    {1976, 9}, // B6
+    {   0,18}, // x2
+
+    {2093, 9}, // C7
+    {   0,18}, // x2
+    {1586, 9}, // G6
+    {   0,18}, // x2
+    {1319, 9}, // E6
+    {   0,18}, // x2
+    {1760, 9}, // A6
+    {   0, 9}, // x1
+    {1976, 9}, // B6
+    {   0, 9}, // x1
+    {1865, 9}, // AS6
+    {1760, 9}, // A6
+    {   0, 9}, // x1
+
+    {1586,12}, // G6
+    {2637,12}, // E7
+    {3136,12}, // G7
+    {3520, 9}, // A7
+    {   0, 9}, // x1
+    {2794, 9}, // F7
+    {3136, 9}, // G7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2093, 9}, // C7
+    {2349, 9}, // D7
+    {1976, 9}, // B6
+
+    {   0, 0}
+};
+
+// Merry Christmas
+static const Tone_TypeDef tones_merryChristmas[] = {
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0,18}, // x2
+
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0,18}, // x2
+
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {3136, 9}, // G7
+    {   0, 9}, // x1
+    {2093, 9}, // C7
+    {   0, 9}, // x1
+    {2349, 9}, // D7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0,24}, // x2
+
+    {2794, 9}, // F7
+    {   0, 9}, // x1
+    {2794, 9}, // F7
+    {   0, 9}, // x1
+    {2794, 9}, // F7
+    {   0, 9}, // x1
+    {2794, 9}, // F7
+    {   0, 9}, // x1
+    {2794, 9}, // F7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2349, 9}, // D7
+    {   0, 9}, // x1
+    {2349, 9}, // D7
+    {   0, 9}, // x1
+    {2637, 9}, // E7
+    {   0, 9}, // x1
+    {2349, 9}, // D7
+    {   0, 9}, // x1
+    {3136, 9}, // G7
+    {   0, 0}  // <-- tones end
+};
+```
+
+</details>
+
+**Ghi chú:** Nếu không có thời gian hoặc không có khiếu âm nhạc thì tốt nhất nên dùng các thư viện trên github
