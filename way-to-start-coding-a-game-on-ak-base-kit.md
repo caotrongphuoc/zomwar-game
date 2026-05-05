@@ -1,112 +1,214 @@
-# HƯỚNG DẪN BẮT ĐẦU LẬP TRÌNH GAME VỚI AK-BASE-KIT
+<h1 align="center">Hướng Dẫn Bắt Đầu Lập Trình Game</h1>
 
-Chào mừng các bạn đến với dự án phát triển Game trên vi điều khiển STM32L151! Repository này cung cấp bộ source code nền tảng (Base Kit) cùng tài liệu hướng dẫn chi tiết, giúp bạn nhanh chóng làm quen với kiến trúc hệ thống và bắt tay vào lập trình tựa game của riêng mình.
+Chào mừng bạn đến với dự án lập trình Game trên vi điều khiển STM32L151! Repository này cung cấp bộ source code nền tảng cùng tài liệu hướng dẫn chi tiết, giúp bạn nhanh chóng làm quen với kiến trúc hệ thống và bắt tay vào phát triển tựa game của riêng mình.
+
+---
+
+## Mục lục
+
+- [I. Tạo "Sân chơi riêng" (Fork)](#i-tạo-sân-chơi-riêng-fork)
+- [II. Quickstartguide (Setup môi trường)](#ii-quick-start-guide-setup-môi-trường)
+- [III. Quy trình lập trình game](#iii-quy-trình-lập-trình-game)
+  - [Bước 1: Tạo thư mục làm việc](#bước-1-tạo-thư-mục-làm-việc)
+  - [Bước 2: Clone repo về máy](#bước-2-clone-repo-về-máy)
+  - [Bước 3: Modify Game](#bước-3-modify-game)
+  - [Bước 4: Push code lên GitHub](#bước-4-push-code-lên-github)
+
+---
 
 ## I. Tạo "Sân chơi riêng" (Fork)
 
-Để bắt đầu dự án cá nhân của mình, các bạn thực hiện đúng các bước sau:
+Để khởi tạo dự án cá nhân, bạn thực hiện theo các bước sau:
 
-- Đầu tiên các bạn truy cập vào đường link sau: https://github.com/the-ak-foundation/ak-base-kit-stm32l151
+### 1. Truy cập repository gốc
 
-- Fork: Nhấn nút Fork ở góc trên bên phải của repo này để copy dự án về tài khoản cá nhân của bạn.
+**Link:** [https://github.com/the-ak-foundation/ak-base-kit-stm32l151](https://github.com/the-ak-foundation/ak-base-kit-stm32l151)
 
-<p align="center"><img width="1141" height="258" alt="Screenshot from 2026-04-28 14-20-55" src="https://github.com/user-attachments/assets/591ff540-c556-4fdc-9fec-e1974bd7cdd2" /></p>
+### 2. Fork repository
 
-- Create: Tạo bản fork
+Nhấn nút **Fork** ở góc trên bên phải để tạo một bản sao dự án về tài khoản cá nhân của bạn.
+Ngoài ra, bạn có thể nhấn nút **Star** ở bên phải nút **Fork** để ủng hộ tác giả nhé.
 
-<p align="center"><img width="618" height="461" alt="image" src="https://github.com/user-attachments/assets/378721d5-26c5-4898-b523-7e07594f6583" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/repo-ak.png" />
+</p>
 
-*Note: 
+### 3. Tạo bản fork
 
-- Tên của repo cũng sẽ là tên con game của bạn.
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/create-fork.png" />
+</p>
 
-- Các bạn có thể mô tả về con game của bạn trong phần description.
+> **Note:**
+> - Đặt tên repository chính là **tên game** của bạn.
+> - Mô tả ngắn gọn về game trong phần **Description**.
 
-Sau khi create, GitHub hiển thị repo của ak-base-kit-stm32l151, đây là "bộ khung" cơ bản để bạn có thể phát triển và hoàn thiện game của mình:
+Sau khi fork thành công, GitHub sẽ chuyển đến repository mới — đây chính là "bộ khung" để bạn phát triển và hoàn thiện game:
 
-<p align="center"><img width="2523" height="1000" alt="image" src="https://github.com/user-attachments/assets/37821fde-90e9-4c4e-babb-2c7dc03fa07c" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/repo-after-create-fork.png" />
+</p>
 
-## II. Các bước setup để build và chạy thử trên kit
+---
 
-Các bước setup các bạn làm theo link này nhé: https://epcb.vn/blogs/ak-embedded-software/ak-embedded-base-kit-stm32l151-getting-started
+## II. Quickstartguide (Setup môi trường)
 
-## III. Quy trình lập trình game hằng ngày
+Để build source code và nạp firmware lên kit, bạn cần cài đặt môi trường phát triển trên Ubuntu/Linux. Hướng dẫn chi tiết từng bước có tại đây:
 
-Vì chúng ta đang phát triển phần mềm nhúng, các bạn hãy sử dụng Terminal trên môi trường Ubuntu/Linux để thao tác cho chuẩn xác nhé.
+**[AK Embedded Base Kit STM32L151 — Getting Started](https://epcb.vn/blogs/ak-embedded-software/ak-embedded-base-kit-stm32l151-getting-started)**
 
-### Bước 0: Tạo thư mục làm việc
+---
 
-Từ Home, các bạn tạo một thư mục làm việc (Workspace) - Đây là nơi chứa các source code cũng như các công cụ lập trình.
+## III. Quy trình lập trình game
 
-<p align="center"><img width="966" height="314" alt="image" src="https://github.com/user-attachments/assets/60eff60e-e2d2-4f8e-9183-c67934ea0a28" /></p>
+> **Note:** Vì đây là dự án phần mềm nhúng, bạn nên sử dụng **Terminal trên môi trường Ubuntu/Linux** để đảm bảo quá trình build và nạp firmware diễn ra chính xác.
 
-Trong Workspace, các bạn tạo 2 thư mục:
+### Bước 1: Tạo thư mục làm việc
 
-- Sources: nơi chứa các dự án lập trình của bạn.
-- Tools: nơi chứa các công cụ lập trình của bạn (Các công cụ lập trình các bạn có thể tham khảo trong phần II).
+Từ thư mục `Home`, tạo một thư mục đặt tên là **Workspace** — đây sẽ là nơi chứa toàn bộ source code và công cụ lập trình.
 
-<p align="center"><img width="1376" height="468" alt="image" src="https://github.com/user-attachments/assets/b1fa5a0f-ef28-4eba-b823-bec7030117fb" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/create-workspace.png" />
+</p>
 
-### Bước 1: Kép repo cá nhân về máy (Chỉ làm 1 lần đầu)
+Bên trong `Workspace`, tạo thêm 2 thư mục con:
 
-Trong thư mục Sources đã tạo ở bước 0, các bạn mở Terminal và chạy lệnh clone (nhớ thay bằng link repo của chính bạn): 
-  
-    git clone https://github.com/ten-cua-ban/ten-repo-da-fork-cua-ban.git
+| Thư mục   | Mục đích                                                                                       |
+| --------- | ---------------------------------------------------------------------------------------------- |
+| `Sources` | Chứa các dự án lập trình của bạn                                                               |
+| `Tools`   | Chứa các công cụ lập trình (xem chi tiết tại [phần II](#ii-quick-start-guide-setup-môi-trường)) |
 
-  <p align="center"><img width="1179" height="258" alt="image" src="https://github.com/user-attachments/assets/6ba6e15d-ce85-483e-9519-61fcb017dafb" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/create-sources-and-tools.png" />
+</p>
 
-### Bước 2: Modify Game
+---
 
-Các bạn mở VSCode trên Linux rồi mở repo mình mới clone rồi bắt đầu lập trình game nhé.
+### Bước 2: Clone repo về máy
 
-Toàn bộ logic game của bạn sẽ được viết bên trong thư mục application/.
+> **Note:** Bước này chỉ cần thực hiện **một lần duy nhất** khi bắt đầu dự án.
 
-<p align="center"><img width="1474" height="910" alt="image" src="https://github.com/user-attachments/assets/c403a5a8-80c3-42fc-a96f-499c05c92a73" /></p>
+Mở **Terminal** ngay tại thư mục `Sources` và chạy lệnh sau (nhớ thay bằng link repo của bạn):
 
-#### Ví dụ cập nhật logo của AK Foundation
+```bash
+git clone https://github.com/<ten-cua-ban>/<ten-repo-da-clone>.git
+```
 
-- Tạo file header trong thư mục screens:
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/open-terminal-in-sources.png" />
+</p>
 
-<p align="center"><img width="920" height="502" alt="image" src="https://github.com/user-attachments/assets/aa019658-4519-4cdd-a12e-900bf925133a" /></p>
+---
 
-- Tạo file xử lý bitmap trong thư mục screens:
+### Bước 3: Modify Game
 
-<p align="center"><img width="1265" height="884" alt="image" src="https://github.com/user-attachments/assets/04768ea3-f7d9-44ba-b0cd-b00853e706cc" /></p>
+Mở **VSCode** trên Linux, sau đó mở repository vừa clone để bắt đầu lập trình.
 
-- Include file header vào scr_startup_h:
+Trước tiên, hãy đặt tên cho game của bạn trong file `Makefile.mk` ở thư mục `application/`:
 
-<p align="center"><img width="871" height="393" alt="image" src="https://github.com/user-attachments/assets/f15b90a6-9d31-4b5b-aaee-93a6644003b7" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/name-your-game.png" />
+</p>
 
-- Trong file scr_startup.cpp, cập nhật lại hàm view_scr_startup():
+Toàn bộ logic game được viết trong thư mục `application/sources/app`.
 
-<p align="center"><img width="876" height="381" alt="image" src="https://github.com/user-attachments/assets/9d497da1-3adf-4f9c-83bf-7bbdbe6580c0" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/application.png" />
+</p>
 
-- Build và nạp lên kit (Casch build và nạp các bạn có thể tham khảo phần II nhé):
+#### Ví dụ: Hiển thị màn hình Peashooter (Cây đậu bắn súng) trong game Plants vs. Zombies
 
-<p align="center"><img width="828" height="1430" alt="a23f6fefedea6cb435fb" src="https://github.com/user-attachments/assets/d9032475-3f4c-4f79-8073-ecb10345333f" /></p>
+**Bước 3.1 —** Tạo file header `scr_peashooter.h` trong thư mục `screens/` để khai báo các hàm vẽ màn hình Peashooter:
 
-### Bước 3: Lưu lại thay đổi và đẩy lên GitHub cá nhân
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/create-header-peashooter.png" />
+</p>
 
-Sau khi code xong một tính năng (như ví dụ trên), hãy lưu lại tiến độ lên repo của bạn bằng cách gõ các lệnh này trên termianal (Chú ý đường dẫn phải đang là ngay thư mục gốc):
-  
-    git add .
-  
-    git commit -m "Tính năng: Cập nhật logo AK Foundation"
-  
-    git push origin main
+**Bước 3.2 —** Tạo file `scr_peashooter.cpp` để xử lý dữ liệu bitmap và hiển thị Peashooter lên màn hình:
 
-Kết qủa sau ghi gõ 3 lệnh trên:
- 
- <p align="center"><img width="860" height="257" alt="image" src="https://github.com/user-attachments/assets/ff8edf7a-e368-42c2-82dc-123d16843b01" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/create-scr-peashooter.png" />
+</p>
 
-Repo của bạn đã được cập nhật trên GitHub:
+**Bước 3.3 —** Tạo file header `screens_bitmap.h` trong thư mục `screens/` để khai báo dữ liệu bitmap dùng chung:
 
- <p align="center"><img width="1188" height="359" alt="image" src="https://github.com/user-attachments/assets/d09a9419-0d1b-47d8-9148-ef494f58932a" /></p>
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/create-header-bitmap.png" />
+</p>
 
-Sau bước này, mọi người có thể trực tiếp vào đường link GitHub của bạn để xem tiến độ và trải nghiệm code game bạn viết:
+**Bước 3.4 —** Tạo file `screens_bitmap.cpp` chứa dữ liệu bitmap của Peashooter:
 
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/create-scr-bitmap.png" />
+</p>
 
+**Bước 3.5 —** Include file header của Peashooter vào `task_display.h`:
 
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/inlcude-header-to-task-display.png" />
+</p>
 
+**Bước 3.6 —** Cập nhật lại case `AC_DISPLAY_BUTTON_MODE_RELEASED`:
 
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/update-case.png" />
+</p>
 
+**Bước 3.7 —** Thêm hai file `scr_peashooter.cpp` và `screens_bitmap.cpp` vào `Makefile.mk` trong thư mục `screens/` để biên dịch:
+
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/add-2-peashooter-and-bitmap.png" />
+</p>
+
+**Bước 3.8 —** Build và nạp firmware lên kit (xem hướng dẫn chi tiết tại [phần II](#ii-quick-start-guide-setup-môi-trường)):
+
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/result.jpg" />
+</p>
+
+---
+
+### Bước 4: Push code lên GitHub
+
+Sau khi hoàn thành một tính năng, hãy lưu lại tiến độ lên repo cá nhân bằng các lệnh sau (chạy tại **thư mục gốc** của repo):
+
+```bash
+git add .
+git commit -m "Create screen of Peashooter"
+git push origin main
+```
+
+**Kết quả sau khi chạy lệnh:**
+
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/push-code-to-github.png" />
+</p>
+
+**Repository đã được cập nhật trên GitHub:**
+
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/github-after-update-1.png" />
+</p>
+
+<p align="center">
+  <img width="1338" height="640" alt="repo-ak" src="hardware/images/Quickstartguide/github-after-update-2.png" />
+</p>
+
+Từ đây, bất kỳ ai cũng có thể truy cập link GitHub của bạn để theo dõi tiến độ và trải nghiệm tựa game mà bạn đã tạo ra.
+
+---
+
+## Liên hệ & Hỗ trợ
+
+- LinkedIn: [www.linkedin.com/in/cao-trong-phuoc](https://www.linkedin.com/in/cao-trong-phuoc)
+- Dép lào: 0936310918
+
+## Tài liệu tham khảo
+
+- Blog: [AK Embedded Software](https://epcb.vn/blogs/ak-embedded-software)
+
+---
+
+<p align="center">
+  <i>Chúc bạn lập trình vui vẻ và tạo ra những tựa game thật thú vị!</i>
+</p>
