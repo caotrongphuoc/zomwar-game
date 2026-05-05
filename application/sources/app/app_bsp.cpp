@@ -21,12 +21,6 @@ void btn_mode_callback(void* b) {
 	}
 		break;
 
-	case BUTTON_SW_STATE_LONG_PRESSED: {
-		APP_DBG("[btn_mode_callback] BUTTON_SW_STATE_LONG_PRESSED\n");
-		task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_MODE_LONG_PRESSED);
-	}
-		break;
-
 	case BUTTON_SW_STATE_RELEASED: {
 		APP_DBG("[btn_mode_callback] BUTTON_SW_STATE_RELEASED\n");
 		task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_MODE_RELEASED);
@@ -46,11 +40,6 @@ void btn_up_callback(void* b) {
         task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_UP_PRESSED);
     }
         break;
-    case BUTTON_SW_STATE_LONG_PRESSED: {
-        APP_DBG("[btn_up_callback] BUTTON_SW_STATE_LONG_PRESSED\n");
-        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_UP_LONG_PRESSED);
-    }
-        break;
     case BUTTON_SW_STATE_RELEASED: {
         APP_DBG("[btn_up_callback] BUTTON_SW_STATE_RELEASED\n");
         task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_UP_RELEASED);
@@ -67,11 +56,6 @@ void btn_down_callback(void* b) {
     case BUTTON_SW_STATE_PRESSED: {
         APP_DBG("[btn_down_callback] BUTTON_SW_STATE_PRESSED\n");
         task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_DOWN_PRESSED);
-    }
-        break;
-    case BUTTON_SW_STATE_LONG_PRESSED: {
-        APP_DBG("[btn_down_callback] BUTTON_SW_STATE_LONG_PRESSED\n");
-        task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_BTN_DOWN_LONG_PRESSED);
     }
         break;
     case BUTTON_SW_STATE_RELEASED: {

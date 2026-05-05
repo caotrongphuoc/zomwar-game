@@ -27,7 +27,7 @@ enum {
 	/* ZOMWAR GAME ID */
 	ZW_GAME_ZOMBIE_ID,
 	ZW_GAME_BORDER_ID,
-	ZW_GAME_PEASHOOTER_ID,
+	ZW_GAME_GUNNER_ID,
 	ZW_GAME_BULLET_ID,
 	ZW_GAME_BANG_ID,
 	ZW_GAME_CAR_ID,
@@ -70,7 +70,7 @@ extern void task_uart_if(ak_msg_t*);
 extern void task_display(ak_msg_t*);
 
 /* ZOMWAR GAME HANDLE */
-extern void zw_game_peashooter_handle(ak_msg_t*);
+extern void zw_game_gunner_handle(ak_msg_t*);
 extern void zw_game_bullet_handle(ak_msg_t*);
 extern void zw_game_zombie_handle(ak_msg_t*);
 extern void zw_game_border_handle(ak_msg_t*);

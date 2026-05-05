@@ -13,7 +13,7 @@ Print = @echo "~"
 NAME_MODULE = ak-base-kit-stm32l151-application
 PROJECT = $(NAME_MODULE)
 
-GCC_PATH			= /home/ctp/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux/gcc-arm-none-eabi-10.3-2021.10
+GCC_PATH		= /home/ctp/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux/gcc-arm-none-eabi-10.3-2021.10
 PROGRAMER_PATH		= /home/ctp/Workspace/Tools/STM32CubeProgrammer/bin
 OPENOCD_CFG_PATH	= /usr/local/share/openocd/scripts/board/stm32ldiscovery.cfg
 
@@ -39,14 +39,25 @@ CONSOLE_BAUDRATE_DEF = -DSYS_CONSOLE_BAUDRATE=$(SYS_CONSOLE_BAUDRATE)
 #|------------|----------------------------------|--------------|---------|------------|-------------|
 OPTIMIZE_OPTION = -g -Os
 
+# RTOS development option.
+RTOS_DEV_OPTION = -URTOS_DEV_EN
+
 # Release build option, that is used in fatal function, restart system when fatal, and debug levels.
 RELEASE_OPTION = -URELEASE
 
 # Enable PIN (using led life) interrupt analyzer function [entry IRQ -> led life ON] and [exit IRQ -> led life OFF].
 IRQ_DEBUG_OPTION = -UAK_IO_IRQ_ANALYZER
 
+# Enable to using USB hareware configuration.
+USB_OPTION = -UUSING_USB_MOD
+
 # Interface compile option.
 IF_LINK_OPTION = -DIF_LINK_UART_EN
+IF_NETWORK_NRF24_OPTION = -UIF_NETWORK_NRF24_EN
+
+# Task compile option.
+TASK_ZIGBEE_OPTION = -UTASK_ZIGBEE_EN
+TASK_MBMASTER_OPTION = -DTASK_MBMASTER_EN
 
 # Include sources file
 include sources/ak/Makefile.mk
@@ -103,6 +114,19 @@ FPU = -mfloat-abi=soft
 
 # Interface option
 IF_OPTION +=	$(IF_LINK_OPTION)		\
+		$(IF_NETWORK_NRF24_OPTION)	\
+
+# App option
+TASK_OPTION +=	$(TASK_ZIGBEE_OPTION)
+TASK_OPTION +=	$(TASK_MBMASTER_OPTION)
+
+# Hardware option
+#Ver 2.1 (Oled 1.3" driver SH1106)
+#Ver 3.0 (Oled 1.54" driver SSD1309)
+
+HARDWARE_OPTION += \
+		-DSSD1309_DRIVER_EN	\
+		-USH1106_DRIVER_EN
 
 # Console log compile option
 CONSOLE_OPTION +=			\
@@ -124,6 +148,8 @@ GENERAL_FLAGS +=			\
 		$(APP_ADDR_OPTION)	\
 		$(USB_OPTION)		\
 		$(IF_OPTION)		\
+		$(TASK_OPTION)		\
+		$(HARDWARE_OPTION)  \
 		-DUSE_STDPERIPH_DRIVER	\
 		-DSTM32L1XX_MD		\
 		-DSTM32L_PLATFORM	\
@@ -193,7 +219,6 @@ help:
 	$(Print) "             Note: This option is needed install ak-flash. Link download & install: https://github.com/ak-embedded-software/ak-flash"
 	$(Print) "             Example: make flash dev=/dev/ttyUSB0"
 	$(Print) "[make flash] burn firmware via st-link"
-	$(Print) "[make factory] burn factory firmware via st-link"
 	$(Print) "[make com dev=/dev/tty*] console AK Embedded Base Kit"
 	$(Print) "[make debug gdb=ddd] gdb debug using ddd"
 	$(Print) "[make debug] gdb debug"
@@ -208,14 +233,6 @@ ifdef dev
 	ak-flash $(dev) $(TARGET:.axf=.bin) $(APP_START_ADDR_VAL)
 else
 	$(PROGRAMER_PATH)/STM32_Programmer.sh -c port=SWD -w $(TARGET:.axf=.bin) $(APP_START_ADDR_VAL) -rst
-endif
-
-.PHONY: factory
-factory:
-ifdef dev
-	ak-flash $(dev) ../resources/bin/ak-base-kit-stm32l151-application.bin $(APP_START_ADDR_VAL)
-else
-	$(PROGRAMER_PATH)/STM32_Programmer.sh -c port=SWD -w ../resources/bin/ak-base-kit-stm32l151-application.bin $(APP_START_ADDR_VAL) -rst
 endif
 
 .PHONY: com

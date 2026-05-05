@@ -37,7 +37,6 @@ static uint8_t get_lane_count(uint8_t i) {
 static void view_scr_tombstone_count() {
 	view_render.setTextSize(1);
 
-	// Item dang duoc chon (0-based): 0..TB_COUNT_NUM_LANES (EXIT)
 	uint8_t sel = (tb_count_location_chosse / TB_COUNT_STEP_CHOSSE) - 1;
 
 	for (uint8_t i = 0; i <= TB_COUNT_NUM_LANES; i++) {
@@ -105,6 +104,7 @@ void scr_tombstone_count_handle(ak_msg_t* msg) {
 			/* Set theo giá trị mới */
 			if (cur >= 1) settingdata.tombstone_lane_1 |= (1 << idx);
 			if (cur == 2) settingdata.tombstone_lane_2 |= (1 << idx);
+			BUZZER_PlayTones(tones_cc);
 		}
 			break;
 
@@ -121,7 +121,6 @@ void scr_tombstone_count_handle(ak_msg_t* msg) {
 		default:
 			break;
 		}
-		BUZZER_PlayTones(tones_cc);
 	}
 		break;
 

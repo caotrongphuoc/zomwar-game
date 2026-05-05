@@ -1,12 +1,10 @@
 #include "zw_game_border.h"
 
 #include "zw_game_zombie.h"
-#include "zw_game_peashooter.h"
 #include "zw_game_car.h"
 
 zw_game_border_t border;
 uint32_t zw_game_score = 0;
-uint32_t zw_game_kill_count = 0;
 
 #define ZW_GAME_BORDER_SETUP() \
 do { \
@@ -15,12 +13,20 @@ do { \
     border.action_image = 0; \
 } while (0);
 
+#define ZW_GAME_LEVEL_UP() \
+do { \
+    if (settingsetup.zombie_speed < ZOMBIE_SPEED_MAX) { \
+        settingsetup.zombie_speed++; \
+    } \
+} while (0);
+
 #define ZW_GAME_CHECK_GAME_OVER() \
 do { \
     for (uint8_t i = 0; i < NUM_ZOMBIES; i++) { \
         if (zombie[i].visible != WHITE) continue; \
         if (zombie[i].x <= -(int32_t)ZOMBIE_MIN_LEFT_OFFSET) { \
-            uint8_t lane = zombie[i].lane; \
+            uint8_t lane = (uint8_t)((zombie[i].y - ZOMBIE_Y_MIN) / 10); \
+            if (lane >= NUM_LANES) lane = NUM_LANES - 1; \
             if (!car[lane].visible) { \
                 task_post_pure_msg(ZW_GAME_SCREEN_ID, ZW_GAME_RESET); \
             } \
@@ -32,7 +38,6 @@ do { \
 do { \
     border.x = AXIS_X_BORDER; \
     border.visible = BLACK; \
-    zw_game_kill_count = 0; \
     zw_game_score = 0; \
 } while (0);
 
@@ -53,8 +58,13 @@ void zw_game_border_handle(ak_msg_t* msg) {
     case ZW_GAME_ZOMBIE_KILLED: {
         APP_DBG_SIG("ZW_GAME_ZOMBIE_KILLED\n");
         zw_game_score += 10;
-        zw_game_kill_count++;
         BUZZER_PlayTones(tones_BUM);
+    }
+        break;
+
+    case ZW_GAME_LEVEL_UP: {
+        APP_DBG_SIG("ZW_GAME_LEVEL_UP\n");
+        ZW_GAME_LEVEL_UP();
     }
         break;
 
@@ -63,7 +73,7 @@ void zw_game_border_handle(ak_msg_t* msg) {
         ZW_GAME_BORDER_RESET();
     }
         break;
-    
+
     default:
         break;
     }

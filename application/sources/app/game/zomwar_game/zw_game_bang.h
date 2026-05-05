@@ -29,4 +29,6 @@ typedef struct {
 
 extern zw_game_bang_t bang[NUM_BANG];
 
+uint8_t bang_alloc_slot(void);
+
 #endif //__ZW_GAME_BANG_H__

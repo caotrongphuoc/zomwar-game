@@ -29,6 +29,10 @@ extern "C"
 #define SSD1306_DATA_PIN				(0x04)
 #define SSD1306_RES_PIN					(0x08)
 
+#define OLED_CLK_PIN					SSD1306_CLK_PIN
+#define OLED_DATA_PIN					SSD1306_DATA_PIN
+#define OLED_RES_PIN					SSD1306_RES_PIN
+
 /******************************************************************************
  *Pin map button
 *******************************************************************************/

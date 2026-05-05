@@ -28,6 +28,5 @@ typedef struct {
 
 extern uint32_t zw_game_score;
 extern zw_game_border_t border;
-extern uint32_t zw_game_kill_count;
 
 #endif //__ZW_GAME_BORDER_H__

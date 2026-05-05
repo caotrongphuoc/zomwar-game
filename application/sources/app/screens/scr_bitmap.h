@@ -4,8 +4,8 @@
 #include "view_render.h"
 
 // scr_zomwar_game
-extern const unsigned char PROGMEM bitmap_peashooter_I []; 
-extern const unsigned char PROGMEM bitmap_peashooter_II [];
+extern const unsigned char PROGMEM bitmap_gunner_I []; 
+extern const unsigned char PROGMEM bitmap_gunner_II [];
 extern const unsigned char PROGMEM bitmap_zombie_I [];
 extern const unsigned char PROGMEM bitmap_zombie_II [];
 extern const unsigned char PROGMEM bitmap_zombie_III [];
@@ -13,14 +13,11 @@ extern const unsigned char PROGMEM bitmap_bullet [];
 extern const unsigned char PROGMEM bitmap_bang_I [];
 extern const unsigned char PROGMEM bitmap_bang_II [];
 extern const unsigned char PROGMEM bitmap_bang_III [];
-extern const unsigned char PROGMEM bitmap_sandbags [];
 extern const unsigned char PROGMEM bitmap_car_I [];
 extern const unsigned char PROGMEM bitmap_car_II [];
 extern const unsigned char PROGMEM bitmap_car_III [];
 extern const unsigned char PROGMEM bitmap_warning [];
 extern const unsigned char PROGMEM bitmap_tombstone [];
-extern const unsigned char PROGMEM grass_bmp_32x24 [];
-
 
 // scr_charts_game
 extern const unsigned char PROGMEM bitmap_icon_charts [];
@@ -30,7 +27,6 @@ extern const unsigned char PROGMEM bitmap_spiderweb_L [];
 extern const unsigned char PROGMEM bitmap_spiderweb_R [];
 extern const unsigned char PROGMEM bitmap_sleepy_bat_I [];
 extern const unsigned char PROGMEM bitmap_sleepy_bat_II [];
-
 
 // scr_game_over
 extern const unsigned char PROGMEM icon_restart [];

@@ -1,9 +1,10 @@
 #include "zw_game_car.h"
+
 #include "zw_game_zombie.h"
 #include "zw_game_bang.h"
 
 zw_game_car_t car[NUM_LANES];
-static const int32_t lane_y[NUM_LANES] = {2, 12, 22, 32, 42};
+static const int32_t lane_y[NUM_LANES] = LANE_Y;
 static bool game_active = false;
 
 #define ZW_GAME_CAR_SETUP() \
@@ -19,7 +20,6 @@ do { \
     } \
 } while(0);
 
-/* Tìm car gần nhất với zombie theo Y */
 static int8_t find_nearest_mower(uint32_t zy) {
     int8_t best = -1;
     int32_t best_dist = 999;
@@ -32,7 +32,6 @@ static int8_t find_nearest_mower(uint32_t zy) {
             best = i;
         }
     }
-    /* Chỉ kích hoạt nếu trong tầm hit */
     if (best >= 0 && best_dist > CAR_HIT_RANGE_Y) {
         best = -1;
     }
@@ -67,7 +66,6 @@ do { \
             int32_t dy = (int32_t)zombie[i].y - (int32_t)car[m].y; \
             if (dy < 0) dy = -dy; \
             if (dy <= CAR_HIT_RANGE_Y) { \
-                /* Kich hoat xe khi pixel tay zombie cham vao xe */ \
                 if (zombie[i].x + (int32_t)ZOMBIE_MIN_LEFT_OFFSET <= (int32_t)(car[m].x + SIZE_BITMAP_CAR_X)) { \
                     car[m].running = true; \
                 } \
@@ -88,28 +86,23 @@ do { \
             int32_t dy = (int32_t)zombie[j].y - (int32_t)car[i].y; \
             if (dy < 0) dy = -dy; \
             if (dy > CAR_HIT_RANGE_Y) continue; \
-            /* Xe can zombie khi bat ky pixel trai ngoai cung nao cua zombie nam trong vung xe */ \
             uint8_t fidx_c = (zombie[j].action_image == 2) ? 1 : 0; \
             bool overlap_x = false; \
             for (uint8_t r = 0; r < SIZE_BITMAP_ZOMBIES_Y && !overlap_x; r++) { \
                 int32_t lx = zombie[j].x + (int32_t)ZOMBIE_LEFT_PX[fidx_c][r]; \
-                if (lx >= (int32_t)car[i].x && lx < (int32_t)(car[i].x + SIZE_BITMAP_CAR_X)) { \
+                if (lx >= (int32_t)(car[i].x + 4) && lx < (int32_t)(car[i].x + SIZE_BITMAP_CAR_X)) { \
                     overlap_x = true; \
                 } \
             } \
             if (overlap_x) { \
                 zombie[j].visible = BLACK; \
                 zombie[j].x = 200; \
-                for (uint8_t k = 0; k < NUM_BANG; k++) { \
-                    if (bang[k].visible == BLACK) { \
-                        bang[k].visible      = WHITE; \
-                        bang[k].x            = car[i].x; \
-                        bang[k].y            = car[i].y; \
-                        bang[k].action_image = 1; \
-                        task_post_pure_msg(ZW_GAME_BORDER_ID, ZW_GAME_ZOMBIE_KILLED); \
-                        break; \
-                    } \
-                } \
+                uint8_t bk = bang_alloc_slot(); \
+                bang[bk].visible      = WHITE; \
+                bang[bk].x            = car[i].x; \
+                bang[bk].y            = car[i].y; \
+                bang[bk].action_image = 1; \
+                task_post_pure_msg(ZW_GAME_BORDER_ID, ZW_GAME_ZOMBIE_KILLED); \
             } \
         } \
         \
@@ -134,17 +127,23 @@ do { \
 void zw_game_car_handle(ak_msg_t* msg) {
     switch (msg->sig) {
     case ZW_GAME_CAR_SETUP: {
+        APP_DBG_SIG("ZW_GAME_CAR_SETUP\n");
         ZW_GAME_CAR_SETUP();
     }
         break;
+
     case ZW_GAME_CAR_RUN: {
+        APP_DBG_SIG("ZW_GAME_CAR_RUN\n");
         ZW_GAME_CAR_RUN();
     }
         break;
+
     case ZW_GAME_CAR_RESET: {
+        APP_DBG_SIG("ZW_GAME_CAR_RESET\n");
         ZW_GAME_CAR_RESET();
     }
         break;
+
     default:
         break;
     }

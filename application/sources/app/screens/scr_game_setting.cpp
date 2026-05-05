@@ -29,7 +29,6 @@ view_screen_t scr_game_setting = {
 void view_scr_game_setting() {
 	view_render.setTextSize(1);
 
-	// Item dang duoc chon (0-based)
 	uint8_t sel = (setting_location_chosse / STEP_SETTING_CHOSSE) - 1;
 
 	for (uint8_t f = 0; f < 5; f++) {
@@ -53,7 +52,7 @@ void view_scr_game_setting() {
 		uint8_t text_y = frame_y + 2;
 
 		switch (f) {
-		case 0: {  // Cars
+		case 0: {
 			uint8_t car_count = 0;
 			for (uint8_t i = 0; i < 5; i++) {
 				if ((settingdata.num_car >> i) & 1) car_count++;
@@ -65,43 +64,33 @@ void view_scr_game_setting() {
 			view_render.print(car_count);
 			view_render.print("]");
 		} break;
-		case 1: {  // Tombstones
+		case 1: {
 			uint8_t total_t = 0;
 			for (uint8_t i = 0; i < 5; i++) {
 				if ((settingdata.tombstone_lane_1 >> i) & 1) total_t++;
 				if ((settingdata.tombstone_lane_2 >> i) & 1) total_t++;
 			}
-			if(total_t < 10) {
 			view_render.setCursor(2, text_y);
 			view_render.print("Tombstones");
-			view_render.setCursor(104, text_y);
+			view_render.setCursor(total_t >= 10 ? 98 : 104, text_y);
 			view_render.print("[");
 			view_render.print(total_t);
 			view_render.print("]");
-			}
-			else {
-				view_render.setCursor(2, text_y);
-				view_render.print("Tombstones");
-				view_render.setCursor(98, text_y);
-				view_render.print("[");
-				view_render.print(total_t);
-				view_render.print("]");
-			}
 		} break;
-		case 2:  // Zombie speed
+		case 2:
 			view_render.setCursor(2, text_y);
-			view_render.print("Zombies sp");
+			view_render.print("Zombies speed");
 			view_render.setCursor(104, text_y);
 			view_render.print("[");
 			view_render.print(settingdata.zombie_speed);
 			view_render.print("]");
 			break;
-		case 3:  // Sound
+		case 3:
 			view_render.setCursor(2, text_y);
 			view_render.print("Sound");
 			view_render.drawBitmap(110, text_y, settingdata.silent ? speaker_2 : speaker_1, 7, 7, fg);
 			break;
-		case 4:  // EXIT
+		case 4:
 			view_render.setCursor(45, text_y);
 			view_render.print(" EXIT ");
 			break;
@@ -131,36 +120,34 @@ void scr_game_setting_handle(ak_msg_t* msg) {
 		APP_DBG_SIG("AC_DISPLAY_BUTTON_MODE_RELEASED\n");
 		switch (setting_location_chosse) {
 		case SETTING_ITEM_ARRDESS_1: {
-			// Vào sub-menu chọn vị trí xe
 			SCREEN_TRAN(scr_car_position_handle, &scr_car_position);
+			BUZZER_PlayTones(tones_cc);
 		}
 			break;
 
 		case SETTING_ITEM_ARRDESS_2: {
-			// Vào sub-menu chỉnh bia mộ theo từng lane
 			SCREEN_TRAN(scr_tombstone_count_handle, &scr_tombstone_count);
+			BUZZER_PlayTones(tones_cc);
 		}
 			break;
 
 		case SETTING_ITEM_ARRDESS_3: {
-			// Cycle zombie speed 1-5
 			settingdata.zombie_speed++;
 			if (settingdata.zombie_speed > 5) {
 				settingdata.zombie_speed = 1;
 			}
+			BUZZER_PlayTones(tones_cc);
 		}
 			break;
 
 		case SETTING_ITEM_ARRDESS_4: {
-			// Toggle sound
 			settingdata.silent = !settingdata.silent;
 			BUZZER_Sleep(settingdata.silent);
+			BUZZER_PlayTones(tones_cc);
 		}
 			break;
 
 		case SETTING_ITEM_ARRDESS_5: {
-			// Save and exit
-			settingdata.bullet_speed = 5;
 			eeprom_write(	EEPROM_SETTING_START_ADDR,
 							(uint8_t*)&settingdata,
 							sizeof(settingdata));
@@ -173,20 +160,6 @@ void scr_game_setting_handle(ak_msg_t* msg) {
 			break;
 		}
 	}
-		BUZZER_PlayTones(tones_cc);
-		break;
-
-	case AC_DISPLAY_BUTTON_UP_LONG_PRESSED: {
-		APP_DBG_SIG("AC_DISPLAY_BUTTON_UP_LONG_PRESSED\n");
-		// Reset về max
-		settingdata.num_car = 0x1F;
-		settingdata.tombstone_lane_1 = 0x1F;
-		settingdata.tombstone_lane_2 = 0x1F;
-		settingdata.zombie_speed = 5;
-		settingdata.silent = 0;
-	}
-		BUZZER_Sleep(settingdata.silent);
-		BUZZER_PlayTones(tones_cc);
 		break;
 
 	case AC_DISPLAY_BUTTON_UP_RELEASED: {
@@ -196,19 +169,6 @@ void scr_game_setting_handle(ak_msg_t* msg) {
 			setting_location_chosse = SETTING_ITEM_ARRDESS_5;
 		}
 	}
-		BUZZER_PlayTones(tones_cc);
-		break;
-
-	case AC_DISPLAY_BUTTON_DOWN_LONG_PRESSED: {
-		APP_DBG_SIG("AC_DISPLAY_BUTTON_DOWN_LONG_PRESSED\n");
-		// Reset về min
-		settingdata.num_car = 0x00;
-		settingdata.tombstone_lane_1 = 0x00;
-		settingdata.tombstone_lane_2 = 0x00;
-		settingdata.zombie_speed = 1;
-		settingdata.silent = 1;
-	}
-		BUZZER_Sleep(settingdata.silent);
 		BUZZER_PlayTones(tones_cc);
 		break;
 

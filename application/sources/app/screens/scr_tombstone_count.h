@@ -32,13 +32,6 @@
 #define TB_COUNT_ITEM_ARRDESS_4     (TB_COUNT_STEP_CHOSSE*4)
 #define TB_COUNT_ITEM_ARRDESS_5     (TB_COUNT_STEP_CHOSSE*5)
 #define TB_COUNT_ITEM_ARRDESS_6     (TB_COUNT_STEP_CHOSSE*6)
-// Text and Number
-#define TB_COUNT_TEXT_AXIS_X        (20)
-#define TB_COUNT_NUMBER_AXIS_X      (110)
-// Chosse icon
-#define TB_COUNT_CHOSSE_ICON_AXIS_Y (14)
-#define TB_COUNT_CHOSSE_ICON_SIZE_W (20)
-#define TB_COUNT_CHOSSE_ICON_SIZE_H (20)
 // Frames
 #define TB_COUNT_FRAMES_AXIS_X      (0)
 #define TB_COUNT_FRAMES_AXIS_Y_1    (2)

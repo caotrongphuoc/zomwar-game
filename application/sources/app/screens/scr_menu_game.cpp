@@ -3,7 +3,7 @@
 /*****************************************************************************/
 /* Variable and Struct Declaration - Menu game */
 /*****************************************************************************/
-// Screen 
+
 #define STEP_MENU_CHOSSE				(22)
 #define NUMBER_MENU_ITEMS				(4)
 #define	SCREEN_MENU_H					(64)
@@ -17,66 +17,59 @@ do { \
 } while(0);
 
 struct menu_items{
-// menu items
+
 	unsigned int is_item_1 : 1;
 	unsigned int is_item_2 : 1;
 	unsigned int is_item_3 : 1;
 	unsigned int is_item_4 : 1;
 };
 
-// Menu items name
 static char menu_items_name[NUMBER_MENU_ITEMS][30] = {
-	"     Start ",				// item 1
-	"     Setting      ",		// item 2
-	"     Leaderboard       ",	// item 3
-	"     Exit         ",		// item 4
+	"     Start ",
+	"     Setting      ",
+	"     Leaderboard       ",
+	"     Exit         ",
 };
 
-// Menu items icon
 static const uint8_t *menu_items_icon[NUMBER_MENU_ITEMS] = {
-	tomb_icon,					// item 1
-	setting_icon,				// item 2
-	chart_icon,					// item 3
-	exit_icon,					// item 4
+	tomb_icon,
+	setting_icon,
+	chart_icon,
+	exit_icon,
 };
 
-// Menu items size W
 uint8_t menu_items_icon_size_w[NUMBER_MENU_ITEMS] = {
-	16,							// item 1
-	16,							// item 2
-	16,							// item 3
-	16,							// item 4
+	16,
+	16,
+	16,
+	16,
 };
 
 uint8_t menu_items_icon_size_h[NUMBER_MENU_ITEMS] = {
-	16,							// item 1
-	16,							// item 2
-	16,							// item 3
-	16,							// item 4
+	16,
+	16,
+	16,
+	16,
 };
 
-// Menu items color
 uint8_t menu_items_icon_color[NUMBER_MENU_ITEMS];
-// Menu items axis Y
+
 uint8_t menu_items_icon_axis_y[3] = {
-	2,							// icon frame 1
-	24,							// icon frame 2
-	46							// icon frame 3
+	2,
+	24,
+	46
 };
 
-// Screen and item location on the Menu
 typedef struct {
 	int screen;
 	int location;
 } screen_t;
 
-// Menu items ID
 union scr_menu_t {
-	uint32_t _id = 1;		// if items >> => uint8_t -> uint16_t ->uint32_t
+	uint32_t _id = 1;
 	menu_items items;
 };
 
-// Scroll bar
 typedef struct {
 	uint8_t axis_x = 126;
 	uint8_t axis_y = 0;
@@ -84,7 +77,6 @@ typedef struct {
 	uint8_t size_h = SCREEN_MENU_H / NUMBER_MENU_ITEMS;
 } scr_menu_scroll_bar_t;
 
-// Frames
 typedef struct {
 	uint8_t axis_x = 0;
 	uint8_t axis_y = 0;
@@ -122,7 +114,7 @@ view_screen_t scr_menu_game = {
 void view_scr_menu_game() {
 #define ZW_GAME_MENU_ICON_AXIS_X			(7)
 #define ZW_GAME_MENU_TEXT_AXIS_X			(20)
-	// Scroll bar
+
 	view_render.fillRect(	scroll_bar.axis_x - 1, \
 							scroll_bar.axis_y, \
 							scroll_bar.size_W, \
@@ -134,7 +126,7 @@ void view_scr_menu_game() {
 							1, \
 							SCREEN_MENU_H, \
 							WHITE);
-	// Frame White
+
 	view_render.fillRoundRect(	frame_white.axis_x, \
 								frame_white.axis_y, \
 								frame_white.size_w, \
@@ -142,14 +134,14 @@ void view_scr_menu_game() {
 								frame_white.size_r, \
 								WHITE);
 	for (uint8_t i = 0; i < 3; i++) {
-	// Frames
+
 		view_render.drawRoundRect(	frame[i].axis_x, \
 									frame[i].axis_y, \
 									frame[i].size_w, \
 									frame[i].size_h, \
 									frame[i].size_r, \
 									WHITE);
-	// Icon
+
 		view_render.drawBitmap(	ZW_GAME_MENU_ICON_AXIS_X, \
 								menu_items_icon_axis_y[i], \
 								menu_items_icon[screen_menu.screen + i], \
@@ -157,7 +149,7 @@ void view_scr_menu_game() {
 								menu_items_icon_size_h[screen_menu.screen + i], \
 								menu_items_icon_color[screen_menu.screen + i]);
 	}
-	// Text Menu
+
 	view_render.setTextSize(1);
 	for (uint8_t i = 0; i < 3; i++) {
 		view_render.setTextColor(menu_items_icon_color[screen_menu.screen + i]);
@@ -170,33 +162,33 @@ void view_scr_menu_game() {
 /* Handle - Menu game */
 /*****************************************************************************/
 void update_menu_screen_chosse() {
-	// Frames location
-	frame_white.axis_y =frame[screen_menu.location-screen_menu.screen].axis_y;
+
+	frame_white.axis_y = frame[screen_menu.location-screen_menu.screen].axis_y;
 	frame[0].axis_y = 0;
 	frame[1].axis_y = 22;
 	frame[2].axis_y = 44;
-	// update color menu
+
 	menu_chosse._id = 1<<screen_menu.location;
 	MENU_ITEMS_ICON_COLOR();
-	// update scroll bar
+
 	scroll_bar.axis_y = (SCREEN_MENU_H*screen_menu.location / NUMBER_MENU_ITEMS);
 }
 
 void screen_tran_menu() {
 	switch (screen_menu.location) {
-	case 0:	// item 1
+	case 0:
 			SCREEN_TRAN(scr_zw_game_handle,	&scr_zomwar_game	);
 		break;
-	case 1:	// item 2
+	case 1:
 			SCREEN_TRAN(scr_game_setting_handle,	&scr_game_setting	);
 		break;
-	case 2:	// item 3
+	case 2:
 			SCREEN_TRAN(scr_charts_game_handle,		&scr_charts_game	);
 		break;
-	case 3: // item 4
+	case 3:
 			SCREEN_TRAN(scr_idle_handle,			&scr_idle			);
 		break;
-	
+
 	default:
 		break;
 	}
@@ -209,7 +201,7 @@ void scr_menu_game_handle(ak_msg_t* msg) {
 		view_render.initialize();
 		view_render_display_on();
 		update_menu_screen_chosse();
-		// timer switch to scr_idle
+
 		timer_set(	AC_TASK_DISPLAY_ID, \
 					AC_DISPLAY_SHOW_IDLE, \
 					AC_DISPLAY_IDLE_INTERVAL, \
@@ -232,20 +224,23 @@ void scr_menu_game_handle(ak_msg_t* msg) {
 		APP_DBG_SIG("AC_DISPLAY_BUTTON_UP_RELEASED\n");
 		if (screen_menu.location > 0) {
 			screen_menu.location--;
-		}
-		if (frame_white.axis_y == frame[0].axis_y) {
-			if (screen_menu.screen > 0) {
-				screen_menu.screen--;
+			if (frame_white.axis_y == frame[0].axis_y) {
+				if (screen_menu.screen > 0) {
+					screen_menu.screen--;
+				}
 			}
-		}
-		else if (frame_white.axis_y == frame[1].axis_y) {
-			frame_white.axis_y = frame[0].axis_y;
-		}
-		else if (frame_white.axis_y == frame[2].axis_y) {
-			frame_white.axis_y = frame[1].axis_y;
+			else if (frame_white.axis_y == frame[1].axis_y) {
+				frame_white.axis_y = frame[0].axis_y;
+			}
+			else if (frame_white.axis_y == frame[2].axis_y) {
+				frame_white.axis_y = frame[1].axis_y;
+			}
+		} else {
+			screen_menu.location = NUMBER_MENU_ITEMS - 1;
+			screen_menu.screen   = NUMBER_MENU_ITEMS - 3;
 		}
 		update_menu_screen_chosse();
-		// Reset timer switch to scr_idle
+
 		timer_set(	AC_TASK_DISPLAY_ID, \
 					AC_DISPLAY_SHOW_IDLE, \
 					AC_DISPLAY_IDLE_INTERVAL, \
@@ -256,23 +251,25 @@ void scr_menu_game_handle(ak_msg_t* msg) {
 
 	case AC_DISPLAY_BUTTON_DOWN_RELEASED: {
 		APP_DBG_SIG("AC_DISPLAY_BUTTON_DOWN_RELEASED\n");
-		// 
-		if (screen_menu.location < NUMBER_MENU_ITEMS-1) {
+		if (screen_menu.location < NUMBER_MENU_ITEMS - 1) {
 			screen_menu.location++;
-		}
-		if (frame_white.axis_y == frame[0].axis_y) {
-			frame_white.axis_y = frame[1].axis_y;
-		}
-		else if (frame_white.axis_y == frame[1].axis_y) {
-			frame_white.axis_y = frame[2].axis_y;
-		}
-		else if (frame_white.axis_y == frame[2].axis_y) {
-			if (screen_menu.screen < NUMBER_MENU_ITEMS-3) {
-				screen_menu.screen++;
+			if (frame_white.axis_y == frame[0].axis_y) {
+				frame_white.axis_y = frame[1].axis_y;
 			}
+			else if (frame_white.axis_y == frame[1].axis_y) {
+				frame_white.axis_y = frame[2].axis_y;
+			}
+			else if (frame_white.axis_y == frame[2].axis_y) {
+				if (screen_menu.screen < NUMBER_MENU_ITEMS - 3) {
+					screen_menu.screen++;
+				}
+			}
+		} else {
+			screen_menu.location = 0;
+			screen_menu.screen   = 0;
 		}
 		update_menu_screen_chosse();
-		// Reset timer switch to scr_idle
+
 		timer_set(	AC_TASK_DISPLAY_ID, \
 					AC_DISPLAY_SHOW_IDLE, \
 					AC_DISPLAY_IDLE_INTERVAL, \

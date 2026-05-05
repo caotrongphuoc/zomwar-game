@@ -23,7 +23,7 @@
 #include "screens.h"
 #include "scr_bitmap.h"
 
-#include "zw_game_peashooter.h"
+#include "zw_game_gunner.h"
 #include "zw_game_bullet.h"
 #include "zw_game_bang.h"
 #include "zw_game_border.h"

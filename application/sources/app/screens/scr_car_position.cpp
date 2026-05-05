@@ -1,4 +1,5 @@
 #include "scr_car_position.h"
+
 #include "scr_game_setting.h"
 
 /*****************************************************************************/
@@ -29,7 +30,6 @@ view_screen_t scr_car_position = {
 static void view_scr_car_position() {
 	view_render.setTextSize(1);
 
-	// Item dang duoc chon (0-based): 0..CAR_POS_NUM_CARS (EXIT)
 	uint8_t sel = (car_pos_location_chosse / CAR_POS_STEP_CHOSSE) - 1;
 
 	for (uint8_t i = 0; i <= CAR_POS_NUM_CARS; i++) {
@@ -90,6 +90,7 @@ void scr_car_position_handle(ak_msg_t* msg) {
 		case CAR_POS_ITEM_ARRDESS_5: {
 			uint8_t idx = (car_pos_location_chosse / CAR_POS_STEP_CHOSSE) - 1;
 			settingdata.num_car ^= (1 << idx);
+			BUZZER_PlayTones(tones_cc);
 		}
 			break;
 
@@ -106,7 +107,6 @@ void scr_car_position_handle(ak_msg_t* msg) {
 		default:
 			break;
 		}
-		BUZZER_PlayTones(tones_cc);
 	}
 		break;
 

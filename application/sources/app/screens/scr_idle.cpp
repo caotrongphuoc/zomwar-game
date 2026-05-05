@@ -8,8 +8,7 @@ using namespace std;
 #define MAX_BALL_DISPLAY	(16)
 
 class ball {
-	// rand from a to b
-	// (rand() % (b - a + 1)) + a
+
 public:
 	static int total;
 	int id, x, y, slope, axis_x, axis_y, radius;
@@ -40,7 +39,7 @@ public:
 	}
 
 	void moving() {
-		if( axis_x > 0) {
+		if (axis_x > 0) {
 			x = x + 2;
 		}
 		else {
@@ -94,7 +93,7 @@ vector<ball> v_idle_ball;
 int ball::total;
 
 void view_scr_idle() {
-	for(ball _ball : v_idle_ball) {
+	for (ball _ball : v_idle_ball) {
 		view_render.drawCircle(_ball.x, _ball.y, _ball.radius, 144);
 	}
 }

@@ -1,9 +1,17 @@
 #include "zw_game_bang.h"
 
-#include "zw_game_zombie.h"
-#include "zw_game_bullet.h"
-
 zw_game_bang_t bang[NUM_BANG];
+
+uint8_t bang_alloc_slot(void) {
+    for (uint8_t k = 0; k < NUM_BANG; k++) {
+        if (bang[k].visible == BLACK) return k;
+    }
+    uint8_t best = 0;
+    for (uint8_t k = 1; k < NUM_BANG; k++) {
+        if (bang[k].action_image > bang[best].action_image) best = k;
+    }
+    return best;
+}
 
 #define ZW_GAME_BANG_SETUP() \
 do { \
@@ -24,7 +32,6 @@ do { \
         if (bang[i].action_image == 4) { \
             bang[i].action_image = 1; \
             bang[i].visible = BLACK; \
-            zombie[i].visible = WHITE; \
         } \
     } \
 } while(0);

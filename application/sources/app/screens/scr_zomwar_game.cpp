@@ -1,5 +1,4 @@
 #include "scr_zomwar_game.h"
-#include "screens.h"
 
 /*****************************************************************************/
 /* Variable Declaration - Zomwar game screen */
@@ -8,16 +7,16 @@
 #define GAME_PLAY (1)
 #define GAME_OVER (2)
 
+#define NUM_BATS 2
+
 static uint8_t zw_game_state;
 zw_game_setting_t settingsetup;
-
-#define NUM_BATS 2
 
 static struct {
 	int16_t x;
 	uint8_t y;
-	int8_t  dir;        // +1 = left→right, -1 = right→left
-	uint8_t frame;      // 1, 2, 3
+	int8_t  dir;
+	uint8_t frame;
 	uint8_t frame_tick;
 } bat_anim[NUM_BATS];
 
@@ -27,27 +26,27 @@ static struct {
 void zw_game_frame_display() {
 	view_render.setTextSize(1);
 	view_render.setTextColor(WHITE);
-	view_render.setCursor(2,55);
-	view_render.print("Kills:");
-	view_render.print(zw_game_kill_count);
-	view_render.setCursor(58,55);
-	view_render.print("Scores:");
+	view_render.setCursor(8,55);
+	view_render.print("Wave:");
+	view_render.print(wave_level);
+	view_render.setCursor(64,55);
+	view_render.print("Score:");
 	view_render.print(zw_game_score);
 	view_render.drawLine(0, LCD_HEIGHT, 	LCD_WIDTH, LCD_HEIGHT,		WHITE);
 	view_render.drawLine(0, LCD_HEIGHT-11, 	LCD_WIDTH, LCD_HEIGHT-11,	WHITE);
 	view_render.drawRect(0, 0, 128, 64, 1);
 }
 
-void zw_game_peashooter_display() {
-    if (peashooter.visible == WHITE) {
-        const unsigned char* frame = (peashooter.action_image == 2) ? bitmap_peashooter_II : bitmap_peashooter_I;
-        view_render.drawBitmap( peashooter.x, \
-                                peashooter.y - 10, \
-                                frame, \
-                                SIZE_BITMAP_PEASHOOTER_X, \
-                                SIZE_BITMAP_PEASHOOTER_Y, \
-                                WHITE);
-    }
+void zw_game_gunner_display() {
+	if (gunner.visible == WHITE) {
+		const unsigned char* frame = (gunner.action_image == 2) ? bitmap_gunner_II : bitmap_gunner_I;
+		view_render.drawBitmap( gunner.x, \
+								gunner.y - 10, \
+								frame, \
+								SIZE_BITMAP_GUNNER_X, \
+								SIZE_BITMAP_GUNNER_Y, \
+								WHITE);
+	}
 }
 
 void zw_game_bullet_display() {
@@ -72,7 +71,7 @@ void zw_game_zombie_display() {
 										bitmap_zombie_I, \
 										SIZE_BITMAP_ZOMBIES_X, \
 										SIZE_BITMAP_ZOMBIES_Y, \
-				 						WHITE);
+										WHITE);
 			}
 			else if (zombie[i].action_image == 2) {
 				view_render.drawBitmap(	zombie[i].x, \
@@ -88,7 +87,7 @@ void zw_game_zombie_display() {
 										bitmap_zombie_III, \
 										SIZE_BITMAP_ZOMBIES_X, \
 										SIZE_BITMAP_ZOMBIES_Y, \
-				 						WHITE);
+										WHITE);
 			}
 		}
 	}
@@ -109,9 +108,9 @@ void zw_game_bang_display() {
 				view_render.drawBitmap(	bang[i].x, \
 										bang[i].y, \
 										bitmap_bang_II, \
-										SIZE_BITMAP_BANG_I_X, \
-										SIZE_BITMAP_BANG_I_Y, \
-				 						WHITE);
+										SIZE_BITMAP_BANG_II_X, \
+										SIZE_BITMAP_BANG_II_Y, \
+										WHITE);
 			}
 			else if (bang[i].action_image == 3) {
 				view_render.drawBitmap( bang[i].x + 2, \
@@ -119,86 +118,69 @@ void zw_game_bang_display() {
 										bitmap_bang_III, \
 										SIZE_BITMAP_BANG_II_X, \
 										SIZE_BITMAP_BANG_II_Y, \
-				 						WHITE);
+										WHITE);
 			}
 		}
 	}
 }
 
 void zw_game_car_display() {
-    for (uint8_t i = 0; i < NUM_LANES; i++) {
-
-        // Kiểm tra xem xe ở làn này có đang hiển thị không
-        if (car[i].visible) { // Hoặc car[i].visible == WHITE tùy hệ thống của bạn
-
-            // Kiểm tra trạng thái khung hình để vẽ đúng Bitmap
-            if (car[i].action_image == 1) {
-                view_render.drawBitmap( car[i].x, \
-                                        car[i].y, \
-                                        bitmap_car_I, \
-                                        SIZE_BITMAP_CAR_X, \
-                                        SIZE_BITMAP_CAR_Y, \
-                                        WHITE);
-            }
-            else if (car[i].action_image == 2) {
-                view_render.drawBitmap( car[i].x, \
-                                        car[i].y, \
-                                        bitmap_car_II, \
-                                        SIZE_BITMAP_CAR_X, \
-                                        SIZE_BITMAP_CAR_Y, \
-                                        WHITE);
-            }
-            else if (car[i].action_image == 3) {
-                view_render.drawBitmap( car[i].x, \
-                                        car[i].y, \
-                                        bitmap_car_III, \
-                                        SIZE_BITMAP_CAR_X, \
-                                        SIZE_BITMAP_CAR_Y, \
-                                        WHITE);
-            }
-        }
-    }
+	for (uint8_t i = 0; i < NUM_LANES; i++) {
+		if (car[i].visible) {
+			if (car[i].action_image == 1) {
+				view_render.drawBitmap( car[i].x, \
+										car[i].y, \
+										bitmap_car_I, \
+										SIZE_BITMAP_CAR_X, \
+										SIZE_BITMAP_CAR_Y, \
+										WHITE);
+			}
+			else if (car[i].action_image == 2) {
+				view_render.drawBitmap( car[i].x, \
+										car[i].y, \
+										bitmap_car_II, \
+										SIZE_BITMAP_CAR_X, \
+										SIZE_BITMAP_CAR_Y, \
+										WHITE);
+			}
+			else if (car[i].action_image == 3) {
+				view_render.drawBitmap( car[i].x, \
+										car[i].y, \
+										bitmap_car_III, \
+										SIZE_BITMAP_CAR_X, \
+										SIZE_BITMAP_CAR_Y, \
+										WHITE);
+			}
+		}
+	}
 }
 
 void zw_game_grass_display() {
-    static const uint8_t ly[NUM_LANES] = LANE_Y;
-    for (uint8_t l = 0; l < NUM_LANES; l++) {
-        uint8_t gy = ly[l] + 9;  // hàng cuối của lane
-        for (uint8_t x = 0; x < 128; x += 5) {
-            view_render.drawPixel(x,     gy,     WHITE); // Gốc
-			view_render.drawPixel(x + 1, gy,     WHITE); // Thân dưới
-			view_render.drawPixel(x + 2, gy,     WHITE); // Thân dưới
-			view_render.drawPixel(x + 2, gy - 1, WHITE); // Thân trên vươn ngang
-			view_render.drawPixel(x + 3, gy - 1, WHITE); // Ngọn cỏ nằm ngang
-        }
-    }
+	static const uint8_t ly[NUM_LANES] = LANE_Y;
+	for (uint8_t l = 0; l < NUM_LANES; l++) {
+		uint8_t gy = ly[l] + 9;
+		for (uint8_t x = 0; x < 128; x += 5) {
+			view_render.drawPixel(x,     gy,     WHITE);
+			view_render.drawPixel(x + 1, gy,     WHITE);
+			view_render.drawPixel(x + 2, gy,     WHITE);
+			view_render.drawPixel(x + 2, gy - 1, WHITE);
+			view_render.drawPixel(x + 3, gy - 1, WHITE);
+		}
+	}
 }
 
 void zw_game_tombstone_display() {
-    static const uint8_t ly[NUM_LANES] = LANE_Y;
-    for (uint8_t i = 0; i < NUM_TOMBSTONES; i++) {
-        if (!tombstones[i].active) continue;
-        view_render.drawBitmap(
-            tombstones[i].x,
-            ly[tombstones[i].lane],
-            bitmap_tombstone,
-            SIZE_BITMAP_TOMBSTONE_X,
-            SIZE_BITMAP_TOMBSTONE_Y,
-            WHITE);
-    }
-}
-
-void zw_game_level_display() {
-    if (level_up_display_timer == 0) return;
-    view_render.setTextSize(2);
-    view_render.setTextColor(WHITE);
-    /* "LVN": mỗi ký tự size-2 rộng 12px, cao 16px */
-    uint8_t x = (wave_level < 10) ? (128 - 36) / 2   /* "LV0" = 36px */
-                                   : (128 - 48) / 2;  /* "LV10" = 48px */
-    view_render.setCursor(x, (54 - 16) / 2);
-    view_render.print("LV");
-    view_render.print(wave_level);
-    view_render.setTextSize(1);
+	static const uint8_t ly[NUM_LANES] = LANE_Y;
+	for (uint8_t i = 0; i < NUM_TOMBSTONES; i++) {
+		if (!tombstones[i].active) continue;
+		view_render.drawBitmap(
+			tombstones[i].x,
+			ly[tombstones[i].lane],
+			bitmap_tombstone,
+			SIZE_BITMAP_TOMBSTONE_X,
+			SIZE_BITMAP_TOMBSTONE_Y,
+			WHITE);
+	}
 }
 
 static void zw_game_bat_init() {
@@ -234,25 +216,25 @@ static void zw_game_bat_display() {
 	const unsigned char* frames[3] = {bitmap_bat_I, bitmap_bat_II, bitmap_bat_III};
 	for (uint8_t i = 0; i < NUM_BATS; i++) {
 		view_render.drawBitmap(bat_anim[i].x, bat_anim[i].y,
-		                       frames[bat_anim[i].frame - 1],
-		                       16, 16, WHITE);
+							   frames[bat_anim[i].frame - 1],
+							   16, 16, WHITE);
 	}
 }
 
 void zw_game_warning_display() {
-    if (wave_warning_active) {
-        // Chớp tắt: hiện mỗi WARNING_BLINK_RATE tick
-        if ((wave_warning_timer / WARNING_BLINK_RATE) % 2 == 0) {
-            // Vẽ icon warning giữa màn hình
-            view_render.drawBitmap(
-                (LCD_WIDTH - SIZE_BITMAP_WARNING_X) / 2,   // X giữa
-                (54 - SIZE_BITMAP_WARNING_Y) / 2,          // Y giữa vùng game (trên thanh score)
-                bitmap_warning,
-                SIZE_BITMAP_WARNING_X,
-                SIZE_BITMAP_WARNING_Y,
-                WHITE);
-        }
-    }
+	if (wave_warning_active) {
+
+		if ((wave_warning_timer / WARNING_BLINK_RATE) % 2 == 0) {
+
+			view_render.drawBitmap(
+				(LCD_WIDTH - SIZE_BITMAP_WARNING_X) / 2,
+				(54 - SIZE_BITMAP_WARNING_Y) / 2,
+				bitmap_warning,
+				SIZE_BITMAP_WARNING_X,
+				SIZE_BITMAP_WARNING_Y,
+				WHITE);
+		}
+	}
 }
 
 static void view_scr_zomwar_game();
@@ -277,7 +259,7 @@ void view_scr_zomwar_game() {
 		zw_game_frame_display();
 		zw_game_grass_display();
 		zw_game_tombstone_display();
-		zw_game_peashooter_display();
+		zw_game_gunner_display();
 		zw_game_bullet_display();
 		zw_game_zombie_display();
 		zw_game_bang_display();
@@ -287,11 +269,11 @@ void view_scr_zomwar_game() {
 	else if (zw_game_state == GAME_OVER) {
 		view_render.clear();
 		view_render.drawBitmap(15, 4, bitmap_rip, 100, 54, WHITE);
-		view_render.drawBitmap(0, 48, bitmap_spiderweb_BL, 16, 16, WHITE); // bottom-left
-		view_render.drawBitmap(110, 48, bitmap_spiderweb_BR, 16, 16, WHITE); // bottom-right
+		view_render.drawBitmap(0, 48, bitmap_spiderweb_BL, 16, 16, WHITE);
+		view_render.drawBitmap(110, 48, bitmap_spiderweb_BR, 16, 16, WHITE);
 		view_render.drawBitmap(85, 8, bitmap_branch_R, 50, 17, WHITE);
 		view_render.drawBitmap(-2, 4, bitmap_branch_L, 50, 17, WHITE);
-		
+
 		zw_game_bat_display();
 	}
 }
@@ -322,19 +304,18 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 	switch (msg->sig) {
 	case SCREEN_ENTRY: {
 		APP_DBG_SIG("SCREEN_ENTRY\n");
-		// Level setup
+
 		zw_game_level_setup();
-		
-		// Setup game Object
-		task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, 	ZW_GAME_PEASHOOTER_SETUP);
+
+		task_post_pure_msg(ZW_GAME_GUNNER_ID, 		ZW_GAME_GUNNER_SETUP);
 		task_post_pure_msg(ZW_GAME_BULLET_ID, 	 	ZW_GAME_BULLET_SETUP);
 		task_post_pure_msg(ZW_GAME_ZOMBIE_ID, 		ZW_GAME_ZOMBIE_SETUP);
 		task_post_pure_msg(ZW_GAME_CAR_ID, 			ZW_GAME_CAR_SETUP);
 		task_post_pure_msg(ZW_GAME_BANG_ID, 	 	ZW_GAME_BANG_SETUP);
 		task_post_pure_msg(ZW_GAME_BORDER_ID, 	 	ZW_GAME_BORDER_SETUP);
-		// Setup timer
+
 		zw_game_time_tick_setup();
-		// State update
+
 		zw_game_state = GAME_PLAY;
 	}
 		break;
@@ -342,7 +323,7 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 	case ZW_GAME_TIME_TICK: {
 		APP_DBG_SIG("ZW_GAME_TIME_TICK\n");
 		if (zw_game_state == GAME_PLAY) {
-			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, 	ZW_GAME_PEASHOOTER_UPDATE);
+			task_post_pure_msg(ZW_GAME_GUNNER_ID, 		ZW_GAME_GUNNER_UPDATE);
 			task_post_pure_msg(ZW_GAME_BULLET_ID, 		ZW_GAME_BULLET_RUN);
 			task_post_pure_msg(ZW_GAME_ZOMBIE_ID, 		ZW_GAME_ZOMBIE_RUN);
 			task_post_pure_msg(ZW_GAME_ZOMBIE_ID, 		ZW_GAME_ZOMBIE_DETONATOR);
@@ -353,11 +334,6 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 		else if (zw_game_state == GAME_OVER) {
 			zw_game_bat_update();
 		}
-	}
-		break;
-
-	case ZW_GAME_BTN_MODE_LONG_PRESSED: {
-		task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_MODE_LONG_PRESSED);
 	}
 		break;
 
@@ -373,21 +349,14 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 	case ZW_GAME_BTN_UP_PRESSED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_UP);
-		}
-	}
-		break;
-
-	case ZW_GAME_BTN_UP_LONG_PRESSED: {
-		if (zw_game_state == GAME_OFF) {
-			task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_UP_LONG_PRESSED);
+			task_post_pure_msg(ZW_GAME_GUNNER_ID, ZW_GAME_GUNNER_UP);
 		}
 	}
 		break;
 
 	case ZW_GAME_BTN_UP_RELEASED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_STOP);
+			task_post_pure_msg(ZW_GAME_GUNNER_ID, ZW_GAME_GUNNER_STOP);
 		}
 		else {
 			task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_UP_RELEASED);
@@ -397,21 +366,14 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 	case ZW_GAME_BTN_DOWN_PRESSED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_DOWN);
-		}
-	}
-		break;
-
-	case ZW_GAME_BTN_DOWN_LONG_PRESSED: {
-		if (zw_game_state == GAME_OFF) {
-			task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_DOWN_LONG_PRESSED);
+			task_post_pure_msg(ZW_GAME_GUNNER_ID, ZW_GAME_GUNNER_DOWN);
 		}
 	}
 		break;
 
 	case ZW_GAME_BTN_DOWN_RELEASED: {
 		if (zw_game_state != GAME_OFF) {
-			task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, ZW_GAME_PEASHOOTER_STOP);
+			task_post_pure_msg(ZW_GAME_GUNNER_ID, ZW_GAME_GUNNER_STOP);
 		}
 		else {
 			task_post_pure_msg(AC_TASK_DISPLAY_ID, AC_DISPLAY_BUTTON_DOWN_RELEASED);
@@ -421,23 +383,24 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 	case ZW_GAME_RESET: {
 		APP_DBG_SIG("ZW_GAME_RESET\n");
-		// Reset game Object
-		task_post_pure_msg(ZW_GAME_PEASHOOTER_ID, 	ZW_GAME_PEASHOOTER_RESET);
+		if (zw_game_state != GAME_PLAY) break;
+
+		task_post_pure_msg(ZW_GAME_GUNNER_ID, 		ZW_GAME_GUNNER_RESET);
 		task_post_pure_msg(ZW_GAME_BULLET_ID, 		ZW_GAME_BULLET_RESET);
 		task_post_pure_msg(ZW_GAME_ZOMBIE_ID,		ZW_GAME_ZOMBIE_RESET);
 		task_post_pure_msg(ZW_GAME_CAR_ID,  		ZW_GAME_CAR_RESET);
 		task_post_pure_msg(ZW_GAME_BANG_ID, 		ZW_GAME_BANG_RESET);
 		task_post_pure_msg(ZW_GAME_BORDER_ID, 		ZW_GAME_BORDER_RESET);
-		// Timer Exit
+
 		timer_set(	AC_TASK_DISPLAY_ID, \
 					ZW_GAME_EXIT_GAME, \
 					ZW_GAME_TIME_EXIT_INTERVAL, \
 					TIMER_ONE_SHOT);
-		// Save and reset Score
+
 		zw_game_save_and_reset_score();
-		// Init bat flying animation
+
 		zw_game_bat_init();
-		// State update
+
 		zw_game_state = GAME_OVER;
 	}
 		BUZZER_PlayTones(tones_3beep);

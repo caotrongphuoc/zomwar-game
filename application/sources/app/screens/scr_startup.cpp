@@ -54,7 +54,7 @@ void scr_startup_handle(ak_msg_t* msg) {
 					AC_DISPLAY_SHOW_LOGO, \
 					AC_DISPLAY_STARTUP_INTERVAL, \
 					TIMER_ONE_SHOT);
-		// Read setting
+
 		eeprom_read(	EEPROM_SETTING_START_ADDR, \
 						(uint8_t*)&settingdata, \
 						sizeof(settingdata));

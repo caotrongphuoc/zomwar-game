@@ -13,8 +13,8 @@ Print = @echo "~"
 NAME_MODULE = ak-base-kit-stm32l151-boot
 PROJECT = $(NAME_MODULE)
 
-GCC_PATH		= $(HOME)/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10
-PROGRAMER_PATH		= $(HOME)/Workspace/Tools/STMicroelectronics/STM32Cube/STM32CubeProgrammer/bin
+GCC_PATH		= /home/ctp/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux/gcc-arm-none-eabi-10.3-2021.10
+PROGRAMER_PATH		= /home/ctp/Workspace/Tools/STM32CubeProgrammer/bin
 OPENOCD_CFG_PATH	= /usr/local/share/openocd/scripts/board/stm32ldiscovery.cfg
 
 #Include sources file

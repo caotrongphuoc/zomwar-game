@@ -15,7 +15,7 @@
 #include "buzzer.h"
 #include "scr_zomwar_game.h"
 
-#define MAX_NUM_BULLET       (20)
+#define MAX_NUM_BULLET       (30)
 #define MAX_AXIS_X_BULLET    (128)
 #define SIZE_BITMAP_BULLET_X (5)
 #define SIZE_BITMAP_BULLET_Y (5)
