@@ -1,0 +1,8 @@
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:65:1:vMBMWriteSingleRegisterPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:186:1:vMBMReadHoldingRegistersPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:313:1:vMBMWriteMultipleRegistersPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:464:1:vMBMReadWriteMultipleRegistersPolled	48	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:628:1:eMBMWriteSingleRegister	48	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:644:1:eMBMReadHoldingRegisters	56	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:662:1:eMBMWriteMultipleRegisters	56	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncholding.c:680:1:eMBMReadWriteMultipleRegisters	72	static

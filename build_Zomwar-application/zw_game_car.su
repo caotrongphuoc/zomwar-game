@@ -1,0 +1,1 @@
+sources/app/game/zomwar_game/zw_game_car.cpp:127:6:void zw_game_car_handle(ak_msg_t*)	40	static

@@ -1,0 +1,8 @@
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:183:1:eMBMReleaseHdl	16	static
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:230:1:bMBMResponseTimeoutCB	8	static
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:122:1:bMBMIsHdlValid	0	static
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:279:1:eMBMSetSlaveTimeout	16	static
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:299:1:eMBMClose	8	static
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:324:1:vMBMMasterTransactionPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:486:1:eMBMSerialInitExt	40	static
+sources/networks/mbmaster-v2.9.6/mbmaster/mbm.c:476:1:eMBMSerialInit	24	static

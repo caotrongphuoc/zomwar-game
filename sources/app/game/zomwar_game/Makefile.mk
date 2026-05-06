@@ -1,0 +1,13 @@
+CFLAGS		+= -I./sources/app/game/zomwar_game
+CPPFLAGS	+= -I./sources/app/game/zomwar_game
+
+VPATH += sources/app/game/zomwar_game
+
+# CPP source files 
+# Zomwar 
+SOURCES_CPP += sources/app/game/zomwar_game/zw_game_gunner.cpp
+SOURCES_CPP += sources/app/game/zomwar_game/zw_game_bullet.cpp
+SOURCES_CPP += sources/app/game/zomwar_game/zw_game_bang.cpp
+SOURCES_CPP += sources/app/game/zomwar_game/zw_game_border.cpp
+SOURCES_CPP += sources/app/game/zomwar_game/zw_game_zombie.cpp
+SOURCES_CPP += sources/app/game/zomwar_game/zw_game_car.cpp

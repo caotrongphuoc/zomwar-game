@@ -1,0 +1,3 @@
+sources/app/game/zomwar_game/zw_game_zombie.cpp:37:13:void spawn_zombie_from_tombstone(uint8_t, uint8_t)	12	static
+sources/app/game/zomwar_game/zw_game_zombie.cpp:26:13:void spawn_zombie(uint8_t)	16	static
+sources/app/game/zomwar_game/zw_game_zombie.cpp:239:6:void zw_game_zombie_handle(ak_msg_t*)	32	static

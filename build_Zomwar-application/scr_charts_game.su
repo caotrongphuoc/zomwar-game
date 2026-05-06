@@ -1,0 +1,2 @@
+sources/app/screens/scr_charts_game.cpp:41:6:void view_scr_charts_game()	48	static
+sources/app/screens/scr_charts_game.cpp:131:6:void scr_charts_game_handle(ak_msg_t*)	24	static

@@ -1,0 +1,2 @@
+sources/app/screens/scr_car_position.cpp:74:6:void scr_car_position_handle(ak_msg_t*)	8	static
+sources/app/screens/scr_car_position.cpp:30:13:void view_scr_car_position()	56	static

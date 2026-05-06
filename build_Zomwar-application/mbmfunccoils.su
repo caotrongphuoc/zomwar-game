@@ -1,0 +1,6 @@
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfunccoils.c:63:1:vMBMReadCoilsPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfunccoils.c:188:1:vMBMWriteSingleCoilPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfunccoils.c:320:1:vMBMWriteCoilsPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfunccoils.c:466:1:eMBMReadCoils	56	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfunccoils.c:483:1:eMBMWriteSingleCoil	48	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfunccoils.c:499:1:eMBMWriteCoils	56	static

@@ -1,0 +1,2 @@
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncinput.c:45:1:vMBMReadInputRegistersPolled	32	static
+sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncinput.c:173:1:eMBMReadInputRegisters	56	static

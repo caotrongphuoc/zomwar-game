@@ -1,0 +1,5 @@
+sources/networks/mbmaster-v2.9.6/mbmaster/common/mbutils.c:31:1:usUtlCRC16GetTab	8	static
+sources/networks/mbmaster-v2.9.6/mbmaster/common/mbutils.c:57:1:prvCRC16Update	8	static
+sources/networks/mbmaster-v2.9.6/mbmaster/common/mbutils.c:233:1:bMBGuessRTUFrameIsComplete	8	static
+sources/networks/mbmaster-v2.9.6/mbmaster/common/mbutils.c:246:1:eMBErrorcodeToException	0	static
+sources/networks/mbmaster-v2.9.6/mbmaster/common/mbutils.c:287:1:eMBExceptionToErrorcode	0	static

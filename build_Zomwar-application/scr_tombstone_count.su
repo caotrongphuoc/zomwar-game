@@ -1,0 +1,2 @@
+sources/app/screens/scr_tombstone_count.cpp:80:6:void scr_tombstone_count_handle(ak_msg_t*)	16	static
+sources/app/screens/scr_tombstone_count.cpp:37:13:void view_scr_tombstone_count()	56	static
