@@ -1,1 +1,0 @@
-sources/app/game/zomwar_game/zw_game_border.cpp:44:6:void zw_game_border_handle(ak_msg_t*)	24	static

@@ -1,5 +1,0 @@
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportserial.c:173:1:eMBPSerialInit	56	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportserial.c:388:1:eMBPSerialClose	16	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportserial.c:468:1:eMBPSerialTxEnable	16	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportserial.c:554:1:eMBPSerialRxEnable	16	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportserial.c:734:1:vMBPUSART2ISR	24	static

@@ -1,4 +1,0 @@
-sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncfiles.c:71:1:vMBMReadFileRecordPolled	32	static
-sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncfiles.c:281:1:eMBMReadFileRecord	56	static
-sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncfiles.c:303:1:vMBMWriteFileRecordPolled	40	static
-sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncfiles.c:535:1:eMBMWriteFileRecord	48	static

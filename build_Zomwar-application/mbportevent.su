@@ -1,4 +1,0 @@
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportevent.c:49:1:eMBPEventCreate	16	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportevent.c:82:1:eMBPEventPost	16	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportevent.c:98:1:bMBPEventGet	16	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportevent.c:118:1:vMBPEventDelete	8	static

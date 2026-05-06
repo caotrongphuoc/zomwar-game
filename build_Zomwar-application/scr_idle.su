@@ -1,7 +1,0 @@
-sources/app/screens/scr_idle.cpp:95:6:void view_scr_idle()	32	static
-sources/app/screens/scr_idle.cpp:16:2:ball::ball()	8	static
-/home/phuoc/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/c++/10.3.1/bits/vector.tcc:426:7:) [with _Args = {const ball&}; _Tp = ball; _Alloc = std::allocator<ball>]	48	static
-/home/phuoc/Workspace/Tools/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux/gcc-arm-none-eabi-10.3-2021.10/arm-none-eabi/include/c++/10.3.1/bits/stl_vector.h:1187:7:void std::vector<_Tp, _Alloc>::push_back(const value_type&) [with _Tp = ball; _Alloc = std::allocator<ball>]	24	static
-sources/app/screens/scr_idle.cpp:104:6:void scr_idle_handle(ak_msg_t*)	64	static
-sources/app/screens/scr_idle.cpp:173:1:cpp)	0	static
-sources/app/screens/scr_idle.cpp:173:1:cpp)	0	static

@@ -1,2 +1,0 @@
-sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncdisc.c:49:1:vMBMReadDiscreteInputsPolled	32	static
-sources/networks/mbmaster-v2.9.6/mbmaster/functions/mbmfuncdisc.c:177:1:eMBMReadDiscreteInputs	56	static

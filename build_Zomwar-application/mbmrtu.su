@@ -1,9 +1,0 @@
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:984:1:bMBMSerialWaitCB	16	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:948:1:bMBMSerialRTUT35CB	16	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:714:1:bMBMSerialRTUTransmitterEmptyAPIV1CB	24	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:649:1:bMBMSerialRTUReceiverAPIV1CB	16	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:595:1:eMBMSerialRTUFrameCloseInternal	16	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:447:1:eMBMSerialRTUFrameReceive	24	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:331:1:eMBMSerialRTUFrameSend	16	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:578:1:eMBMSerialRTUFrameClose	8	static
-sources/networks/mbmaster-v2.9.6/mbmaster/rtu/mbmrtu.c:166:1:eMBMSerialRTUInit	48	static

@@ -1,5 +1,0 @@
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportother.c:47:1:vMBPAssert	8	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportother.c:39:1:assert_failed	0	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportother.c:54:1:vMBPEnterCritical	0	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportother.c:60:1:vMBPExitCritical	0	static
-sources/networks/mbmaster-v2.9.6/demo/STM32/Port/mbportother.c:87:1:vMBPSetDebugPin	0	static

@@ -1,3 +1,0 @@
-sources/app/app_bsp.cpp:16:6:void btn_mode_callback(void*)	8	static
-sources/app/app_bsp.cpp:35:6:void btn_up_callback(void*)	8	static
-sources/app/app_bsp.cpp:53:6:void btn_down_callback(void*)	8	static
