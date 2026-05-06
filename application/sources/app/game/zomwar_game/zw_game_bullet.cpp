@@ -35,7 +35,7 @@ do { \
             bullet[i].x = gunner.x + 15; \
             bullet[i].y = gunner.y -8; \
             gunner.action_image = 2; \
-            BUZZER_PlayTones(tones_cc); \
+            BUZZER_PlayTones(tones_shoot); \
             break; \
         } \
     } \

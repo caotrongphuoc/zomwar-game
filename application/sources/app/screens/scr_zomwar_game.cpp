@@ -403,7 +403,7 @@ void scr_zw_game_handle(ak_msg_t* msg) {
 
 		zw_game_state = GAME_OVER;
 	}
-		BUZZER_PlayTones(tones_3beep);
+		BUZZER_PlayTones(tones_game_over);
 		break;
 
 	case ZW_GAME_EXIT_GAME: {

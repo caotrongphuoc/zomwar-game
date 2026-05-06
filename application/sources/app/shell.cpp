@@ -803,22 +803,22 @@ int32_t shell_buzzer(uint8_t* argv) {
 		break;
 
 	case '1': {
-		BUZZER_PlayTones(tones_cc);
+		BUZZER_PlayTones(tones_3beep);
 	}
 		break;
 
 	case '2': {
-		BUZZER_PlayTones(tones_BUM);
+		BUZZER_PlayTones(tones_3beep);
 	}
 		break;
 
 	case '3': {
-		BUZZER_PlayTones(tones_USB_con);
+		BUZZER_PlayTones(tones_startup);
 	}
 		break;
 
 	case '4': {
-		BUZZER_PlayTones(tones_USB_dis);
+		BUZZER_PlayTones(tones_3beep);
 	}
 		break;
 
